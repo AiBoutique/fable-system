@@ -1,8 +1,13 @@
 # v5 candidate — confidence-vs-probability boundary note (core Calibration bullet)
 
-Status: **BUILT, measurement BLOCKED** (2026-07-17: `claude auth status` → `loggedIn:false`; the
-A/B needs isolated `claude -p` arms — in-session agents inherit the live system and cannot serve
-as clean arms). Unblock = `claude auth login`, then run the protocol below.
+Status: **ADOPTED** (2026-07-17, same day — auth restored and both pre-stated legs passed).
+Leg 1, tight-anchor bed (N=3, 12 cells): **12/12 contained, hit-rate 1.000** = the stored winning
+arm, S=1.000, 0 infra exclusions. Leg 2, 18-task gradient spot (N=1): **17/17 identical on
+scorable cells, 0 regressions** — the only movement (1→0.875) sits inside the pre-excluded
+contamination cell (`plan-zero-downtime-migration-001`, the exact pair in regression_gate
+`KNOWN_CONTAMINATION`). The shipped `portable-core.md` is **hash-identical to the tested arm**
+(sha256 F275456C…), regression gate 6/6 green against it. Runlogs:
+`private\amplification-runs\phase7-v5-*.json`.
 
 ## What it is
 

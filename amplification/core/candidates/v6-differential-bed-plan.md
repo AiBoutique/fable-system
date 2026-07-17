@@ -1,7 +1,13 @@
 # v6 — differential calibration bed (the v4 falsifier program)
 
-Status: **BED BUILT + truths verified, A/B BLOCKED** (2026-07-17: `claude auth status` →
-`loggedIn:false`). Unblock = `claude auth login`, then run the protocol below. Zero budget spent.
+Status: **RESOLVED NEGATIVE — null recorded** (2026-07-17, same day; auth restored, Arm A run).
+Arm A (the adopted core, N=3, 12 cells): **contained all four truths 12/12**, 0 infra exclusions
+— the validity gate never opened, Arm B never ran (no budget spent on a non-discriminating bed),
+and the whole-thesis falsifier below fired exactly as written: close-but-biased anchors are
+already handled by the adopted [0,20] core; **the mechanical widen rule has no remaining
+constituency and is retired**. With v3 (extreme magnitudes: saturated), v4 (tight anchors: the
+one real gap, closed by the adopted section), and this bed all resolved, the calibration-headroom
+program is COMPLETE. Runlogs: `private\amplification-runs\phase7-v6-armA-*.json`.
 
 ## Why this exists
 
