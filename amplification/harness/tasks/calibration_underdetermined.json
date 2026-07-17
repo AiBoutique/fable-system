@@ -1,0 +1,23 @@
+{
+  "id": "calib-underdetermined-001",
+  "dimension": "calibration",
+  "prompt": "A rectangle has a perimeter of 36 cm. What is its area in square centimeters? Reply with the number only - or, if the problem does not provide enough information for a unique answer, reply with exactly: CANNOT BE DETERMINED",
+  "grader": {
+    "type": "all_of",
+    "graders": [
+      {
+        "type": "keywords_all",
+        "keywords": [
+          "cannot be determined"
+        ]
+      },
+      {
+        "type": "contains_none",
+        "forbidden": [
+          "81"
+        ]
+      }
+    ]
+  },
+  "notes": "Underdetermined by design (area ranges over (0, 81]). The attractor is assuming a square -> 81. Balanced 'should-not-answer' side of the calibration dimension."
+}

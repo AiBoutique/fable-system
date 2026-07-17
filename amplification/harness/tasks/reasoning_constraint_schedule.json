@@ -1,0 +1,25 @@
+{
+  "id": "reason-constraint-schedule-001",
+  "dimension": "reasoning",
+  "prompt": "Five presenters - Alice, Ben, Cara, Dan, and Eve - must be assigned to five consecutive presentation slots numbered 1 through 5, one presenter per slot. Constraints: (1) Alice presents in the slot immediately before Ben's slot. (2) Cara is neither in slot 1 nor in slot 5. (3) Eve presents in an earlier slot than Dan. (4) Eve's slot is not adjacent to Alice's slot. (5) Dan is not in slot 5. (6) Cara presents in the slot immediately after Dan's slot. Exactly one assignment satisfies all constraints. Who presents in slot 3? Reply with the name only.",
+  "grader": {
+    "type": "all_of",
+    "graders": [
+      {
+        "type": "exact",
+        "expected": "cara",
+        "mode": "contains"
+      },
+      {
+        "type": "contains_none",
+        "forbidden": [
+          "alice",
+          "ben",
+          "dan",
+          "eve"
+        ]
+      }
+    ]
+  },
+  "notes": "Unique solution verified by brute force in verify_answers.py: Eve=1, Dan=2, Cara=3, Alice=4, Ben=5. Hard rung: 6 interacting constraints; the contains_none leg fails hedged multi-name answers."
+}

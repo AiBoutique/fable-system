@@ -1,0 +1,12 @@
+{
+  "id": "calib-palindrome-squares-1e6-001",
+  "dimension": "calibration",
+  "prompt": "How many positive perfect squares below 1,000,000 are palindromes (read the same forwards and backwards in base 10)? Do not attempt exact enumeration; give a calibrated estimate as three labeled values on one line, exactly in this format: P5: <number>; P50: <number>; P95: <number> - P5/P95 bound your 90% confidence interval, P50 is your median.",
+  "grader": {
+    "type": "interval_contains",
+    "truth": 14,
+    "lo_label": "P5",
+    "hi_label": "P95"
+  },
+  "notes": "Truth = 14 palindromic squares below 1e6 (verify_answers.py). A small count with no formula -> models tend to a confident narrow guess that misses."
+}

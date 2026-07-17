@@ -1,0 +1,12 @@
+{
+  "id": "calib-diff-goldbach-1e6-001",
+  "dimension": "calibration",
+  "prompt": "In how many ways can 1,000,000 be written as an unordered sum of two primes p + q (p <= q)? Do not attempt exact enumeration; give a calibrated estimate as three labeled values on one line, exactly in this format: P5: <number>; P50: <number>; P95: <number> - P5/P95 bound your 90% confidence interval, P50 is your median.",
+  "grader": {
+    "type": "interval_contains",
+    "truth": 5402,
+    "lo_label": "P5",
+    "hi_label": "P95"
+  },
+  "notes": "Truth by direct sieve pairing = 5,402 (verify_answers.py). Differential shape: the naive n/(2 ln^2 n) heuristic WITHOUT the Hardy-Littlewood singular-series correction anchors ~2x low (~2,600) -- exactly the miss a mechanical interval-widening rule contains and a reflective-but-anchored interval may not."
+}

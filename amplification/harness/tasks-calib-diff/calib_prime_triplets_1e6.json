@@ -1,0 +1,12 @@
+{
+  "id": "calib-diff-prime-triplets-1e6-001",
+  "dimension": "calibration",
+  "prompt": "How many prime triplets of the form (p, p+2, p+6) - all three prime - are there with p < 1,000,000? Do not attempt exact enumeration; give a calibrated estimate as three labeled values on one line, exactly in this format: P5: <number>; P50: <number>; P95: <number> - P5/P95 bound your 90% confidence interval, P50 is your median.",
+  "grader": {
+    "type": "interval_contains",
+    "truth": 1393,
+    "lo_label": "P5",
+    "hi_label": "P95"
+  },
+  "notes": "Truth by direct sieve = 1,393 (verify_answers.py). Differential shape: scaling from the twin-pair count via density heuristics tempts a 1.5-3x biased anchor with an overconfident interval."
+}

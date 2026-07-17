@@ -1,0 +1,11 @@
+# built artifact - lives in the sibling EXE\ folder on this machine (three-folder rule);
+# attach to GitHub Releases when publishing instead of tracking the binary
+FableSetup.exe
+# retired zip model - no kit archives belong in the repo
+fable-restore-kit-*.zip
+# the three-folder rule: sensitive content never enters this repo
+private/
+
+# Python
+__pycache__/
+*.pyc

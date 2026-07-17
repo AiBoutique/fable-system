@@ -1,0 +1,11 @@
+{
+  "id": "plan-unique-topo-001",
+  "dimension": "long_horizon_planning",
+  "prompt": "Six deployment steps named A, B, C, D, E, F have these dependencies: A depends on F and C; B depends on E and C; C depends on F; D depends on B and A; E depends on A; F has no dependencies. Exactly one execution order satisfies every dependency. Reply with exactly one line containing the six letters in execution order with no spaces or separators (answer format example: ABCDEF).",
+  "grader": {
+    "type": "exact",
+    "expected": "fcaebd",
+    "mode": "contains"
+  },
+  "notes": "Uniqueness verified by brute force over all 720 permutations (verify_answers.py): FCAEBD is the only valid order."
+}

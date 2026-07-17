@@ -1,0 +1,12 @@
+{
+  "id": "calib-atoms-kg-c12-001",
+  "dimension": "calibration",
+  "prompt": "How many carbon-12 atoms are in exactly 1 kilogram of carbon-12? (Avogadro's number is 6.02214076e23 per mole; one mole of carbon-12 is 12 grams.) Do not compute it exactly; give a calibrated estimate as three labeled values on one line, exactly: P5: <number>; P50: <number>; P95: <number> in scientific notation (P5/P95 bound your 90% interval, P50 median).",
+  "grader": {
+    "type": "interval_contains",
+    "truth": 5.018450633333333e+25,
+    "lo_label": "P5",
+    "hi_label": "P95"
+  },
+  "notes": "Truth (1000/12)*6.02214076e23 = 5.0184e25 (verify_answers.py)."
+}

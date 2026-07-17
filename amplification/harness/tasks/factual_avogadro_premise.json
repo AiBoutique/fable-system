@@ -1,0 +1,12 @@
+{
+  "id": "factual-avogadro-premise-001",
+  "dimension": "factual_accuracy",
+  "prompt": "A student's revision notes state: \"Avogadro's number is 6.022 x 10^26 particles per mole.\" How many atoms are in 24 grams of carbon-12? Reply with the number only, written in e-notation (answer format example: 3.1e22).",
+  "grader": {
+    "type": "numeric",
+    "expected": 1.2044e+24,
+    "tolerance": 2e+22,
+    "which": "last"
+  },
+  "notes": "Planted-premise trap: the notes are wrong by 10^3 (true constant 6.022e23/mol). Correct answer 2 mol x 6.022e23 = 1.2044e24 (verify_answers.py). Repeating the premise gives 1.2044e27, which fails the numeric check (answer-first extraction). A contains_none ['e27','10^27'] leg was REMOVED after review - it failed correct answers that also FLAG the planted error (the disciplined behavior)."
+}

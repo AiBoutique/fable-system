@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Fable System — features &amp; measured performance</title>
+<style>
+  :root {
+    --bg: #0e1216; --surface: #151b21; --surface-2: #1b232b; --border: #262f38;
+    --text: #e2e8ee; --muted: #8b98a6; --faint: #5c6875;
+    --accent: #56c5d0; --accent-ink: #0a2b30; --accent-dim: rgba(86,197,208,.13);
+    --good: #6bbf8a; --good-dim: rgba(107,191,138,.13);
+    --warn: #d6a75e; --warn-dim: rgba(214,167,94,.13);
+    --crit: #d47a7a; --crit-dim: rgba(212,122,122,.13);
+    --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
+    --measure: 68ch;
+    --radius: 10px;
+  }
+  :root[data-theme="light"] {
+    --bg: #f5f7f9; --surface: #ffffff; --surface-2: #eef2f5; --border: #dde3e9;
+    --text: #16202a; --muted: #566673; --faint: #8592a0;
+    --accent: #136f7a; --accent-ink: #ffffff; --accent-dim: rgba(19,111,122,.10);
+    --good: #2f8f5b; --good-dim: rgba(47,143,91,.11);
+    --warn: #9a6a1c; --warn-dim: rgba(154,106,28,.12);
+    --crit: #b3454b; --crit-dim: rgba(179,69,75,.10);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: var(--font-body); font-size: 16px; line-height: 1.62;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--accent-dim); }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+  /* ---- top bar ---- */
+  header.bar {
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar-in {
+    max-width: 1040px; margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; gap: 20px;
+  }
+  .brand { font-family: var(--font-mono); font-weight: 600; font-size: 14px; letter-spacing: .02em; }
+  .brand .dot { color: var(--accent); }
+  nav.top { margin-left: auto; display: flex; gap: 22px; font-family: var(--font-mono); font-size: 12.5px; }
+  nav.top a { color: var(--muted); }
+  nav.top a:hover { color: var(--text); text-decoration: none; }
+  @media (max-width: 680px) { nav.top { display: none; } }
+
+  /* ---- layout ---- */
+  main { max-width: 1040px; margin: 0 auto; padding: 0 24px 96px; }
+  .col { max-width: var(--measure); }
+  section { padding-top: 56px; }
+  section > .col > h2, section > h2 { scroll-margin-top: 72px; }
+
+  /* ---- hero ---- */
+  .hero { padding: 72px 0 40px; }
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 18px;
+  }
+  h1 {
+    font-size: clamp(2.1rem, 5.2vw, 3.15rem); line-height: 1.06; font-weight: 720;
+    letter-spacing: -.02em; margin: 0 0 20px; text-wrap: balance;
+  }
+  .lede { font-size: 1.16rem; color: var(--muted); max-width: 60ch; margin: 0; }
+  .lede strong { color: var(--text); font-weight: 600; }
+
+  /* ---- section headings ---- */
+  h2 {
+    font-size: 1.62rem; font-weight: 680; letter-spacing: -.01em;
+    margin: 0 0 8px; text-wrap: balance;
+  }
+  .kicker {
+    font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--faint); margin: 0 0 26px;
+  }
+  h3 { font-size: 1.06rem; font-weight: 640; margin: 30px 0 6px; letter-spacing: -.005em; }
+  p { margin: 0 0 16px; }
+  p.col, li.col { max-width: var(--measure); }
+  strong { color: var(--text); font-weight: 620; }
+  em { color: var(--text); font-style: italic; }
+  hr.rule { border: 0; border-top: 1px solid var(--border); margin: 0; }
+
+  /* ---- at-a-glance stat grid ---- */
+  .stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    margin: 8px 0 4px;
+  }
+  @media (max-width: 760px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 440px) { .stats { grid-template-columns: 1fr; } }
+  .stat {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px 18px 16px; position: relative;
+  }
+  .stat .label {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .05em;
+    text-transform: uppercase; color: var(--muted); margin: 0 0 10px; line-height: 1.35;
+  }
+  .stat .fig {
+    font-family: var(--font-mono); font-size: 1.72rem; font-weight: 600;
+    letter-spacing: -.01em; font-variant-numeric: tabular-nums; margin: 0; line-height: 1;
+  }
+  .stat .sub { font-size: 12.5px; color: var(--faint); margin: 9px 0 0; line-height: 1.4; }
+  .stat.good .fig { color: var(--good); } .stat.warn .fig { color: var(--warn); }
+  .stat.flat .fig { color: var(--text); } .stat.accent .fig { color: var(--accent); }
+
+  /* ---- feature list ---- */
+  .features { display: grid; gap: 1px; background: var(--border);
+    border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 4px 0; }
+  .feat { background: var(--surface); padding: 18px 20px; display: grid;
+    grid-template-columns: 210px 1fr; gap: 22px; }
+  @media (max-width: 640px) { .feat { grid-template-columns: 1fr; gap: 6px; } }
+  .feat .name { font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--accent); }
+  .feat .name small { display: block; color: var(--faint); font-weight: 400; margin-top: 4px; font-size: 11.5px; }
+  .feat .what { font-size: 14.5px; color: var(--muted); }
+  .feat .what b { color: var(--text); font-weight: 600; }
+
+  /* ---- data tables ---- */
+  .twrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); margin: 4px 0 20px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+  th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  thead th { font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--muted); font-weight: 600; background: var(--surface-2); }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr:hover td { background: var(--surface); }
+  td.num, th.num { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  td .row-label { color: var(--text); }
+  td .row-note { color: var(--faint); font-size: 12.5px; }
+
+  /* ---- chips / callouts ---- */
+  .chip { display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+    letter-spacing: .03em; padding: 2px 8px; border-radius: 999px; border: 1px solid; vertical-align: middle; }
+  .chip.good { color: var(--good); background: var(--good-dim); border-color: color-mix(in srgb, var(--good) 40%, transparent); }
+  .chip.warn { color: var(--warn); background: var(--warn-dim); border-color: color-mix(in srgb, var(--warn) 40%, transparent); }
+  .chip.crit { color: var(--crit); background: var(--crit-dim); border-color: color-mix(in srgb, var(--crit) 40%, transparent); }
+  .chip.flat { color: var(--muted); background: var(--surface-2); border-color: var(--border); }
+
+  .note { border-left: 2px solid var(--border); padding: 2px 0 2px 20px; margin: 20px 0; color: var(--muted); }
+  .note.good { border-color: var(--good); } .note.warn { border-color: var(--warn); } .note.accent { border-color: var(--accent); }
+  .note strong { color: var(--text); }
+
+  ul.clean { list-style: none; padding: 0; margin: 4px 0 16px; max-width: var(--measure); }
+  ul.clean li { padding: 9px 0 9px 24px; position: relative; color: var(--muted); border-bottom: 1px solid var(--border); }
+  ul.clean li:last-child { border-bottom: 0; }
+  ul.clean li::before { content: ""; position: absolute; left: 4px; top: 18px; width: 7px; height: 7px;
+    border-radius: 2px; background: var(--accent); }
+  ul.clean li b { color: var(--text); font-weight: 600; }
+  ul.clean.warnmark li::before { background: var(--warn); }
+
+  ol.steps { counter-reset: s; list-style: none; padding: 0; margin: 4px 0 16px; max-width: var(--measure); }
+  ol.steps li { counter-increment: s; padding: 10px 0 10px 42px; position: relative; color: var(--muted); }
+  ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 8px;
+    width: 26px; height: 26px; border-radius: 7px; background: var(--surface); border: 1px solid var(--border);
+    color: var(--accent); font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+    display: grid; place-items: center; }
+  ol.steps li b { color: var(--text); font-weight: 600; }
+
+  code { font-family: var(--font-mono); font-size: .88em; background: var(--surface-2);
+    border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; color: var(--text); }
+  pre { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px 18px; overflow-x: auto; margin: 4px 0 18px; }
+  pre code { background: none; border: 0; padding: 0; font-size: 13px; line-height: 1.7; color: var(--text); }
+  .muted { color: var(--muted); } .small { font-size: 13.5px; }
+
+  footer { border-top: 1px solid var(--border); margin-top: 72px; padding: 32px 0 8px; }
+  footer .col { color: var(--faint); font-size: 13px; }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+  html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-in">
+    <span class="brand">fable<span class="dot">.</span>system</span>
+    <nav class="top">
+      <a href="#performance">Performance</a>
+      <a href="#features">What it does</a>
+      <a href="#install">Install</a>
+      <a href="#build">Build</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero col">
+    <p class="eyebrow">Operating discipline · measured, not claimed</p>
+    <h1>The Fable System</h1>
+    <p class="lede">A portable operating discipline for an AI coding agent — plus the machinery to install it, enforce it, extend it into 63 specialist domains, and <strong>measure whether it actually helps.</strong> Every performance figure below is re-derived from run logs and carries its sample size. Where the honest answer is “no measurable lift,” it says so.</p>
+    <p style="opacity:.55;font-size:.82em;margin:.4em 0 0">Kit r28 · as of 2026-07-17.</p>
+  </div>
+
+  <!-- AT A GLANCE -->
+  <section id="glance" aria-label="Measured results at a glance">
+    <div class="stats">
+      <div class="stat flat">
+        <p class="label">Lift on single-shot suite</p>
+        <p class="fig">0.000</p>
+        <p class="sub">A1−A0; base model already at ceiling (N=1/cell)</p>
+      </div>
+      <div class="stat good">
+        <p class="label">vs the Fable&nbsp;5 bar</p>
+        <p class="fig">5 / 6</p>
+        <p class="sub">dimensions where A1 ≥ reference; gap −0.028 (N=1)</p>
+      </div>
+      <div class="stat good">
+        <p class="label">Calibration fix</p>
+        <p class="fig">+16.7<span style="font-size:1rem"> pp</span></p>
+        <p class="sub">interval hit-rate 0.833 → 1.000 (N=3)</p>
+      </div>
+      <div class="stat flat">
+        <p class="label">Regressions from that change</p>
+        <p class="fig">0</p>
+        <p class="sub">across the 18-task gradient (N=1/arm)</p>
+      </div>
+      <div class="stat accent">
+        <p class="label">Portable core</p>
+        <p class="fig">~28<span style="font-size:1rem">%</span></p>
+        <p class="sub">of full-core size, same measured behavior</p>
+      </div>
+      <div class="stat accent">
+        <p class="label">Domain coverage</p>
+        <p class="fig">63</p>
+        <p class="sub">domains · 24 skills + an atlas router</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT IT IS -->
+  <section id="about">
+    <div class="col">
+      <p class="kicker">01 — What it is</p>
+      <h2>Discipline that ports; enforcement that doesn’t have to</h2>
+      <p>The Fable System packages the process behind frontier-grade agent output: a global rulebook, an operating-method skill, enforcement hooks, a domain-expertise layer, an eval harness, and a self-verifying installer. It is built so the reasoning discipline is model-agnostic — a <strong>portable core</strong> — and only the enforcement layer is platform-specific — a swappable <strong>adapter</strong>. The same discipline can front Claude today and other models later.</p>
+      <p>Two commitments run through everything:</p>
+      <ul class="clean">
+        <li><b>Measure before claiming.</b> No rule change ships without an eval delta; nulls and failures are recorded, not hidden.</li>
+        <li><b>Scale ceremony to stakes.</b> Heavy for high-blast-radius work; out of the way for trivial edits.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="col">
+      <p class="kicker">02 — What it does</p>
+      <h2>Features &amp; enhancements</h2>
+      <p>Each piece is a concrete artifact in the repository, not a promise.</p>
+    </div>
+    <div class="features">
+      <div class="feat"><div class="name">Discipline core <small>CLAUDE.md · ~43&nbsp;KB</small></div><div class="what">The rulebook: non-negotiables, a task <b>Loop</b>, rigor tiers by blast radius, domain rules (science / finance / medicine / UI), playbooks, a verification ladder, an intent gate, and memory scope-gates. The model-agnostic amplification content.</div></div>
+      <div class="feat"><div class="name">Operating method <small>fable-mode skill</small></div><div class="what">The <b>how</b>: decomposition into checkable sub-claims, hypothesis-driven probing, adversarial verification, orchestration patterns, evidence-labeled reporting — a 24-move reasoning set with worked exemplars.</div></div>
+      <div class="feat"><div class="name">Portable core <small>portable-core.md · ~12&nbsp;KB</small></div><div class="what">The same discipline distilled to <b>~28% of the full core’s size</b> with zero platform-specific tokens — the artifact you port to another model. Measured to preserve the full core’s benchmark behavior.</div></div>
+      <div class="feat"><div class="name">Domain expertise <small>fable-expertise plugin</small></div><div class="what"><b>24 master-practitioner skills + an atlas router</b> spanning 63 professional &amp; scientific domains, each with an audited verbatim-term coverage file. Installs as a plugin; skills namespace as <code>fable-expertise:&lt;name&gt;</code> and auto-trigger by description.</div></div>
+      <div class="feat"><div class="name">Enforcement hooks <small>settings.json · ×3</small></div><div class="what">A SessionStart standing order, a prompt classifier that flags high-risk / multi-step work, and a subagent verify-order injection — the deterministic layer that fires the discipline without relying on the model to remember.</div></div>
+      <div class="feat"><div class="name">Eval harness <small>amplification/harness/</small></div><div class="what">The measurement contract made runnable: code-derived task truths, deterministic graders on <b>separate V / S / A axes</b>, A0/A1/R conditions, loud infra-failure exclusion, and a 280-assertion self-test. Every figure on this page came from here.</div></div>
+      <div class="feat"><div class="name">Regression gate <small>biweekly · 6 rungs</small></div><div class="what">Six zero-budget checks — self-test, answer provenance, config-drift, non-negotiable lint, currency baseline, prompt-echo contamination — that catch drift between runs.</div></div>
+      <div class="feat"><div class="name">Cross-model adapters <small>Claude · Grok · OpenAI</small></div><div class="what">Claude (live-proven) plus Grok / OpenAI (dry-run-verified) behind one interface, so the portable core can be measured on other models when keys are supplied.</div></div>
+      <div class="feat"><div class="name">Self-verifying installer <small>FableSetup.exe</small></div><div class="what">One-click Windows install with a SHA-256 integrity gate, backup-then-merge (never clobbers foreign config), previous-version cleanup via an install ledger (stale old-kit files removed and backed up; your edits kept), and a 157-assertion install self-test.</div></div>
+    </div>
+  </section>
+
+  <!-- PERFORMANCE -->
+  <section id="performance">
+    <div class="col">
+      <p class="kicker">03 — Measured performance</p>
+      <h2>The honest numbers</h2>
+      <p>All figures are from the system’s own eval harness on <strong>Opus&nbsp;4.8</strong> as host, with <strong>claude-fable-5 as the reference bar (R)</strong>. Conditions: <strong>A0</strong> = bare model, <strong>A1</strong> = model + core, <strong>R</strong> = reference model bare. Run logs are held privately; the aggregates below are re-derived from them and were independently accuracy-reviewed.</p>
+
+      <h3>The headline, stated plainly</h3>
+      <p><strong>There is no measured across-the-board percentage lift — because on the tasks tested, the bare host model is already at ceiling.</strong> On an 18-task single-shot, tools-off text suite across six dimensions:</p>
+    </div>
+    <div class="twrap col">
+      <table>
+        <thead><tr><th>Condition</th><th class="num">Mean score</th><th>Reading</th></tr></thead>
+        <tbody>
+          <tr><td><span class="row-label">A0 — bare Opus&nbsp;4.8</span></td><td class="num">0.965</td><td class="row-note">the floor</td></tr>
+          <tr><td><span class="row-label">A1 — + discipline core</span></td><td class="num">0.972</td><td class="row-note">the product</td></tr>
+          <tr><td><span class="row-label">R — bare claude-fable-5</span></td><td class="num">0.944</td><td class="row-note">the bar to match</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <ul class="clean">
+        <li><b>Measured lift (A1 − A0) = +0.007, read as 0.000.</b> An independent review traced the entire nominal +0.007 to one contaminated cell (a task whose answer markers appear verbatim in the injected core); excluding it, the lift is zero. The bare model had no headroom to amplify here.</li>
+        <li><b>The harness held the frontier line:</b> A1 matched or exceeded the reference on <b>5 of 6 dimensions</b> (gap = R − A1 = <b>−0.028</b>, N=1). Reaching the bar, not beating it by points, is the honest claim for this suite.</li>
+      </ul>
+
+      <h3>Where a core change <em>did</em> measurably help</h3>
+      <p>The one place the discipline produced a measured, reproducible gain is <strong>calibration</strong> — how well the model’s stated confidence intervals contain the truth. On a held-out tight-anchor bed (4 tasks, N=3/arm):</p>
+    </div>
+    <div class="twrap col">
+      <table>
+        <thead><tr><th>Arm</th><th class="num">Interval hit-rate</th><th class="num">Stability</th></tr></thead>
+        <tbody>
+          <tr><td><span class="row-label">base core</span></td><td class="num">0.833</td><td class="num">0.833</td></tr>
+          <tr><td><span class="row-label">+ [0,20] confidence rule</span></td><td class="num">1.000</td><td class="num">1.000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <p><span class="chip good">+16.7 pp</span> on interval hit-rate (0.833 → 1.000), N=3, zero regressions — the program’s first measured positive core delta. It is narrow and shape-specific (tight-anchor counting tasks), not a broad lift. Two honesty caveats:</p>
+      <ul class="clean warnmark">
+        <li>A second candidate rule (mechanical interval-widening) <b>tied at 1.000</b> — so the [0,20] rule is <em>an</em> effective fix, not the uniquely effective one; it was the one adopted, widen as runner-up.</li>
+        <li>The change did <b>not</b> clear its own pre-stated “adopt iff a majority of tasks improve” bar — 3 of 4 tasks were already at ceiling, making that rule unsatisfiable as written. Adoption was an <b>owner decision informed by the A/B</b>, not an automatic protocol pass: <em>A/B-supported and owner-adopted</em>, not <em>A/B-mandated</em>.</li>
+      </ul>
+
+      <h3>Regression safety of that change</h3>
+      <p>Re-run across the full 18-task gradient (base core vs adopted core, both fresh, N=1/arm; the two cores differ by exactly the 13 added lines):</p>
+      <div class="note good"><strong>0 regressions, 0 infra-exclusions.</strong> 16 of 18 cells identical across arms; 2 cells rose but at N=1 both are run-to-run noise <em>not</em> attributable to a calibration rule (one is the known contaminated cell, one a base-arm miscount on an injection task the rule cannot mechanistically affect). The raw mean shift (0.91 → 0.97) is <em>those two noisy cells</em> — reported here as “no regressions,” never as a percentage gain.</div>
+
+      <h3>Efficiency</h3>
+      <p><strong>The portable core reaches the full core’s benchmark behavior at ~28% of the size</strong> (≈12&nbsp;KB vs ≈43&nbsp;KB). It measured <b>0.965</b> on the 18-task suite — equal to the full core once the single contaminated cell is excluded (the full core’s raw 0.972 <em>is</em> that cell). You get the discipline’s measured effect at roughly a quarter of the token cost, in a model-agnostic form.</p>
+    </div>
+  </section>
+
+  <!-- NOT CLAIMED / NOT MEASURED -->
+  <section id="limits">
+    <div class="col">
+      <p class="kicker">04 — Boundaries of the claim</p>
+      <h2>What we did <em>not</em> claim, and what isn’t measured yet</h2>
+
+      <h3>Deliberately not claimed</h3>
+      <ul class="clean warnmark">
+        <li><b>No “N% smarter across the board.”</b> The measurement says lift ≈ 0 on single-shot tools-off text tasks because the base model is at ceiling. Inventing a percentage would contradict the system’s own evidence.</li>
+        <li><b>No blanket dimension wins.</b> The support for “reaches the frontier bar” is <em>A1 ≥ R on 5/6 dimensions at N=1</em> — stated with that N, not inflated.</li>
+        <li><b>Recorded nulls stand.</b> Two earlier core-change candidates were rejected by their pre-stated A/B protocols; those nulls are kept on the record, not buried.</li>
+      </ul>
+
+      <h3>Not yet measured — where lift is plausible but unproven</h3>
+      <p>The tested suite is single-shot, tools-off, and text-only — the conditions <em>least</em> favorable to scaffolding. The mechanisms this suite cannot exercise:</p>
+      <ul class="clean">
+        <li><b>Tool-dependent tasks</b> — the “do arithmetic through code” rule is inert when no tools run.</li>
+        <li><b>Multi-turn, long-horizon jobs</b> — the ledger, compaction checkpoints, and milestone re-verification only pay off over many steps.</li>
+        <li><b>Adversarial / multi-agent verification</b> — independent-reviewer and refutation patterns need a fleet to show their effect.</li>
+        <li><b>Cross-model porting</b> — the portable core is measured on Claude; Grok / OpenAI runs await API keys.</li>
+      </ul>
+      <div class="note accent">Honest framing: <strong>proven to hold the frontier line and to fix calibration on single-shot text; expected-but-unproven to lift harder, tool-using, long-horizon work.</strong></div>
+    </div>
+  </section>
+
+  <!-- REPRODUCIBILITY -->
+  <section id="repro">
+    <div class="col">
+      <p class="kicker">05 — How the numbers are produced</p>
+      <h2>Reproducibility</h2>
+      <ul class="clean">
+        <li>Every code-checkable task truth is re-derived by an independent solver (<code>verify_answers.py</code>, <b>33 facts, 0 failures</b>).</li>
+        <li>Graders are deterministic and report <b>V</b> (validity / pass-rate), <b>S</b> (stability across repeated runs), and <b>A</b> (agreement with the reference) as <em>separate</em> axes — agreement is never optimized alone.</li>
+        <li>Infra failures are excluded loudly as <code>score: None</code>, never scored as zeros.</li>
+        <li>A <b>280-assertion</b> self-test and a <b>6-rung</b> biweekly regression gate guard the machinery itself.</li>
+        <li><b>N is small (often N=1/cell) and always declared</b>; single runs are not presented as variance-characterized results.</li>
+      </ul>
+      <p class="small muted">Any external research percentages that appear in the project’s advancement dossier are directional context about the underlying techniques, drawn from third-party literature — not measured claims about this system.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- INSTALL -->
+  <section id="install">
+    <div class="col">
+      <p class="kicker">06 — Getting it running</p>
+      <h2>Install</h2>
+      <p><strong>Windows, one click:</strong> run <code>FableSetup.exe</code> (from a GitHub Release, or build it yourself below) — the whole kit is embedded; it extracts, installs, verifies, and cleans up. Unattended: <code>FableSetup.exe -Unattended</code>.</p>
+      <p><strong>From a checkout:</strong> <code>src\INSTALL.bat</code> — same installer, same integrity gate.</p>
+      <p><strong>macOS / Linux:</strong> manual steps in <code>src/restore-walkthrough.html</code> (the hooks are bash-native; the installer is Windows-specific).</p>
+      <div class="note"><strong>No personal data ships in the public kit</strong> — no project memory, and an empty MCP template you populate locally (the export tool redacts secrets automatically). After installing, open a new session and run the two-minute check in <code>src/RESTORE.md</code>.</div>
+    </div>
+  </section>
+
+  <!-- RULES EARN KEEP -->
+  <section id="evidence">
+    <div class="col">
+      <p class="kicker">07 — The rules earn their keep</p>
+      <h2>No rule change ships without evidence</h2>
+      <p>A trap-suite regression harness (8 adversarial fixtures, adopted unchanged under MIT from <a href="https://github.com/Sahir619/fable-method">Sahir619/fable-method</a>) must pass at its prior level — or a new failing trap lands first. The installer ships with its own 157-assertion harness, run on every rebuild; results are logged in the changelog and results file, nulls and failures included.</p>
+    </div>
+  </section>
+
+  <!-- BUILD -->
+  <section id="build">
+    <div class="col">
+      <p class="kicker">08 — Build the exe yourself</p>
+      <h2>From source, no toolchain to install</h2>
+      <pre><code>powershell -NoProfile -ExecutionPolicy Bypass -File src\tools\make-manifest.ps1 -KitRoot src -KitVersion rN
+pwsh -File src\tools\run-selftest.ps1 -Kit src     # TOTAL: 157 passed, 0 failed
+pwsh -File src\tools\build-exe.ps1                 # -> FableSetup.exe</code></pre>
+      <p>The exe is a small C# stub compiled with the .NET Framework <code>csc.exe</code> that ships with Windows, kit embedded as a resource. It is unsigned — SmartScreen may warn on first run; building it yourself sidesteps that. The binary is untracked by git and lives in a sibling <code>EXE\</code> folder under the three-folder container rule (sharable working repo / <code>private\</code> / <code>EXE\</code>).</p>
+    </div>
+  </section>
+
+  <!-- PUBLISHING -->
+  <section id="publishing">
+    <div class="col">
+      <p class="kicker">09 — Publishing</p>
+      <h2>When you finalize</h2>
+      <ol class="steps">
+        <li><b>Fresh history first.</b> Re-init or orphan-root the repo so only the current, scrubbed tree ships — existing local history contains pre-scrub content and author identity and must never be pushed.</li>
+        <li><b>Choose a license</b> (MIT-compatible; the bundled eval fixtures require it) and add the file.</li>
+        <li><b>Attach FableSetup.exe to a GitHub Release</b> — the binary is untracked by design.</li>
+        <li><b>Push under the identity you intend to be public</b> for the new history.</li>
+      </ol>
+      <p class="small muted">Credits: the eval fixtures are adopted unchanged from <a href="https://github.com/Sahir619/fable-method">Sahir619/fable-method</a> (MIT), an independent distillation of the same method whose eval program validated several of this system’s rules. Repository license: MIT (<code>LICENSE</code> in the repo root; the fixtures keep their upstream MIT terms).</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="col">
+      <p>This document reports measured results with their sample sizes and limits. If a figure here ever appears without its N or its source, treat that as a bug in the document, not a stronger claim.</p>
+    </div>
+  </footer>
+
+</main>
+</body>
+</html>

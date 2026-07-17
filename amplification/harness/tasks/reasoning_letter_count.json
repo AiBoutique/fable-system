@@ -1,0 +1,12 @@
+{
+  "id": "reason-letter-count-001",
+  "dimension": "reasoning",
+  "prompt": "How many times does the letter 'r' (upper or lower case) appear in the following sentence?\n\n\"The researchers carefully recorded every measurement during the February experiment, cross-referencing prior results before formally reporting their findings.\"\n\nReply with the number only.",
+  "grader": {
+    "type": "numeric",
+    "expected": 23,
+    "tolerance": 0,
+    "which": "last"
+  },
+  "notes": "Count verified by code (verify_answers.py): 23. Tokenizer-hostile character-level task; hard for LLMs without tools in either condition."
+}

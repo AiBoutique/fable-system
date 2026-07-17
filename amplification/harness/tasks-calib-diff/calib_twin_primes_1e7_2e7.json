@@ -1,0 +1,12 @@
+{
+  "id": "calib-diff-twin-primes-1e7-2e7-001",
+  "dimension": "calibration",
+  "prompt": "How many twin-prime pairs (p, p+2 both prime) are there with 10,000,000 <= p and p+2 < 20,000,000? Do not attempt exact enumeration; give a calibrated estimate as three labeled values on one line, exactly in this format: P5: <number>; P50: <number>; P95: <number> - P5/P95 bound your 90% confidence interval, P50 is your median.",
+  "grader": {
+    "type": "interval_contains",
+    "truth": 48427,
+    "lo_label": "P5",
+    "hi_label": "P95"
+  },
+  "notes": "Truth by direct sieve of [0, 2e7) = 48,427 (verify_answers.py). Differential shape: the published below-1e6 twin count (8,169) plus Hardy-Littlewood density scaling gives a close-but-biased anchor -- the interval-width call, not the anchor, decides the outcome."
+}

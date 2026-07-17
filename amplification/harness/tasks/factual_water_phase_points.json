@@ -1,0 +1,13 @@
+{
+  "id": "factual-water-phase-points-001",
+  "dimension": "factual_accuracy",
+  "prompt": "At standard atmospheric pressure (1 atm, 101.325 kPa), state (a) the boiling point of water in degrees Celsius and (b) the freezing point of water in degrees Celsius. Give both numbers.",
+  "grader": {
+    "type": "all_of",
+    "graders": [
+      { "type": "keywords_all", "keywords": ["100", "0"] },
+      { "type": "contains_none", "forbidden": ["boils at 90", "boiling point is 90", "boiling point of 90", "90 c", "90 degrees"] }
+    ]
+  },
+  "notes": "Correct facts at 1 atm: boiling 100 C, freezing 0 C. keywords_all requires BOTH numbers (the digit-boundary guard means the required '0' will not be satisfied by the '0' inside '100'). contains_none plants the common wrong claim 'water boils at 90 C' as a must-not-appear contradiction, so a plausible-but-wrong answer fails. Balanced: a right-and-clean answer passes; the planted contradiction fails."
+}

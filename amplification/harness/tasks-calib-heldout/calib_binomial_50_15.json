@@ -1,0 +1,12 @@
+{
+  "id": "calib-binomial-50-15-001",
+  "dimension": "calibration",
+  "prompt": "How many distinct ways are there to choose 15 items from a set of 50 distinct items (the binomial coefficient C(50,15))? Do not compute it exactly; give a calibrated estimate as three labeled values on one line, exactly: P5: <number>; P50: <number>; P95: <number> (P5/P95 bound your 90% interval, P50 median). You may use scientific notation, e.g. 3.2e12.",
+  "grader": {
+    "type": "interval_contains",
+    "truth": 2250829575120,
+    "lo_label": "P5",
+    "hi_label": "P95"
+  },
+  "notes": "Truth C(50,15) = 2,250,829,575,120 ~ 2.25e12 (math.comb, verify_answers.py)."
+}

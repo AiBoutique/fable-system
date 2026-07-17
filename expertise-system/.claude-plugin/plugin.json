@@ -1,0 +1,6 @@
+{
+  "name": "fable-expertise",
+  "description": "24 domain-mastery skills plus the expertise-atlas router for the fable system: model-agnostic domain judgment layered on the fable discipline core. Auto-triggering keys on each skill's description; skills namespace as fable-expertise:<name> and coexist with any bare-named originals.",
+  "version": "0.1.0",
+  "keywords": ["fable", "expertise", "domain-mastery", "skills"]
+}

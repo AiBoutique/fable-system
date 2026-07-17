@@ -1,0 +1,12 @@
+{
+  "id": "calib-prime-count-001",
+  "dimension": "calibration",
+  "prompt": "How many 7-digit prime numbers are there? (That is: primes p with 1000000 <= p < 10000000.) Do not attempt an exact enumeration; give your calibrated estimate as three labeled values on one line, exactly in this format: P5: <number>; P50: <number>; P95: <number> - where P5 and P95 are the lower and upper bounds of your 90% confidence interval and P50 is your median estimate.",
+  "grader": {
+    "type": "interval_contains",
+    "truth": 586081,
+    "lo_label": "P5",
+    "hi_label": "P95"
+  },
+  "notes": "Truth = pi(10^7) - pi(10^6) = 586081, computed by sieve in verify_answers.py. PNT estimate ~548k, so a calibrated 90% interval should contain the truth; a point answer or unordered labels fail."
+}

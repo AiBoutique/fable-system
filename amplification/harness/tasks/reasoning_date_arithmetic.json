@@ -1,0 +1,27 @@
+{
+  "id": "reason-date-arithmetic-001",
+  "dimension": "reasoning",
+  "prompt": "What day of the week is exactly 500 days after 29 February 2024? Reply with the weekday name only.",
+  "grader": {
+    "type": "all_of",
+    "graders": [
+      {
+        "type": "exact",
+        "expected": "sunday",
+        "mode": "contains"
+      },
+      {
+        "type": "contains_none",
+        "forbidden": [
+          "monday",
+          "tuesday",
+          "wednesday",
+          "thursday",
+          "friday",
+          "saturday"
+        ]
+      }
+    ]
+  },
+  "notes": "verify_answers.py via datetime: 2025-07-13 = Sunday. Leap-day anchor + modular arithmetic; contains_none fails hedged multi-day answers."
+}

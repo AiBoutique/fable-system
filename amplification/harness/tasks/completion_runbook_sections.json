@@ -1,0 +1,29 @@
+{
+  "id": "complete-runbook-sections-001",
+  "dimension": "task_completion",
+  "prompt": "Write a brief incident-response runbook (under 250 words) with exactly these five section headers, in this order: DETECT, TRIAGE, MITIGATE, RESOLVE, POSTMORTEM. The TRIAGE section must mention 'severity'; the MITIGATE section must mention 'rollback'; the POSTMORTEM section must mention 'action items'.",
+  "grader": {
+    "type": "all_of",
+    "graders": [
+      {
+        "type": "ordered_steps",
+        "markers": [
+          "detect",
+          "triage",
+          "mitigate",
+          "resolve",
+          "postmortem"
+        ]
+      },
+      {
+        "type": "keywords_all",
+        "keywords": [
+          "severity",
+          "rollback",
+          "action items"
+        ]
+      }
+    ]
+  },
+  "notes": "Structured generation under multiple simultaneous constraints; medium rung - measures constraint retention across a long output."
+}

@@ -1,0 +1,23 @@
+{
+  "id": "verify-seeded-bug-001",
+  "dimension": "verification",
+  "prompt": "Review this Python function. Is it a correct k-length moving average of the list xs for every valid input (assume 1 <= k <= len(xs) and numeric xs)?\n\ndef moving_average(xs, k):\n    out = []\n    s = sum(xs[:k])\n    out.append(s / k)\n    for i in range(k, len(xs)):\n        s += xs[i] - xs[i - k + 1]\n        out.append(s / k)\n    return out\n\nReply with exactly one line: 'VERDICT: CORRECT' if it is correct, or 'VERDICT: BUG - <one short sentence naming the flaw>' if it is not.",
+  "grader": {
+    "type": "all_of",
+    "graders": [
+      {
+        "type": "keywords_all",
+        "keywords": [
+          "verdict: bug"
+        ]
+      },
+      {
+        "type": "contains_none",
+        "forbidden": [
+          "verdict: correct"
+        ]
+      }
+    ]
+  },
+  "notes": "Seeded off-by-one: the sliding update evicts xs[i-k+1] instead of xs[i-k]. Demonstrated by execution in verify_answers.py ([1.5,2.0,2.5,3.0,5.5] vs correct [1.5,2.5,3.5,4.5,7.5])."
+}

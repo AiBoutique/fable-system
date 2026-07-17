@@ -1,0 +1,12 @@
+{
+  "id": "calib-primes-band-1e6-2e6-001",
+  "dimension": "calibration",
+  "prompt": "How many prime numbers are there in the closed band [1,000,000, 2,000,000]? Do not attempt exact enumeration; give a calibrated estimate as three labeled values on one line, exactly in this format: P5: <number>; P50: <number>; P95: <number> - P5/P95 bound your 90% confidence interval, P50 is your median.",
+  "grader": {
+    "type": "interval_contains",
+    "truth": 70435,
+    "lo_label": "P5",
+    "hi_label": "P95"
+  },
+  "notes": "Truth = pi(2e6)-pi(1e6) = 70,435 (verify_answers.py). Fixed band, PNT anchor ~72k is close, inviting a too-tight interval."
+}

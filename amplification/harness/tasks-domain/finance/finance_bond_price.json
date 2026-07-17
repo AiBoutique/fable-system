@@ -1,0 +1,12 @@
+{
+  "id": "domain-finance-bond-001",
+  "dimension": "reasoning",
+  "prompt": "A corporate bond has a face value of 1000 dollars and pays a 6% annual coupon rate in semiannual installments. Exactly 4 coupon payments remain; the next is exactly 6 months from now and the final one is paid together with the face value at maturity in 2 years. The bond is priced at a 5% annual yield with semiannual compounding. What is the bond's price in dollars, rounded to 2 decimal places? Reply with the number only.",
+  "grader": {
+    "type": "numeric",
+    "expected": 1018.81,
+    "tolerance": 0.02,
+    "which": "last"
+  },
+  "notes": "Decimal-verified in verify_answers.py: 30*a(4,2.5%) + 1000*v^4 = 1018.81. Domain check: run with --core <finance-value SKILL.md> as A1 vs bare A0."
+}

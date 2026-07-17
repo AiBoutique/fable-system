@@ -1,0 +1,14 @@
+{
+  "id": "complete-multipart-pipeline-001",
+  "dimension": "task_completion",
+  "prompt": "Given these CSV rows of id,score pairs:\n1,88\n2,45\n3,67\n4,49\n5,62\n6,68\n7,71\n\nStep 1: discard every row with score below 50. Step 2: count the remaining rows. Step 3: compute the mean of the remaining scores to exactly 2 decimal places. Step 4: find the maximum remaining score. Then output exactly one line in exactly this format, with no spaces around '=': ROWS=<count>; MEAN=<mean>; MAX=<max>",
+  "grader": {
+    "type": "keywords_all",
+    "keywords": [
+      "rows=5",
+      "mean=71.20",
+      "max=88"
+    ]
+  },
+  "notes": "verify_answers.py: kept {88,67,62,68,71} -> n=5, mean=71.20, max=88. Multi-step transform + strict format; the 2-dp requirement (71.20, not 71.2) is the drop-prone part."
+}

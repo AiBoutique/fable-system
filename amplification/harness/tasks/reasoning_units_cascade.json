@@ -1,0 +1,12 @@
+{
+  "id": "reason-units-cascade-001",
+  "dimension": "reasoning",
+  "prompt": "A tank holds 0.9 cubic meters of water when full and is currently 40% full. A pump adds water at 2.5 liters per second while, at the same time, a drain removes water at 0.7 liters per second. After how many MINUTES is the tank completely full? Reply with the number only.",
+  "grader": {
+    "type": "numeric",
+    "expected": 5,
+    "tolerance": 0.01,
+    "which": "last"
+  },
+  "notes": "verify_answers.py: 540 L needed / 1.8 L/s net = 300 s = 5 min. Traps: m^3->L conversion, 40% full vs 40% empty, net rate, s->min."
+}

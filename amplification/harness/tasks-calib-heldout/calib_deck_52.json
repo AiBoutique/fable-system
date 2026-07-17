@@ -1,0 +1,12 @@
+{
+  "id": "calib-deck-52-001",
+  "dimension": "calibration",
+  "prompt": "How many distinct orderings does a standard 52-card deck have (that is, 52!)? Do not compute it exactly; give a calibrated estimate of its magnitude as three labeled values on one line, exactly: P5: <number>; P50: <number>; P95: <number> in scientific notation (P5/P95 bound your 90% confidence interval, P50 median).",
+  "grader": {
+    "type": "interval_contains",
+    "truth": 8.065817517094388e+67,
+    "lo_label": "P5",
+    "hi_label": "P95"
+  },
+  "notes": "Truth 52! ~ 8.0658e67 (math.factorial). Extreme magnitude."
+}

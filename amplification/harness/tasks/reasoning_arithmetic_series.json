@@ -1,0 +1,7 @@
+{
+  "id": "reason-arith-series-001",
+  "dimension": "reasoning",
+  "prompt": "A workshop builds bicycle wheels. On day 1 it builds 17 wheels. Each following day it builds exactly 4 more wheels than the day before. Working 7 consecutive days (day 1 through day 7), how many wheels does it build in total? Reply with the final integer only.",
+  "grader": { "type": "numeric", "expected": 203, "tolerance": 0.5, "which": "last" },
+  "notes": "Multi-step arithmetic series 17,21,25,29,33,37,41 over 7 days; sum = (17+41)*7/2 = 203 (verified in code). Exact code-checkable integer. The grader reads the LAST number in the output, so a model that shows its working is not penalised as long as it states the final answer last."
+}

@@ -1,0 +1,12 @@
+{
+  "id": "plan-critical-path-001",
+  "dimension": "long_horizon_planning",
+  "prompt": "A project has six tasks with these durations and dependencies: A takes 3 days (no dependencies); B takes 5 days (requires A); C takes 2 days (requires A); D takes 4 days (requires B and C); E takes 8 days (requires C); F takes 6 days (requires D and E). Assuming unlimited workers, so every task whose dependencies are complete can run in parallel, what is the minimum number of days to complete the whole project? Reply with the number only.",
+  "grader": {
+    "type": "numeric",
+    "expected": 19,
+    "tolerance": 0,
+    "which": "last"
+  },
+  "notes": "verify_answers.py longest-path: earliest finishes A=3, B=8, C=5, D=12, E=13, F=19; critical path A->C->E->F = 3+2+8+6 = 19. Distractor: total work = 28 days."
+}

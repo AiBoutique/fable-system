@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fable System — Restore Walkthrough</title>
+<style>
+  :root{
+    --bg:#0e1013; --panel:#161a20; --panel2:#1b2028; --border:#2a3140;
+    --text:#e8eaed; --muted:#9aa4b2; --accent:#7c9cff; --good:#4ade80;
+    --warn:#fbbf24; --bad:#f87171; --code-bg:#10141a; --mono:ui-monospace,'Cascadia Code',Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 -apple-system,'Segoe UI',system-ui,sans-serif;padding:0 20px 80px}
+  .wrap{max-width:900px;margin:0 auto}
+  header{padding:56px 0 8px}
+  h1{font-size:34px;margin:0 0 6px;letter-spacing:-.5px}
+  h1 .f{color:var(--accent)}
+  .sub{color:var(--muted);font-size:17px;margin:0 0 4px}
+  .stamp{display:inline-block;margin-top:14px;padding:4px 12px;border:1px solid var(--border);border-radius:999px;color:var(--muted);font:13px var(--mono)}
+  h2{font-size:22px;margin:48px 0 14px;padding-top:24px;border-top:1px solid var(--border);letter-spacing:-.3px}
+  h2 .n{color:var(--accent);font:600 15px var(--mono);margin-right:10px}
+  p{margin:10px 0}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:14px 0}
+  .warnbox{border-left:3px solid var(--warn);background:var(--panel2)}
+  .warnbox b{color:var(--warn)}
+  .okbox{border-left:3px solid var(--good);background:var(--panel2)}
+  .okbox b{color:var(--good)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14.5px}
+  th{color:var(--muted);text-align:left;font-weight:600;padding:8px 12px;border-bottom:1px solid var(--border);white-space:nowrap}
+  td{padding:9px 12px;border-bottom:1px solid #1e242e;vertical-align:top}
+  td:first-child{white-space:nowrap;font-family:var(--mono);font-size:13px;color:var(--accent)}
+  .tablewrap{overflow-x:auto}
+  pre{background:var(--code-bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;overflow-x:auto;font:13px/1.55 var(--mono);color:#c9d4e3;margin:10px 0}
+  code{font:.92em var(--mono);background:var(--code-bg);border:1px solid var(--border);border-radius:5px;padding:1px 6px}
+  pre code{background:none;border:none;padding:0}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:0}
+  ol.steps>li{counter-increment:s;position:relative;padding:0 0 26px 56px}
+  ol.steps>li::before{content:counter(s);position:absolute;left:0;top:2px;width:34px;height:34px;border-radius:10px;background:var(--panel2);border:1px solid var(--border);color:var(--accent);font:600 16px var(--mono);display:flex;align-items:center;justify-content:center}
+  ol.steps>li::after{content:'';position:absolute;left:17px;top:44px;bottom:8px;width:1px;background:var(--border)}
+  ol.steps>li:last-child::after{display:none}
+  .steptitle{font-weight:600;font-size:16.5px;margin:4px 0 6px}
+  ul.checks{list-style:none;padding:0}
+  ul.checks li{padding:8px 0 8px 32px;position:relative;border-bottom:1px solid #1e242e}
+  ul.checks li::before{content:'✓';position:absolute;left:4px;color:var(--good);font-weight:700}
+  details{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin:12px 0}
+  summary{cursor:pointer;color:var(--accent);font-weight:600}
+  .muted{color:var(--muted)} .good{color:var(--good)} .warn{color:var(--warn)}
+  .pill{font:600 11px var(--mono);letter-spacing:.5px;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid var(--border);color:var(--muted)}
+  footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:13.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>The <span class="f">Fable System</span> — Restore Walkthrough</h1>
+  <p class="sub">Rebuild the full fable-system setup — frontier-grade process from any executor model — on a fresh machine in about ten minutes.</p>
+  <span class="stamp">kit r28 · 2026-07-17 · one-click FableSetup.exe · every layer execution-verified before shipping</span>
+</header>
+
+<h2><span class="n">01</span>What this system is</h2>
+<p>A set of coupled artifacts that push every Claude Code session on this machine toward frontier-grade process — falsifiable definitions of done, hypothesis-driven debugging, adversarial verification, and judgment routed to the strongest available model tier. Each layer covers another layer's documented failure mode:</p>
+<div class="tablewrap"><table>
+  <tr><th>Artifact</th><th>What it does</th><th>Failure mode it covers</th></tr>
+  <tr><td>claude-home\CLAUDE.md → ~\.claude\</td><td>Global discipline law (v5): Rank-0 rules, the Loop, rigor tiers, playbooks, verification ladder, intent gate + artifact-authority order (user &gt; spec &gt; tests &gt; code), binding minimum evidence sets, Skill-coupling rule, memory scope gates (global/topic/thread), doubt/innovation router (new external evidence or independent judgment — agentic search + tournament).</td><td>Always loaded — reaches contexts where skills never appear.</td></tr>
+  <tr><td>skills\fable-mode\SKILL.md</td><td>The operating method: 9 sections + a 24-move reasoning list. Auto-triggers on hard tasks; manual via <code>/fable-mode</code>.</td><td>Depth CLAUDE.md is too lean to carry.</td></tr>
+  <tr><td>settings.json → SessionStart</td><td>Injects the standing order at session start, resume, clear, and every compaction.</td><td>Post-compaction amnesia; skill undertriggering.</td></tr>
+  <tr><td>settings.json → UserPromptSubmit</td><td>v8 classifier: node-parses the prompt field (empty/non-string/malformed input → silent sentinel); node missing or broken → one loud DEGRADED repair notice per prompt, never a whole-payload grep; keyword + length heuristic re-injects the reminder on hard-looking prompts across coding, config, investing, science, tournament/innovation, improve/enhance, and (v8) tls/injection/reset--hard/restore-backup/chmod stems. Always exits 0 — physically cannot block a prompt.</td><td>Mid-session drift, prompt-level salience.</td></tr>
+  <tr><td>settings.json → SubagentStart</td><td>Injects a verify-where-executable standing order into every spawned subagent via <code>additionalContext</code>.</td><td>Subagents — including Explore/Plan, which skip CLAUDE.md entirely.</td></tr>
+  <tr><td>scheduled task + skills\refresh-kit</td><td>Monthly read-only health check (preflight, pair consistency, hook behavior, adoption + conversion, kit freshness, memory scope integrity) + one-command kit rebuild.</td><td>Silent rot: drift, dead hooks, stale backups.</td></tr>
+  <tr><td>skills\invest-research + gold-standards.md</td><td>Domain playbook template for investing research (tiered, provenance-tagged, adversarial bear/bull, no trades ever; edit the profile line to taste) + exemplar file of output shapes that fable-mode instructs sessions to imitate.</td><td>Generality gap: domain specificity and imitation beat abstract rules.</td></tr>
+  <tr><td>skills\organize\SKILL.md</td><td>The three-folder rule as a written order: classify → git-aware moves → subfolder tidy for any target folder (public working repo / private\ never-uploaded / EXE\ artifacts; in doubt → private; audit mode report-only).</td><td>Disorganized folders and sensitive data drifting into public trees.</td></tr>
+  <tr><td>INSTALL.bat + install.ps1 + tools\</td><td>One-click restore: manifest integrity gate, prereq checks with winget offers, backup-then-merge installs (settings.json and ~/.claude.json), an install ledger with previous-version cleanup (stale old-kit files removed, backed up; user edits kept), redacted MCP template, self-verification table. PowerShell 5.1-compatible. The kit also ships its own 157-assertion self-test (tools\run-selftest.ps1, run on every /refresh-kit), the FableSetup.exe builder (tools\build-exe.ps1 + setup-stub.cs), and a plugins snapshot.</td><td>Human error and half-restores on disaster-recovery day.</td></tr>
+</table></div>
+
+<div class="card warnbox"><b>Two storage rules.</b> Keep a copy of the kit <b>off-machine</b> (a repo push, cloud, or USB copy of FableSetup.exe — a backup on C:\ dies with C:\). And never leave a literal <code>.claude\skills\</code> tree inside any folder you open Claude in — it registers duplicate scoped skills (observed live during the build). The kit's payload directory is named <code>claude-home\</code> precisely so the repo itself is inert; the installer maps it to <code>~\.claude\</code>.</div>
+
+<div class="card okbox"><b>One-click restore.</b> Run <code>FableSetup.exe</code> (from the <code>EXE\</code> folder beside the repo, a Release download, or your off-machine copy) — the whole kit is embedded: it extracts to a private %TEMP% staging dir, runs the installer with your arguments passed through, propagates the exit code, and cleans up. From a repo checkout, <code>src\INSTALL.bat</code> runs the same installer: set-equality SHA-256 integrity gate (altered, missing, and unlisted extra files all refuse the install), prerequisite checks (with winget install offers), copy-with-backup, hook <i>merge</i> into any existing settings.json (foreign keys and hooks preserved, validation-gated with rollback), MCP re-registration from the template (ships empty in the public kit — populate it locally), and a final PASS/FAIL self-verification table. Idempotent; never touches credentials; <b>no personal data ships</b> (no project memory, empty MCP template). It also cleans up after itself: its own %TEMP% logs rotate to the newest 10, stale extraction dirs go, and old install backups get a report plus an opt-in prune (default No, the 3 creation-newest always kept). Upgrades are self-cleaning from r25 on: an install ledger (<code>.claude\fable-install-ledger.json</code>) records what each kit version installed, and the next install removes files a previous r25+ kit left behind — only while byte-identical to what that install wrote (backed up first); anything you modified or created is kept. (Prospective by design: the first r25 install writes a baseline ledger only, so a one-time r24→r25 upgrade cleans nothing.) The numbered steps below remain as the manual fallback and as documentation of exactly what the installer does. Off-machine storage is <b>manual by owner choice</b>: after every <code>/refresh-kit</code>, copy the fresh FableSetup.exe (or push the repo) off C:\ yourself.</div>
+
+<h2><span class="n">02</span>Prerequisites</h2>
+<ul class="checks">
+  <li><b>Claude Code</b> installed and logged in (CLI or desktop app).</li>
+  <li><b>Git for Windows</b> — hooks run in Git Bash. Without it they fall back to PowerShell: the SessionStart and SubagentStart commands survive (both are valid PowerShell — execution-verified), but the classifier is bash-syntax and shows a harmless-but-noisy per-prompt error until Git Bash exists.</li>
+  <li><b>Node.js</b> — the classifier parses the prompt field with it. Missing → the classifier goes inactive and prints one DEGRADED repair notice per prompt until Node is restored (never the old whole-payload false-fire mode).</li>
+  <li>The kit: a checkout (or copy) of the repo, or just <code>FableSetup.exe</code> from your off-machine copy.</li>
+  <li>Or skip the checklist: the installer probes all three prerequisites itself and offers winget installs for anything missing.</li>
+</ul>
+
+<h2><span class="n">03</span>Restore steps</h2>
+<ol class="steps">
+  <li>
+    <div class="steptitle">One click: run FableSetup.exe</div>
+    <p>Double-click it (or run <code>FableSetup.exe -Unattended</code>). It installs and verifies everything the steps below describe — continue at step 5. The exe is unsigned, so Windows SmartScreen may warn on first run ("More info" → "Run anyway"); building it yourself from <code>src\</code> sidesteps that. No exe at hand? A repo checkout's <code>src\INSTALL.bat</code> does the same. Steps 2–4 are the fully manual fallback.</p>
+  </li>
+  <li>
+    <div class="steptitle">Manual fallback: copy the law, the skills, and the scheduled-task prompt</div>
+    <p class="muted">&lt;repo&gt; is your checkout; the kit's <code>claude-home\</code> maps to <code>~\.claude\</code>.</p>
+    <pre><code>Copy-Item "&lt;repo&gt;\src\claude-home\CLAUDE.md" "$HOME\.claude\CLAUDE.md"
+Copy-Item "&lt;repo&gt;\src\claude-home\skills" "$HOME\.claude\" -Recurse -Force
+Copy-Item "&lt;repo&gt;\src\claude-home\scheduled-tasks" "$HOME\.claude\" -Recurse -Force</code></pre>
+  </li>
+  <li>
+    <div class="steptitle">Manual fallback: install the hooks</div>
+    <p>Fresh install with no <code>$HOME\.claude\settings.json</code> yet → copy the kit's file whole (it also carries three benign prefs: update channel, theme, workflow-warning skip):</p>
+    <pre><code>Copy-Item "&lt;repo&gt;\src\claude-home\settings.json" "$HOME\.claude\settings.json"</code></pre>
+    <p>If a settings.json already exists, merge only the <code>"hooks"</code> block from the kit into it — or hand both files to Claude and say <i>"merge the kit's hooks into my settings.json."</i></p>
+  </li>
+  <li>
+    <div class="steptitle">Project memory — yours to restore, if you kept a private backup</div>
+    <p class="muted">Since r19 the public kit carries NO project memory (personal data never ships in the kit). If you keep your own backup, open one session in your project folder first (the <code>projects\&lt;slug&gt;\memory\</code> directory appears), then copy your files into it.</p>
+  </li>
+  <li>
+    <div class="steptitle">Re-create the monthly health check</div>
+    <p>The kit installs the task's PROMPT file (<code>.claude\scheduled-tasks\fable-health-check\SKILL.md</code>, via step 2 or the installer), but the <b>schedule itself lives in the app's own data and is NOT restored by file copy</b> — verified against the scheduler on 2026-07-07. In any new session say <i>"Create a monthly scheduled task named fable-health-check, 1st of the month at 09:00, using the prompt file at .claude\scheduled-tasks\fable-health-check\SKILL.md"</i>.</p>
+    <p class="muted">The installed SKILL.md is the single source of truth for the audit prompt (preflight, pair consistency, hook behavior, adoption + conversion, kit freshness, memory scope integrity). Earlier walkthroughs embedded a pasteable copy here; it drifted stale against the live file and was retired in r15 — if you ever need the text, open the installed file itself.</p>
+    <p class="muted">Scheduled tasks run while the app is open; a missed run fires on next launch. Click "Run now" once after creating it to pre-approve its tool permissions.</p>
+  </li>
+</ol>
+
+<h2><span class="n">04</span>Verify — five checks, two minutes, in a NEW session</h2>
+<ul class="checks">
+  <li>Type <code>/fable-mode</code> → the skill loads its 9-section method.</li>
+  <li>Ask <i>"any standing orders?"</i> → the SessionStart order is cited back.</li>
+  <li>Submit <i>"refactor the auth module"</i> → transcript shows <code>UserPromptSubmit hook success: Prompt classifier…</code></li>
+  <li>Say <i>"spawn a subagent and have it report any standing orders it sees"</i> → it reports the verify-before-reporting order.</li>
+  <li><code>/refresh-kit</code> appears in the skill list; after you re-create the schedule (step 5), the Scheduled section shows <b>fable-health-check</b>.</li>
+</ul>
+<div class="card okbox"><b>Or delegate the whole thing:</b> point a fresh Claude at the repo (or at FableSetup.exe) and say <i>"restore and verify the fable system from this kit"</i> — <code>src\RESTORE.md</code> carries these same instructions in Claude-executable form.</div>
+
+<h2><span class="n">05</span>Maintenance contract</h2>
+<ul class="checks">
+  <li><b>Coupled pair:</b> a threshold change in CLAUDE.md or fable-mode SKILL.md propagates to the other (2-attempt cap · 1/2 reviewers · ≥3 flake runs · Ledger 3+).</li>
+  <li><b>Review before adopt:</b> material edits to any layer get a fresh-eyes two-lens review (correctness; integration/safety) — every version in this kit shipped that way.</li>
+  <li><b>After any change:</b> run <code>/refresh-kit</code> — it re-syncs <code>src\</code>, scrub-gates for personal data, re-runs the 157-assertion selftest, and rebuilds FableSetup.exe; then copy the fresh exe (or push the repo) off-machine. Project memory is NOT in the kit since r19 — keep your own backup.</li>
+  <li><b>Read the monthly health report.</b> It is the system's only feedback loop; "ATTENTION" verdicts are the trigger for the next upgrade, not noise.</li>
+</ul>
+
+<h2><span class="n">06</span>Known limits &amp; upgrade triggers</h2>
+<div class="tablewrap"><table>
+  <tr><th>Limit</th><th>Why accepted</th><th>Upgrade trigger</th></tr>
+  <tr><td>classifier scope</td><td class="good">RESOLVED since r4 (current: v8): the classifier greps only the node-parsed prompt field — repo paths and session titles can no longer trigger it. Without Node.js it goes inactive with a loud per-prompt DEGRADED notice — no whole-payload fallback exists anymore.</td><td>None — the DEGRADED notice self-reports until Node returns.</td></tr>
+  <tr><td>keyword misses</td><td>Plain-language hard tasks with zero stems slip through; inherent to keyword classifiers.</td><td>None — the SessionStart order is the backstop.</td></tr>
+  <tr><td>repeat cost</td><td>~60–75 tokens per qualifying prompt, no dedup.</td><td>Classifier lines crowding compactions → once-per-session marker guard.</td></tr>
+  <tr><td>reminders ≠ enforcement</td><td>All channels persuade; none compel.</td><td>Health check shows near-zero adoption in a hard month → PreToolUse gate.</td></tr>
+</table></div>
+
+<h2><span class="n">07</span>Troubleshooting</h2>
+<div class="tablewrap"><table>
+  <tr><th>Symptom</th><th>Cause → fix</th></tr>
+  <tr><td>hook error at session start</td><td>Git Bash missing → install Git for Windows; or temporarily remove the UserPromptSubmit block (bash-syntax; SessionStart and SubagentStart run fine under the PowerShell fallback) until it exists.</td></tr>
+  <tr><td>/fable-mode not listed</td><td>Wrong path (must be <code>~\.claude\skills\fable-mode\SKILL.md</code>) or the session predates the copy → new session.</td></tr>
+  <tr><td>classifier never fires</td><td>settings.json invalid (one bad comma disables the whole file) → <code>Get-Content ~\.claude\settings.json -Raw | ConvertFrom-Json</code>; also <code>claude --debug</code> shows hook execution.</td></tr>
+  <tr><td>duplicate fable-mode in skill list</td><td>A literal <code>.claude\skills\</code> tree inside a project folder (the kit's payload is <code>claude-home\</code> precisely to avoid this) → delete the extracted tree.</td></tr>
+  <tr><td>health check never runs</td><td>App wasn't open on the 1st → it fires on next launch; or re-create per step 5.</td></tr>
+</table></div>
+
+<h2><span class="n">08</span>Version log</h2>
+<div class="tablewrap"><table>
+  <tr><th>Date</th><th>Change</th></tr>
+  <tr><td>2026-07-02 → 07-09 (r10)</td><td>System built and hardened across ten adversarially-reviewed rounds: CLAUDE.md v2→v4, fable-mode skill + gold-standards, three hooks, monthly health check (v2, audits 0–5), refresh-kit + invest-research, one-click installer with MCP/plugin coverage, 67-assertion self-test on every refresh, signature-gated hook replacement, secret-scan + CRC/coverage gates. Round-by-round history: session transcripts (log compacted 2026-07-09 at owner request; prior compaction at r8).</td></tr>
+  <tr><td>2026-07-09 r11</td><td>CLAUDE.md v4→v5 via 4-axis agentic research + 5-candidate/5-red-team/3-blind-judge tournament (SUBTRACT won 3–0; rubric evolved: elicitation-power 20%). Net −5 lines (209→204), additions funded by cuts: doubt/stuck/innovation router (new external evidence or independent judgment; a 3rd attempt needs new evidence, never a delegate's bare verdict; at-cap escalation stands), Tournament executable-criterion clause, same-tier fresh-context review fallback, orient-first Investigation step, analogy-demotion debugging clause, Gate anti-self-re-critique echo, second-order tracing consolidated into the widened pre-change search. Two-lens fresh-eyes: 1 major + 3 minors fixed, residuals declared.</td></tr>
+  <tr><td>2026-07-09 r12</td><td>Classifier v6: +tournament/innovat/agentic stems (closes the innovation-prompt gap found by v5's review; live pipe-tested). Changelog compacted to current state at owner request; root docs aligned to v5/r12.</td></tr>
+  <tr><td>2026-07-09 r13</td><td>Installer gate hardening after the first real-world misfire (source-copy INSTALL.bat run at the project root): missing-manifest branch now names the newest zip beside the script and prints paste-proof extract-and-run guidance; extracting a kit next to its own zip gets a move-the-zip-out hint on the integrity failure. Both branches execution-tested (PS 5.1, sandboxed, exit 1, zero writes); two-lens fresh-eyes reviewed.</td></tr>
+  <tr><td>2026-07-09 r14</td><td>Installer self-service: double-clicking the source-copy INSTALL.bat now offers to extract the newest kit zip to %TEMP%\fable-kit and continue installing from there (pre-cleaned extraction dir; corrupt/malformed zips fall back to guidance; decline = "Aborted by user" exit 2; unattended keeps the hard abort; child verdict propagates). Millisecond transcript stamps. Five-branch battery + two-lens review, all sandboxed.</td></tr>
+  <tr><td>2026-07-11 r15</td><td>Full-system defect round (3 independent auditors + execution audits; 50 findings, ~45 fixed). Redactor hardened: inline --flag=value, URL path/query/fragment tokens (any separator order), full userinfo, --header values, -e env args (split + joined), underscore key variants, extra cred flags — with hostnames, node -e scripts, and --auth-mode-class values preserved; boundary-safe &lt;&lt;HOME&gt;&gt; — each leak and false-positive execution-proven first, pinned by 15 new assertions; self-test 67→84. Classifier v7 (+improve/enhance stems). Installer MAX_PATH guard measures the real longest memory filename. refresh-kit: memory updates to rN BEFORE staging (r14 shipped r13-era memory); walkthrough updates mandated with the README. Health-check: full staged-set freshness compare with hash-equality; v6/v7 stem cases; corrected bash-missing diagnosis (PowerShell fallback verified). Coupled pair: 24 wording defects fixed, no threshold changes. Docs: this file's stale v5 labels, missing scheduled-tasks copy step, and drifted embedded prompt all fixed.</td></tr>
+  <tr><td>2026-07-11 r16</td><td>Install-from-anywhere self-service, from the third real-world source-tree misfire (r15's root now keeps the manifest AND the zip, so the r13–r14 missing-manifest detector could never fire there): ANY integrity-gate failure with the kit's own zip beside the script now names the newest archive (name/size/mtime) and offers [Y/n, default Y] to extract it to %TEMP%\fable-kit and continue from there — the child re-runs the full gate: loose files from the dirty folder never install, and the archive's contents install only after that gate passes; decline exits 2 with the manual commands; unattended keeps the hard abort; closed stdin declines (headless fails safe). Extraction-dir guard (canonical-path compare): never pre-clean the folder the zip lives in (latent r14 hazard); -LiteralPath extraction for bracket-named paths. Self-test 84→100: S10 pins all five self-service paths incl. the previously-untested r14 offer and nonzero child-verdict propagation, interactive runs driven by piped stdin with decline padding. Project root cleaned of the triggering extraction debris (18 files, byte-identity-verified first); docs + refresh-kit contract line synced; two-lens fresh-eyes review, both PASS.</td></tr>
+  <tr><td>2026-07-11 r17</td><td>Comprehensive self-cleanup: installer startup rotates its own %TEMP% transcript logs (newest 10 kept) and removes stale stamped extraction dirs (&gt;1 h, never this run's or the script's own folder); after a successful install-from-archive the launch folder's byte-verified duplicate kit files are removed on offer (default Y; archive + non-kit files always stay; older zips reported, never auto-deleted); install backups reported with size, opt-in prune of &gt;30-day backups keeping the newest 3 (default No); strays inside kit-owned skill folders reported and kept. Harness self-cleans its run's %TEMP% residue on success. Self-test 100→114 (S11: rotation, debris end-to-end with EOF fail-safe pins, backup prune with survivor-name asserts, stray keep; S0 pins claude on PATH). Review-driven guards: cleanup never reaches the install destination or through junctions, re-hashes before every delete, prunes only emptied dirs; git-repo launch folders default the offer to No. Boundary: fable-system artifacts only — no app caches, other projects, or software.</td></tr>
+  <tr><td>2026-07-13 r18</td><td>External-evidence round from the owner's fork of Sahir619/fable-method (MIT; an independent Fable-5 distillation with a 10-round/159-run eval program): intent gate + artifact-authority order (user &gt; spec &gt; tests &gt; code; forced INTENT line in behavior-changing reports) into CLAUDE.md Loop 5 + skill move 23 + Quick-card 13; judge-stance verifier briefs (report = claims, diff = ground truth, re-run or label UNVERIFIABLE, five-fraud hunt); binding minimum evidence sets; finance fraud table into invest-research; orient-first + parallelization nuances into the skill. New <code>eval\</code> trap-suite regression harness at the project root (8 fixtures, adapted runner, RESULTS.md; not in the kit zip) with the prime directive: no rule change without the suite passing or a new failing trap first — its round-0 smoke honestly recorded a haiku delegate failing the spec-vs-test trap under the live system, so a forced INTENT line in the SubagentStart hook is proposed and awaits owner approval. Root canonical files found working-tree-deleted, restored from HEAD; 22→23 move stamps refreshed; two-lens fable-tier review, findings fixed. No installer/hook/threshold changes; selftest stays 114.</td></tr>
+  <tr><td>2026-07-13 r19</td><td>Open-source-prep reorganization: the repo becomes the kit. New <code>src\</code> working tree = the canonical public copy, with the payload renamed <code>claude-home\</code> (a live observation showed an unpacked <code>.claude</code> tree registering duplicate scoped skills). New <code>FableSetup.exe</code> replaces the kit zip: a C# stub (built with the .NET Framework csc.exe every Windows box ships) embeds the whole kit, extracts to %TEMP%, runs install.ps1 with args passed through, propagates exit codes, cleans up. Public-kit policy: no personal data — project memory removed (installer skips gracefully), MCP template ships empty, profile lines templatized, machine paths scrubbed repo-wide (upstream MIT attribution retained). Selftest 114→126: genericized anchors, ships-no-memory pins, empty-template contract, S12 exe build+install, S13 fixture-template MCP merge, S14 fixture-memory machinery (install / gap-fill / -ForceMemory). refresh-kit and health-check audit 4 rewritten for the src/exe model; docs split (RESTORE.md, root README, CHANGELOG). Memory disaster-recovery is now explicitly the owner's own arrangement.</td></tr>
+  <tr><td>2026-07-13 r20</td><td>Three-folder container rule + <code>/organize</code>: the repo moved inside <code>fable\</code>; <code>private\</code> (sensitive — live-memory mirror closing the r19 backup gap, real MCP template; physically outside the repo) and <code>dist\</code> (exactly FableSetup.exe, untracked via .gitignore) created beside it; a container CLAUDE.md carries the standing rule. New /organize skill ships in the kit: inventory → classify (in doubt → private) → table before moves → git-aware moves → subfolder tidy → identifier sweep; audit mode report-only. refresh-kit builds to dist\ and mirrors memory into private\; health-check gains exe-location + container-layout checks; installer stray-scan + S1 cover the new skill. Selftest stays 126.</td></tr>
+  <tr><td>2026-07-13 r21</td><td>Folder names finalized by the owner: the working repo folder is <code>sharable\</code> (runner-up "main"), built artifacts live in <code>EXE\</code>, <code>private\</code> unchanged; every rule carrier renamed in sync (container CLAUDE.md, /organize, refresh-kit, health-check, docs, .gitignore comment). The container folder itself carries the project's name — renaming it is a one-shot memory-slug migration, procedure documented in the container CLAUDE.md. No code-path changes; selftest stays 126.</td></tr>
+  <tr><td>2026-07-13 r22</td><td>The three-folder rule goes always-on: a Change Discipline bullet in CLAUDE.md now makes <code>sharable\</code> / <code>private\</code> / <code>EXE\</code> (container named after the project; in doubt → private) the standing layout for any new project or reorganization, reaching every session context. build-exe.ps1 gains a hard payload guarantee: it refuses any SrcRoot containing <code>private\</code> or <code>memory\</code> — private content structurally cannot enter the exe. Selftest stays 126.</td></tr>
+  <tr><td>2026-07-16 r23</td><td>CLAUDE.md gains the <em>Stating calibrated confidence</em> section — the first A/B-validated core change: on a live tight-anchor calibration benchmark (Opus 4.8, N=3/arm) the plain core missed a code-verified interval 2/3 runs while the core with this section scored 1.000 with zero regressions; the shipped file is hash-verified content-identical to the tested winning arm. The section switches confidence elicitation to an integer 0–20 scale and hardens interval-setting (survive-the-weakest-input; genuinely bet 9-in-10). No installer, hook, or threshold changes; selftest stays 126.</td></tr>
+  <tr><td>2026-07-17 r24</td><td>CLAUDE.md wording reconciled with reality: the three-folder rule no longer says <code>private\</code> is "physically outside any repo" — <code>private\</code> now keeps its own local-only, never-pushed git repo for version history, so leak-safety comes from an enforced no-remote + pre-push block, not the absence of git. The two-level CLAUDE.md model is now stated explicitly in the Priority section — the universal <code>~\.claude\CLAUDE.md</code> (home-relative, governs every project) versus an optional per-project <code>CLAUDE.md</code> that overrides it for one project. Wording only; no installer, hook, or threshold changes; selftest stays 126.</td></tr>
+  <tr><td>2026-07-17 r25</td><td>Installer upgrade hygiene: every install writes an install ledger (.claude\fable-install-ledger.json — what it placed, with hashes); the next install removes files an older kit installed that the new kit no longer ships, only while byte-identical to the recorded hash (backed up first, emptied dirs pruned, never settings/credentials/memory/backups; corrupt/empty ledger fails safe and heals) — user-modified and user-created files always kept. Cleanup guards canonicalize each ledger path against the real on-disk name (via Get-Item FullName) and refuse non-canonical entries, so a crafted trailing-dot name (settings.json. → the real settings.json) cannot slip past the protected-name checks — found by an independent security review and fixed before shipping. Post-install stray-scan roots now derive from the manifest instead of a hardcoded skill list. refresh-kit: src doc stamps moved BEFORE the manifest (r24's recorded contradiction closed); shipped-exe verification also checks the sandbox ledger. Selftest 126→141 (NEW S15 fixture-kit upgrade arc incl. adversarial names; S1/S12 ledger pins).</td></tr>
+  <tr><td>2026-07-17 r26</td><td>Second error-sweep-and-upgrades round (four independent Fable-tier reviewers: grader correctness, harness infra, whole-installer + hooks, cross-system consistency). Kit fixes: the MCP-template redactor now catches space-separated compound/short credential flags (<code>-H</code> bearer, <code>-u</code> user:pass, <code>--auth-token</code>, <code>--api-token</code>) and <code>;</code>-delimited connection-string keys that previously leaked into the "clean" template (the publish surface) — +6 S7 fixtures; the prompt classifier gains v8 stems (tls/ssl/cert, injection, reset&nbsp;--hard/revert, restore/backup, chmod/chown/permission) that were silently missed — +4 S9 pipe-tests; the install ledger write is now per-entry resilient (one locked file no longer aborts it); a failed settings.json merge now auto-rolls-back to the backup, matching the documented contract; health-check audits organize (the one kit skill whose drift it couldn't see); organize's private-folder model reconciled with CLAUDE.md; two skill descriptions de-YAML-ambiguated. Selftest 141→156. Also (separate commit, not in the kit) an amplification-harness hardening round fixed a grader false-positive and protected the calibration axis, re-verified with zero grade-flips across the stored runs.</td></tr>
+  <tr><td>2026-07-17 r27</td><td>QC + global-consistency round (four auditors → fix-all → deeper-look enhancements → three fresh-eyes reviewers + an adversarial re-check). Headline fix: r26's <code>organize</code>/<code>health-check</code> improvements lived only in <code>src\</code> and were never deployed, and refresh-kit's mechanical "live-wins" sync would have reverted them — step 1 now decides direction by <em>content</em> (git status + install ledger), not mtime, never blind-copies settings.json, and this round reconciled live (six discipline files deployed src→live, backed up; personal overlays preserved). Consistency: health-check compares settings.json on discipline-content-minus-personal-keys (kills a false-DRIFT loop), checks <code>private\.git</code> for efficacy not presence, audits the harness <code>.claude\</code> dir's contents; two r26-stamped docs pages' stale harness counts fixed (263→268 / 28→29); README inventories amplification + expertise; eval prime directive scoped; expertise kit-membership resolved (plugin/COEXIST). CLAUDE.md: airtight skill-authority rung, file-level+durable memory-deletion clause, confidence-vs-probability boundary clarified (measured 0–20 section left byte-identical). Enhancements (from the portable core / eval-proven): planted-premise rule, format-compliance clause, INTENT-line gold-standard, calibration alignment. Trap baseline recorded (RESULTS.md Round 1, 8 fixtures, haiku, n=1: 5/8 ideal, s2 0→1). No installer/hook/threshold/count change — selftest stays 156; exe rebuilt + verified. Deferred to owner: INTENT→SubagentStart hook, Rank-0 MCP-trust clause, portable-core note sync, minimal-repro move, compression pass.</td></tr>
+  <tr><td>2026-07-17 r28</td><td>Owner-directed full-queue round: the r27 audit's fixes, all five deferred enhancements, and the strategic elevations, executed in one session. Forced <b>INTENT artifact into the SubagentStart hook</b> (S9 pin; selftest 156→157); gold-standards data-quality exemplar #8; Rank-0 MCP-instruction trust clause; fable-mode <b>move 24 (minimal repro)</b>; compression audit (2 micro-trims — the file is already tight). <b>Trap Round 2 gate: 14 cells, zero regressions, s7 frauds 4/5→5/5</b> — first full <code>workflow.js</code> execution (it caught an args-delivery bug on launch; hardened). Health-check finally <em>registered</em> as a monthly scheduled task; raw-judge-output persistence rule (round2 JSON is the first); encrypted off-machine backup script for <code>private\</code> (AES-256, self-tested); MIT LICENSE landed; keyless local-model path (<code>--adapter-json</code> + loopback-only <code>allow_keyless</code>, dry-run proven); differential-calibration bed built (verify facts 29→33). Two fable-tier fresh-eyes reviews on the full diff; all findings fixed and re-proven by execution. Blocked pending <code>claude auth login</code>: the v5 note + v6 differential A/Bs.</td></tr>
+</table></div>
+
+<footer>
+  Built 2026-07-05 · current r28 2026-07-17 · by Claude (Fable 5) · every layer execution-verified; kit rounds pass independent multi-lens adversarial review before adoption · self-contained file, ships inside the kit.
+</footer>
+
+</div>
+</body>
+</html>

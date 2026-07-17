@@ -1,0 +1,12 @@
+{
+  "id": "calib-diff-two-squares-1e6-001",
+  "dimension": "calibration",
+  "prompt": "How many integers n with 1 <= n < 1,000,000 can be written as n = a^2 + b^2 where a and b are both integers >= 1? Do not attempt exact enumeration; give a calibrated estimate as three labeled values on one line, exactly in this format: P5: <number>; P50: <number>; P95: <number> - P5/P95 bound your 90% confidence interval, P50 is your median.",
+  "grader": {
+    "type": "interval_contains",
+    "truth": 215907,
+    "lo_label": "P5",
+    "hi_label": "P95"
+  },
+  "notes": "Truth by direct enumeration = 215,907 (verify_answers.py). Differential shape: the Landau-Ramanujan leading term K*n/sqrt(ln n) anchors ~205k, ~5% low (the secondary term lifts it) -- a tight anchor whose small bias punishes narrow intervals; note a,b >= 1 differs from the classical a,b >= 0 count."
+}

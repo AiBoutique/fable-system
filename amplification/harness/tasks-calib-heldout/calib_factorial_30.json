@@ -1,0 +1,12 @@
+{
+  "id": "calib-factorial-30-001",
+  "dimension": "calibration",
+  "prompt": "What is the value of 30 factorial (30!)? Do not compute it exactly; give a calibrated estimate of its magnitude as three labeled values on one line, exactly: P5: <number>; P50: <number>; P95: <number> in scientific notation (P5/P95 bound your 90% confidence interval, P50 median).",
+  "grader": {
+    "type": "interval_contains",
+    "truth": 2.6525285981219107e+32,
+    "lo_label": "P5",
+    "hi_label": "P95"
+  },
+  "notes": "Truth 30! = 265252859812191058636308480000000 ~ 2.6525e32 (math.factorial)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": "reason-bayes-posterior-001",
+  "dimension": "reasoning",
+  "prompt": "A disease has a prevalence of 0.4% in a population. A screening test has 98% sensitivity and a 5% false-positive rate. A randomly selected person from this population tests positive. What is the probability, in percent rounded to one decimal place, that the person actually has the disease? Reply with the number only.",
+  "grader": {
+    "type": "numeric",
+    "expected": 7.3,
+    "tolerance": 0.05,
+    "which": "last"
+  },
+  "notes": "verify_answers.py: 0.004*0.98/(0.004*0.98+0.996*0.05) = 7.3%. Classic base-rate neglect trap (attractors: 98, 95, 93)."
+}

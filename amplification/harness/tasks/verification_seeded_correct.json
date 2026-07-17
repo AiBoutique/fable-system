@@ -1,0 +1,23 @@
+{
+  "id": "verify-seeded-correct-001",
+  "dimension": "verification",
+  "prompt": "Review this Python function. Is it a correct k-length moving average of the list xs for every valid input (assume 1 <= k <= len(xs) and numeric xs)?\n\ndef moving_average(xs, k):\n    out = []\n    s = sum(xs[:k])\n    out.append(s / k)\n    for i in range(k, len(xs)):\n        s += xs[i] - xs[i - k]\n        out.append(s / k)\n    return out\n\nReply with exactly one line: 'VERDICT: CORRECT' if it is correct, or 'VERDICT: BUG - <one short sentence naming the flaw>' if it is not.",
+  "grader": {
+    "type": "all_of",
+    "graders": [
+      {
+        "type": "keywords_all",
+        "keywords": [
+          "verdict: correct"
+        ]
+      },
+      {
+        "type": "contains_none",
+        "forbidden": [
+          "verdict: bug"
+        ]
+      }
+    ]
+  },
+  "notes": "Balance twin of verify-seeded-bug-001: the code IS correct (verified by execution). Measures the should-NOT-fire side - a discipline core must not induce paranoid false positives."
+}

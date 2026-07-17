@@ -1,0 +1,23 @@
+{
+  "id": "domain-software-race-001",
+  "dimension": "verification",
+  "prompt": "Requirement: _load_from_disk must be called AT MOST ONCE per key, across all threads, for the lifetime of the process. Multiple threads call get_config concurrently. Does this code meet the requirement?\n\nimport threading\n_cache = {}\n_lock = threading.Lock()\n\ndef get_config(key):\n    if key not in _cache:\n        with _lock:\n            _cache[key] = _load_from_disk(key)\n    return _cache[key]\n\nReply with exactly one line: 'VERDICT: CORRECT' if it meets the requirement, or 'VERDICT: BUG - <one short sentence naming the flaw>' if not.",
+  "grader": {
+    "type": "all_of",
+    "graders": [
+      {
+        "type": "keywords_all",
+        "keywords": [
+          "verdict: bug"
+        ]
+      },
+      {
+        "type": "contains_none",
+        "forbidden": [
+          "verdict: correct"
+        ]
+      }
+    ]
+  },
+  "notes": "Classic check-then-act race: the membership test is outside the lock, so two threads can both miss and both load. Domain check: run with --core <software-engineering-mastery SKILL.md> as A1 vs bare A0."
+}

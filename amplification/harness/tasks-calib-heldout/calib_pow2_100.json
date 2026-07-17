@@ -1,0 +1,12 @@
+{
+  "id": "calib-pow2-100-001",
+  "dimension": "calibration",
+  "prompt": "How many distinct binary strings of length 100 are there (that is, 2^100)? Do not compute it exactly; give a calibrated estimate as three labeled values on one line, exactly: P5: <number>; P50: <number>; P95: <number> in scientific notation (P5/P95 bound your 90% interval, P50 median).",
+  "grader": {
+    "type": "interval_contains",
+    "truth": 1.2676506002282294e+30,
+    "lo_label": "P5",
+    "hi_label": "P95"
+  },
+  "notes": "Truth 2^100 = 1267650600228229401496703205376 ~ 1.2677e30 (exact)."
+}

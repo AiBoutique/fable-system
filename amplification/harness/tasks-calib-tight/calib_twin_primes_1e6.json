@@ -1,0 +1,12 @@
+{
+  "id": "calib-twin-primes-1e6-001",
+  "dimension": "calibration",
+  "prompt": "How many twin-prime pairs (p, p+2 both prime) are there with p+2 < 1,000,000? Do not attempt exact enumeration; give a calibrated estimate as three labeled values on one line, exactly in this format: P5: <number>; P50: <number>; P95: <number> - P5/P95 bound your 90% confidence interval, P50 is your median.",
+  "grader": {
+    "type": "interval_contains",
+    "truth": 8169,
+    "lo_label": "P5",
+    "hi_label": "P95"
+  },
+  "notes": "Truth = 8,169 twin-prime pairs below 1e6 (verify_answers.py). No simple closed form -> genuine uncertainty; the Hardy-Littlewood estimate anchors tight, inviting an over-narrow interval."
+}

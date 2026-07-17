@@ -1,0 +1,13 @@
+{
+  "id": "plan-zero-downtime-migration-001",
+  "dimension": "long_horizon_planning",
+  "prompt": "You must rename a heavily-used column in a production SQL database with ZERO downtime, across several services that deploy independently and cannot all ship at the same instant. Describe the safe rollout as an ordered, numbered plan and name each phase explicitly.",
+  "grader": {
+    "type": "all_of",
+    "graders": [
+      { "type": "ordered_steps", "markers": ["expand", "migrate", "switch", "contract"] },
+      { "type": "keywords_any", "keywords": ["backward compatible", "backward-compatible", "zero downtime", "zero-downtime", "no downtime", "without downtime", "support both", "both the code", "old and new code", "keeps working", "keep working", "remains compatible"] }
+    ]
+  },
+  "notes": "Reference safe pattern is expand -> migrate/backfill data -> switch reads/writes -> contract (drop old), and it must appear IN ORDER (ordered_steps enforces both presence and sequence). The keywords_any leg checks the governing CONSTRAINT (backward-compatible / zero-downtime) is actually stated. KNOWN VALIDITY LIMITS (2026-07-16 review, both confirmed by execution): (1) CONTAMINATION - the exact marker sequence 'expand -> migrate -> switch -> contract' appears verbatim in the 43KB discipline core, so under A1-with-that-core this task partly grades system-prompt echo; EXCLUDE it from lift claims when that core is the treatment. (2) The grader scores vocabulary presence, not plan structure - a semantically complete plan naming the switch phase 'migrate reads' fails, and an enumeration sentence can pass. Slated for a structural or judge-based regrade design."
+}
