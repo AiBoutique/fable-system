@@ -50,7 +50,7 @@ The exe is a small C# stub (compiled with the .NET Framework `csc.exe` that ship
 
 ## Publishing (when you finalize)
 
-1. **Fresh history first**: re-init or orphan-root this repo so only the current, scrubbed tree ships — the existing local history contains pre-scrub content and author identity and must never be pushed.
+1. **History**: already re-rooted (r28) — `master` carries a single scrubbed root commit under a neutral identity. The pre-scrub development history survives only in the local `archive/pre-publish-history` branch: never push that branch, and never add it to any remote.
 2. **License**: MIT, already in the tree ([LICENSE](LICENSE)) under a neutral "Fable System authors" holder — put your public name on the copyright line if you want attribution.
 3. **Attach `FableSetup.exe` to a GitHub Release** — the binary is untracked by design.
 4. Push under the identity you intend to be public (`git config user.name` / `user.email` for the new history).
