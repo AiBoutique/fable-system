@@ -91,7 +91,7 @@ Each playbook runs the Loop for its shape; the global rules and the Non-negotiab
 - Outputs: the chosen design with its threats-to-validity list, the comparator or reference standard named, and why weaker designs were rejected.
 
 **Clinical-research stack — protocol quality-by-design and GCP conduct.**
-- Build under ICH E6(R3) quality-by-design: identify critical-to-quality (CtQ) factors, apply risk-proportionate controls and fitness-for-purpose, and avoid over-engineering low-risk elements; use the E6(R3) Annex 2 lens for decentralized, pragmatic, and real-world-data elements.
+- Build under ICH E6(R3) quality-by-design: identify critical-to-quality (CtQ) factors, apply risk-proportionate controls and fitness-for-purpose, and avoid over-engineering low-risk elements; use the E6(R3) Annex 2 lens for decentralized, pragmatic, and real-world-data elements — Annex 2 reached Step 4 after the Principles/Annex 1, so check whether it is in force in your region and on your timeline before treating it as binding rather than directional.
 - Monitor risk-based: centralized statistical monitoring plus targeted on-site review of critical data and processes — 100% source-data verification is theater, not quality.
 - Keep GCP conduct intact: human-subject protection, IRB/ethics approval, informed consent and consent capacity, safety/adverse-event reporting and DSMB oversight, trial-master-file integrity, investigational-product accountability.
 - Outputs: a risk-proportionate monitoring plan naming the critical data and processes, the CtQ factors, and the source-data-review sampling — not blanket 100% SDV.
