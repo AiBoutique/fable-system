@@ -50,7 +50,10 @@ const JWT = /eyJ[A-Za-z0-9_-]{4,}\.[A-Za-z0-9_-]{4,}(\.[A-Za-z0-9_-]{4,})?/;
 // the charset) and either class embedded in a URL path or compound arg leaked
 // through - all three reproduced by execution, 2026-07-18. The refresh-kit scrub
 // gate names both classes, so the exporter must cover them.
-const KEY_PREFIX = /\b(sk|rk|pk)[-_][A-Za-z0-9_-]{8,}|\bgh[pousr]_[A-Za-z0-9]{8,}|\bxox[a-z]-[A-Za-z0-9-]{8,}|\b(AKIA|ASIA)[A-Z0-9]{8,}|\bAIza[A-Za-z0-9_-]{8,}|\bya29\.[A-Za-z0-9._-]{8,}/;
+const KEY_PREFIX = /\b(sk|rk|pk)[-_][A-Za-z0-9_-]{8,}|\bgh[pousr]_[A-Za-z0-9]{8,}|\bxox[a-z]-[A-Za-z0-9-]{8,}|\b(AKIA|ASIA)[A-Z0-9]{8,}|\bAIza[A-Za-z0-9_-]{8,}|\bya29\.[A-Za-z0-9._-]{8,}|\bglpat-[A-Za-z0-9_-]{8,}|\bhf_[A-Za-z0-9]{8,}|\bdop_v1_[A-Za-z0-9]{8,}|\bnpm_[A-Za-z0-9]{8,}/;
+// BARE_TOKEN deliberately stays {32,}: whole-arg opaque strings below 32 chars are
+// too often benign ids (short hashes, container ids); real sub-32 tokens ride behind
+// the prefix classes above or a credential flag, both of which are caught (r31 review).
 const QUERY_SECRET = /[?&][^=&\s]*(key|token|secret|password|auth)[^=&\s]*=/i;
 // A credential field inside a ;-delimited connection string. Two shapes, both
 // requiring the cred word to sit immediately before '=' (so "design=grid",
@@ -146,6 +149,8 @@ for (const name of Object.keys(servers)) {
       const envByFlag = ENV_FLAG.test(prevArg);
       prevArg = a;
       if (credByFlag || looksSecret(a)) { redacted++; return SETME; }
+      // mysql-style attached password (-pSECRET). -p<digits> is a port form - keep it.
+      if (/^-p(?!\d+$)[^\s]{6,}$/.test(a)) { redacted++; return '-p' + SETME; }
       const eq = a.indexOf('=');
       if (eq > 0) {
         const name = a.slice(0, eq), val = a.slice(eq + 1);
@@ -162,6 +167,31 @@ for (const name of Object.keys(servers)) {
       }
       return tokenizeHome(a);
     });
+  }
+  // Fields OUTSIDE the known schema (type/env/headers/url/command/args/cwd) reached the
+  // template verbatim via the deep copy - a hand-added credential field (apiKey, auth.token)
+  // leaked unredacted (r31; execution-proven by the security review). Walk their string
+  // leaves: credential-named keys and secret-shaped values redact, everything else keeps
+  // its value with the home path tokenized.
+  const KNOWN_FIELDS = new Set(['type', 'env', 'headers', 'url', 'command', 'args', 'cwd']);
+  const walkUnknown = (obj) => {
+    for (const k of Object.keys(obj)) {
+      const v = obj[k];
+      if (v && typeof v === 'object') { walkUnknown(v); }
+      else if (typeof v === 'string') {
+        if ((CRED_NAME.test(k) && !AUTH_META.test(k)) || looksSecret(v)) { obj[k] = SETME; redacted++; }
+        else obj[k] = tokenizeHome(v);
+      }
+    }
+  };
+  for (const k of Object.keys(s)) {
+    if (KNOWN_FIELDS.has(k)) continue;
+    const v = s[k];
+    if (v && typeof v === 'object') { walkUnknown(v); }
+    else if (typeof v === 'string') {
+      if ((CRED_NAME.test(k) && !AUTH_META.test(k)) || looksSecret(v)) { s[k] = SETME; redacted++; }
+      else s[k] = tokenizeHome(v);
+    }
   }
   tpl[name] = s;
 }

@@ -520,7 +520,10 @@ try {
         if ($mergedVia -eq '') {
             try {
                 $cur = Get-Content -LiteralPath $destSettings -Raw -Encoding UTF8 | ConvertFrom-Json
-                $kit = Get-Content $kitSettingsPath -Raw -Encoding UTF8 | ConvertFrom-Json
+                $kit = Get-Content -LiteralPath $kitSettingsPath -Raw -Encoding UTF8 | ConvertFrom-Json
+                # change detection: serialize the parsed state now, compare before writing -
+                # a no-op re-run must leave the file untouched (parity with fable-merge.js)
+                $origSerialized = ConvertTo-Json -InputObject $cur -Depth 64
                 if (-not $cur.PSObject.Properties['hooks']) { $cur | Add-Member -NotePropertyName hooks -NotePropertyValue (New-Object PSObject) }
                 # replaceable fable variant = marker AND action-signature phrase; foreign hooks that merely mention the marker never match
                 $fableMarkers = @{ SessionStart = @('Standing order (user settings hook)', 'invoke the fable-mode skill'); UserPromptSubmit = @('Prompt classifier (user hook)', 'invoke the fable-mode skill'); SubagentStart = @('Standing order (user hook)', 'verify claims by execution') }
@@ -562,8 +565,13 @@ try {
                         $cur | Add-Member -NotePropertyName $k -NotePropertyValue $kit.$k
                     }
                 }
-                Write-Utf8NoBom $destSettings (ConvertTo-Json -InputObject $cur -Depth 64)
-                $mergedVia = 'powershell'
+                $newSerialized = ConvertTo-Json -InputObject $cur -Depth 64
+                if ($newSerialized -ne $origSerialized) {
+                    Write-Utf8NoBom $destSettings $newSerialized
+                    $mergedVia = 'powershell'
+                } else {
+                    $mergedVia = 'powershell (no changes, no write)'
+                }
             } catch {
                 if ($bak) { Copy-Item $bak $destSettings -Force }
                 Write-Note "PowerShell merge failed and was rolled back: $($_.Exception.Message)"

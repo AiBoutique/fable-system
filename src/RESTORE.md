@@ -52,14 +52,14 @@ macOS/Linux: same layout under `~/.claude/`; the hooks are bash-native and run a
 | `plugins-snapshot.json` | Marketplaces + plugin names present at build time (informational; `@inline` entries ship with the app). |
 | `tools\fable-merge.js` | Safe JSON merges (hooks into settings.json; MCP servers into .claude.json). |
 | `tools\export-mcp-template.js`, `tools\export-plugins.js`, `tools\make-manifest.ps1` | Kit-build tools. |
-| `tools\run-selftest.ps1` | The full installer harness (157 assertions; the TOTAL line it prints is the count of record) — sandboxes under %TEMP%, needs PowerShell 7 + Node.js + Git Bash + `claude` on PATH. |
+| `tools\run-selftest.ps1` | The full installer harness (171 assertions; the TOTAL line it prints is the count of record) — sandboxes under %TEMP%, needs PowerShell 7 + Node.js + Git Bash + `claude` on PATH. |
 | `tools\build-exe.ps1` + `tools\setup-stub.cs` | Builds `FableSetup.exe`: embeds this kit as a payload in a small C# stub compiled with the .NET Framework `csc.exe` every Windows box ships. |
 | `claude-home\CLAUDE.md` | The global discipline file: Rank-0 non-negotiables, the Loop, rigor tiers, playbooks, verification law, intent gate + artifact-authority order, binding minimum evidence sets, judge-stance verifier briefs, memory scope gates, doubt/innovation router. |
 | `claude-home\skills\fable-mode\` | The operating method: 9 sections + 24-move reasoning list, plus `references\gold-standards.md` exemplars. |
 | `claude-home\skills\refresh-kit\` | One-command kit rebuild: sync live → src, scrub gate, manifest, selftest, exe build + verify. |
 | `claude-home\skills\invest-research\` | Domain playbook template for investment research (edit the profile line to taste; never executes trades). |
 | `claude-home\skills\organize\` | The three-folder rule as a written order: classify → move → tidy any target folder (in doubt → private). |
-| `claude-home\settings.json` | Three hooks + three benign prefs: SessionStart standing order; UserPromptSubmit prompt-scoped classifier v8; SubagentStart verify-order injection. |
+| `claude-home\settings.json` | Three hooks + three benign prefs: SessionStart standing order; UserPromptSubmit prompt-scoped classifier v9; SubagentStart verify-order injection. |
 | `claude-home\scheduled-tasks\fable-health-check\` | Monthly read-only audit prompt (preflight, pair consistency, hook behavior, adoption, kit freshness, memory scope integrity). |
 | `restore-walkthrough.html` | This guide as a self-contained dark-mode page, with the manual restore steps. |
 

@@ -20,6 +20,7 @@ Run these audits and report findings-first, each claim labeled verified (command
    - stdin {"prompt":"run a tournament to pick the design"} must print (v6-stem coverage);
    - stdin {"prompt":"improve the error handling in parser.js"} must print (v7-stem coverage);
    - stdin {"prompt":"restore prod from the backup"} must print (v8-stem coverage — the r26 arms: tls/ssl, inject, restore, backup, chmod, reset --hard);
+   - stdin {"prompt":"whats the max dose of amoxicillin for a 6 year old"} must print (v9-stem coverage — the r31 clinical arms: dose/dosage/clinical/patient/diagnos/contraindic/prescri/symptom/medicat/dentist/dental);
    - stdin {"prompt":"fix typo in readme"} must print nothing and exit 0;
    - stdin {"cwd":"C:/repos/auth-service","prompt":"hi"} must print nothing and exit 0 (prompt-scoping);
    - stdin {"cwd":"C:/repos/auth-service","prompt":""} must print nothing and exit 0 (empty-prompt sentinel);

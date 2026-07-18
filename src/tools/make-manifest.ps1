@@ -17,14 +17,22 @@ function Get-Sha256([string]$p) {
         finally { $fs.Dispose() }
     } finally { $sha.Dispose() }
 }
-$files = Get-ChildItem $KitRoot -Recurse -File |
-    Where-Object { $_.Name -ne 'kit-manifest.json' } |
-    Sort-Object FullName |
-    ForEach-Object {
+# No -Force here, deliberately: hidden files stay unlisted so build-exe.ps1's reverse
+# sweep (which DOES use -Force) refuses them loudly instead of shipping them listed.
+# Exclusion is by full path: a NESTED file named kit-manifest.json is kit content and
+# must be listed, or it installs as an UNLISTED refusal (r31).
+$paths = @(Get-ChildItem $KitRoot -Recurse -File |
+    Where-Object { $_.FullName -ne (Join-Path $KitRoot 'kit-manifest.json') } |
+    ForEach-Object { $_.FullName })
+# ordinal sort: a culture-sensitive Sort-Object can order the same names differently
+# across locales, producing spurious manifest diffs for identical trees
+[System.Array]::Sort($paths, [System.StringComparer]::Ordinal)
+$files = foreach ($p in $paths) {
+        $fi = Get-Item -LiteralPath $p
         New-Object PSObject -Property @{
-            path   = $_.FullName.Substring($KitRoot.Length + 1)
-            sha256 = Get-Sha256 $_.FullName
-            bytes  = $_.Length
+            path   = $fi.FullName.Substring($KitRoot.Length + 1)
+            sha256 = Get-Sha256 $fi.FullName
+            bytes  = $fi.Length
         }
     }
 $claudeVer = ''

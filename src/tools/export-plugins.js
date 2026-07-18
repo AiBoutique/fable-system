@@ -22,6 +22,21 @@ if (marketsPath && fs.existsSync(marketsPath)) {
     markets[name] = { source: raw[name].source, lastUpdated: raw[name].lastUpdated };
   }
 }
+// A locally-added marketplace (directory/path source) would carry the machine's home
+// path into a src-bound file; tokenize every string leaf like the MCP exporter does
+// (r31; the step-2 scrub sweep stays the backstop, this stops the leak at the source).
+const os = require('os');
+const home = os.homedir();
+const homeRe = new RegExp('^' + home.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?=$|[\\\\/])', 'i');
+const tokenizeHome = v => (typeof v === 'string' && homeRe.test(v)) ? v.replace(homeRe, '<<HOME>>') : v;
+const walkHome = o => {
+  for (const k of Object.keys(o)) {
+    const v = o[k];
+    if (v && typeof v === 'object') walkHome(v);
+    else o[k] = tokenizeHome(v);
+  }
+};
+walkHome(markets);
 
 const doc = {
   _comment: 'Plugin state at kit-build time. Marketplace plugins: /plugin install <name>@<marketplace>. ' +

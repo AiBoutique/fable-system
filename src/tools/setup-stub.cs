@@ -19,7 +19,10 @@ class FableSetup
         string kit = Path.Combine(stage, "kit");
         bool unattended = false;
         for (int i = 0; i < args.Length; i++)
-            if (string.Equals(args[i], "-Unattended", StringComparison.OrdinalIgnoreCase)) unattended = true;
+            // accept unambiguous prefixes (-Unatt, -u) like PowerShell's own binder does for
+            // install.ps1 - otherwise a prefixed run installs unattended but the stub still
+            // blocks on "Press Enter to close" (r31; -u is unambiguous among the four params)
+            if (args[i].Length >= 2 && "-Unattended".StartsWith(args[i], StringComparison.OrdinalIgnoreCase)) unattended = true;
         try
         {
             Directory.CreateDirectory(stage);
@@ -59,7 +62,7 @@ class FableSetup
 
     static string Quote(string a)
     {
-        if (a.Length > 0 && a.IndexOf(' ') < 0 && a.IndexOf('"') < 0) return a;
+        if (a.Length > 0 && a.IndexOf(' ') < 0 && a.IndexOf('\t') < 0 && a.IndexOf('"') < 0) return a;
         // canonical Windows argv quoting: backslash runs double before an embedded
         // quote and before the closing quote - a tab-completed "C:\some path\" stays
         // intact and can no longer swallow the next argument (e.g. -Unattended)

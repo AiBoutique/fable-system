@@ -178,6 +178,24 @@ $out = Get-RawSafe (Join-Path $fh 'run.out')
 Assert 'S5 merge path was powershell' ($out -match 'via powershell')
 Assert 'S5 settings row PASS in installer self-check' ($out -match 'settings\.json hooks\s+PASS')
 
+Write-Host "=== S5b: real-shape .claude.json (empty-string key) survives the no-node path ==="
+# the REAL .claude.json carries a "" key; Windows PowerShell 5.1's ConvertFrom-Json THROWS
+# on it, so the no-node fallback must degrade loudly and leave the file byte-untouched
+# (r31; the shape was in S2's node-path fixture but the 5.1 path never saw it)
+$fh = New-FakeHome 'fh5b'
+$proj = Join-Path $fh 'Desktop\Projects\Claude Code'
+New-Item -ItemType Directory -Force (Join-Path $fh '.claude') | Out-Null
+@'
+{ "": "realfile-artifact", "mcpServers": { "existing-server": { "type": "stdio", "command": "C:\\nope\\x.exe" } } }
+'@ | Set-Content (Join-Path $fh '.claude.json') -Encoding UTF8
+$cj5bPath = Join-Path $fh '.claude.json'
+$cj5bBefore = (Get-FileHash -LiteralPath $cj5bPath -Algorithm SHA256).Hash
+$ec = Invoke-Installer $fh $proj $KIT $strippedPath
+$out = Get-RawSafe (Join-Path $fh 'run.out')
+Assert 'S5b exit 0 (degrades, never dies)' ($ec -eq 0) "exit=$ec"
+Assert 'S5b 5.1 parse failure surfaces loudly' ($out -match 'PowerShell mcp merge failed')
+Assert 'S5b .claude.json byte-preserved' ((Get-FileHash -LiteralPath $cj5bPath -Algorithm SHA256).Hash -eq $cj5bBefore)
+
 Write-Host "=== S6: kit containing an UNLISTED extra file is refused ==="
 $xk = Join-Path $FHROOT 'kit-extra'
 if (Test-Path $xk) { Remove-Item $xk -Recurse -Force }
@@ -197,13 +215,13 @@ $fakeCfg = @{
     mcpServers = @{
         urltoken  = @{ type = 'http'; url = 'https://mcp.example.com/sse?api_key=SECRETQUERYTOKEN1234567890abcdefghij' }
         connstr   = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('--dsn', 'postgres://admin:Sup3rSecretPW@db.example.com/x') }
-        flagged   = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('--token', 'FLAGVALUE_plainword', 'plain-data-dir') }
-        jwt       = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.abcDEF123') }
-        shortkey  = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('sk-short1234567890AB'); env = @{ API_KEY = 'whatever123456' } }
+        flagged   = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('--token', 'FLAGLEAK_plainword', 'plain-data-dir') }
+        jwt       = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('eyJhbGciOiJIUzI1NiJ9.eyJMRUFLIjoxfQ.LEAKabcDEF123') }
+        shortkey  = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('sk-shortLEAK4567890AB'); env = @{ API_KEY = 'LEAKwhatever123456' } }
         homebased = @{ type = 'stdio'; command = $fakeApp; args = @('C:\Windows\System32\drivers\etc\hosts', 'task-manager-config') }
         # r15 adversarial additions - each leaked from the r14 redactor (execution-proven 2026-07-11)
         inlineflag = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('--api-key=INLINEFLAGSECRET1234') }
-        urlpath    = @{ type = 'http'; url = 'https://api.example.com/mcp/sk-live_1234567890abcdefgh/sse' }
+        urlpath    = @{ type = 'http'; url = 'https://api.example.com/mcp/sk-live_LEAK4567890abcdefgh/sse' }
         urlfrag    = @{ type = 'http'; url = 'https://x.example.com/sse#token=FRAGSECRETabcdef123456' }
         dockerenv  = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('-e', 'MY_TOKEN=DOCKENVSECRETabc') }
         boundary   = @{ type = 'stdio'; command = ($env:USERPROFILE + 'XX\evil\kp.exe'); args = @('inert') }
@@ -231,6 +249,18 @@ $fakeCfg = @{
         userpw2  = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('--user', 'root:USERPW2LEAK88') }
         pyunbuf  = @{ type = 'stdio'; command = 'python'; args = @('-u', 'C:\srv\my-mcp-server.py') }
         benignhdr = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('-H', 'Content-Type: application/json') }
+        # r31 additions - residual credential classes + the unknown-field walker (security-review
+        # findings, each shape execution-proven leaking pre-fix; all values carry LEAK markers)
+        gitlab     = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('--serve', 'glpat-GLPATLEAK1234567890') }
+        hugface    = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('hf_HFLEAK1234567890abcd') }
+        dotoken    = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('dop_v1_LEAK00000000abcdef') }
+        npmtok     = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('npm_NPMLEAK1234567890') }
+        ya29arg    = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('ya29.YA29LEAK-1234567890') }
+        aizaurl    = @{ type = 'http'; url = 'https://api.example.com/v1/AIzaAIZALEAK123456789/run' }
+        pgpass     = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('-pPGLEAKPASSW0RD') }
+        pgport     = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('-p5432') }
+        unwalked   = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; apiKey = 'AIzaUNWALKLEAK1234567890' }
+        nestedauth = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; auth = @{ token = 'ya29.NESTLEAK1234567890' } }
     }
 }
 $fakeJson = Join-Path $fh 'fake-claude.json'
@@ -240,14 +270,14 @@ $tplOut = Join-Path $fh 'tpl-out.json'
 $tpl = Get-RawSafe $tplOut
 Assert 'S7 url query token redacted' (($tpl -notmatch 'SECRETQUERYTOKEN') -and ($tpl -match 'sse\?<<SET-ME>>'))
 Assert 'S7 connection-string password redacted' ($tpl -notmatch 'Sup3rSecretPW')
-Assert 'S7 flag-passed token redacted' ($tpl -notmatch 'FLAGVALUE_plainword')
+Assert 'S7 flag-passed token redacted' ($tpl -notmatch 'FLAGLEAK_plainword')
 Assert 'S7 JWT redacted' ($tpl -notmatch 'eyJhbGciOiJIUzI1NiJ9')
-Assert 'S7 short sk- key redacted' ($tpl -notmatch 'sk-short1234567890AB')
-Assert 'S7 env value redacted' ($tpl -notmatch 'whatever123456')
+Assert 'S7 short sk- key redacted' ($tpl -notmatch 'sk-shortLEAK4567890AB')
+Assert 'S7 env value redacted' ($tpl -notmatch 'LEAKwhatever123456')
 Assert 'S7 innocent path + task-manager-config preserved' (($tpl -match 'notepad\.exe') -and ($tpl -match 'task-manager-config') -and ($tpl -match 'plain-data-dir'))
 Assert 'S7 home tokenized to <<HOME>>' ($tpl -match '<<HOME>>')
 Assert 'S7 inline --flag=value redacted' (($tpl -notmatch 'INLINEFLAGSECRET') -and ($tpl -match '--api-key=<<SET-ME>>'))
-Assert 'S7 url path key-prefix redacted' (($tpl -notmatch 'sk-live_1234567890abcdefgh') -and ($tpl -match 'mcp/<<SET-ME>>/sse'))
+Assert 'S7 url path key-prefix redacted' (($tpl -notmatch 'sk-live_LEAK4567890abcdefgh') -and ($tpl -match 'mcp/<<SET-ME>>/sse'))
 Assert 'S7 url fragment redacted' (($tpl -notmatch 'FRAGSECRET') -and ($tpl -match 'sse#<<SET-ME>>'))
 Assert 'S7 -e NAME=VALUE env arg redacted' (($tpl -notmatch 'DOCKENVSECRET') -and ($tpl -match 'MY_TOKEN=<<SET-ME>>'))
 Assert 'S7 home-prefix sibling path not tokenized (boundary)' ($tpl -notmatch '<<HOME>>XX')
@@ -272,6 +302,16 @@ Assert 'S7 --passphrase value redacted' ($tpl -notmatch 'PASSPHLEAK')
 Assert 'S7 --user user:pass redacted (curl long form)' ($tpl -notmatch 'USERPW2LEAK')
 Assert 'S7 python -u <path> preserved (not curl userinfo)' ($tpl -match 'my-mcp-server\.py')
 Assert 'S7 benign -H Content-Type preserved (not an auth header)' ($tpl -match 'application/json')
+Assert 'S7 gitlab glpat- redacted (r31)' ($tpl -notmatch 'GLPATLEAK')
+Assert 'S7 huggingface hf_ redacted (r31)' ($tpl -notmatch 'HFLEAK')
+Assert 'S7 digitalocean dop_v1_ redacted (r31)' ($tpl -notmatch 'LEAK00000000')
+Assert 'S7 npm token redacted (r31)' ($tpl -notmatch 'NPMLEAK')
+Assert 'S7 ya29 whole-arg redacted (r31)' ($tpl -notmatch 'YA29LEAK')
+Assert 'S7 AIza URL-path redacted (r31)' ($tpl -notmatch 'AIZALEAK')
+Assert 'S7 attached -p password redacted (r31)' ($tpl -notmatch 'PGLEAKPASSW0RD')
+Assert 'S7 attached -p port preserved (r31)' ($tpl -match '-p5432')
+Assert 'S7 unknown field (apiKey) redacted by walker (r31)' ($tpl -notmatch 'UNWALKLEAK')
+Assert 'S7 nested auth.token redacted by walker (r31)' ($tpl -notmatch 'NESTLEAK')
 
 Write-Host "=== S8: superseded fable hook variants replaced, not accumulated (node path) ==="
 $fh = New-FakeHome 'fh8'
@@ -330,6 +370,7 @@ Assert 'S9 tls/cert fires (v8 stems)' ((PipeTest '{"prompt":"disable tls certifi
 Assert 'S9 reset --hard fires (v8 stems)' ((PipeTest '{"prompt":"git reset --hard origin/main"}') -match 'Prompt classifier')
 Assert 'S9 sql injection fires (v8 stems)' ((PipeTest '{"prompt":"fix the sql injection in the login form"}') -match 'Prompt classifier')
 Assert 'S9 chmod/restore fires (v8 stems)' ((PipeTest '{"prompt":"chmod 777 then restore the prod backup"}') -match 'Prompt classifier')
+Assert 'S9 clinical dose fires (v9 stems)' ((PipeTest '{"prompt":"whats the max dose of amoxicillin for a 6 year old"}') -match 'Prompt classifier')
 Assert 'S9 typo silent' ((PipeTest '{"prompt":"fix typo in readme"}') -eq '')
 Assert 'S9 empty-prompt silent (sentinel)' ((PipeTest '{"cwd":"C:/repos/auth-service","prompt":""}') -eq '')
 Assert 'S9 malformed-json silent' ((PipeTest 'not-json{{') -eq '')

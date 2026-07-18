@@ -48,6 +48,10 @@ if (mode === 'hooks') {
   // A hook is a replaceable fable variant only if it carries BOTH the marker
   // AND the fable action-signature phrase - a foreign hook that merely
   // references the marker (log counters, dashboards) never matches.
+  // ASSUMPTION (r31): kit hook groups are single-command by construction - one command
+  // per group in settings.json. The missing-command check further down pushes a kit
+  // group WHOLE when any of its commands is absent; a future multi-command kit group
+  // would need per-command filtering there or it duplicates already-present commands.
   const MARKERS = {
     SessionStart: { m: "Standing order (user settings hook)", s: "invoke the fable-mode skill" },
     UserPromptSubmit: { m: "Prompt classifier (user hook)", s: "invoke the fable-mode skill" },
