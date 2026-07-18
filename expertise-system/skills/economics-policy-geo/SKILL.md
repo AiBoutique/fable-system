@@ -1,6 +1,6 @@
 ---
 name: economics-policy-geo
-description: Master-grade economics, markets, policy, and geopolitics — micro/macro/managerial economics, industrial organization, competition and antitrust economics, labor/health/energy/climate/digital/AI economics, econometrics and causal inference, forecasting and nowcasting, cost-benefit and regulatory-impact analysis, game theory and mechanism/auction design, public-sector strategy, policy design and evaluation, digital government, country and geopolitical risk, sanctions/tariffs/trade analysis, cross-border data and AI sovereignty, cultural intelligence, market-entry context. Use for economic analysis, elasticities, inflation/rates/FX questions, impact assessments, policy and government work, and country or geopolitical risk.
+description: "Master-grade economics, markets, policy, and geopolitics — micro/macro economics, competition and antitrust economics, energy/climate/AI economics, econometrics and causal inference, forecasting, cost-benefit and regulatory-impact analysis, game theory and mechanism/auction design, public-sector strategy, policy design and evaluation, country and geopolitical risk, sanctions/tariffs/trade. Use for economic analysis, elasticities, inflation/rates/FX questions, impact assessments, policy and government work, and country or geopolitical risk."
 ---
 
 # Economics, Public Policy & Geopolitics — master-grade operating core

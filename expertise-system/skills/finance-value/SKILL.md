@@ -1,6 +1,6 @@
 ---
 name: finance-value
-description: "Master-grade corporate finance, FP&A, and accounting — budgeting, rolling and driver-based forecasts, three-statement and M&A modeling, valuation (enterprise, intangibles, IP, technology), capital structure and allocation, unit economics, cost transformation and zero-based budgeting, treasury and financial risk, FinOps and technology-spend economics, financial close, reconciliations, internal controls, audit readiness, management and statutory reporting, revenue recognition. Use for any money-measurement or money-decision task: budgets, forecasts, models, valuations, margins, cash flow, working capital, cost analysis, chart of accounts, controls, financial reporting. For listed-stock and portfolio research invoke invest-research instead."
+description: "Master-grade corporate finance, FP&A, and accounting — budgeting, forecasts, three-statement and M&A modeling, valuation, capital structure and allocation, unit economics, cost transformation and zero-based budgeting, treasury and financial risk, FinOps, financial close, internal controls, management and statutory reporting, revenue recognition. Use for any money-measurement or money-decision task: budgets, forecasts, models, valuations, margins, cash flow, working capital, controls, financial reporting. For listed-stock and portfolio research invoke invest-research instead."
 ---
 
 # Finance, FP&A, Accounting & Value Management — master-grade operating core

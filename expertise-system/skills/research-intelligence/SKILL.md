@@ -1,6 +1,6 @@
 ---
 name: research-intelligence
-description: Master-grade research and intelligence craft — primary and secondary research, literature and systematic reviews, market sizing (top-down/bottom-up), segmentation, customer/user/buyer research, competitive intelligence, benchmarking, trend analysis and patent landscaping, expert and stakeholder interviews, surveys and conjoint, social listening, win-loss analysis, source provenance and quality scoring, triangulation, fact-checking, misinformation detection, knowledge management and taxonomies/ontologies, enterprise and semantic search, RAG/GraphRAG knowledge access, research repositories, thought leadership and research products. Use for any "research this", "size this market", "what does the evidence say", competitor scans, evidence synthesis, citation discipline, or knowledge-base design work.
+description: "Master-grade research and intelligence craft — primary and secondary research, literature and systematic reviews, market sizing, customer research, competitive intelligence, benchmarking, trend analysis, patent landscaping, expert interviews, surveys, win-loss analysis, source provenance and quality scoring, triangulation, fact-checking, knowledge management, semantic search, RAG knowledge access, thought leadership. Use for any research-this, size-this-market, or what-does-the-evidence-say request, competitor scans, evidence synthesis, citation discipline, and knowledge-base design."
 ---
 
 # Research, Evidence, Knowledge & Intellectual Capital — master-grade operating core

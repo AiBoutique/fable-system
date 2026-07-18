@@ -1,6 +1,6 @@
 ---
 name: strategy-foresight
-description: "Master-grade corporate, business-unit, and growth strategy plus strategic foresight — competitive and platform strategy, market entry and international expansion, portfolio and diversification, M&A/venture/alliance strategy at the strategy layer, operating-model and turnaround direction, scenario planning, war-gaming, horizon scanning, weak-signal detection, capability-based planning, strategic capital allocation, board advisory, strategy execution and governance. Use when a request is about setting or stress-testing direction: \"strategy\", \"where to play\", \"should we enter/expand/pivot\", scenarios, foresight, business-model design, strategic planning or strategy reviews."
+description: "Master-grade corporate, business-unit, and growth strategy plus strategic foresight — competitive and platform strategy, market entry, portfolio strategy, M&A/venture/alliance strategy at the strategy layer, operating-model and turnaround direction, scenario planning, war-gaming, horizon scanning, capital allocation. Use when a request is about setting or stress-testing direction: strategy, where to play, should we enter/expand/pivot, scenarios, foresight, business-model design, strategic planning, and strategy reviews."
 ---
 
 # Strategy & Strategic Foresight — master-grade operating core

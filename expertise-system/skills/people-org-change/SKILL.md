@@ -1,6 +1,6 @@
 ---
 name: people-org-change
-description: Master-grade organization, workforce, leadership, and change — organizational design (structures, spans and layers, product operating models), job and skills architecture, strategic workforce planning, talent/succession/performance/compensation strategy, people analytics, culture and engagement, DEIB and accessibility, learning/reskilling/AI literacy, leadership development and coaching, team effectiveness and psychological safety, change strategy and governance, stakeholder and resistance management, behavioral science and habit design, communications, adoption planning and measurement, human-AI team design, workforce transition. Use for reorgs, workforce plans, talent and compensation questions, culture work, leadership coaching, change programs, adoption planning, and the people side of any transformation.
+description: "Master-grade organization, workforce, leadership, and change — organizational design, skills architecture, strategic workforce planning, talent/succession/performance/compensation strategy, people analytics, culture and engagement, DEIB, learning and reskilling, leadership development and coaching, team effectiveness, change strategy, stakeholder management, behavioral science, adoption planning, human-AI team design. Use for reorgs, workforce plans, talent and compensation questions, culture work, leadership coaching, change programs, adoption planning, and the people side of any transformation."
 ---
 
 # Organization, Workforce, Leadership & Change — master-grade operating core

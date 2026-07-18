@@ -7,7 +7,7 @@ Authoring input for the expertise system build (2026-07-14). Follow authoring-te
 - topics: T2, T6
 
 ## Frontmatter description (copy EXACTLY)
-Master-grade corporate finance, FP&A, and accounting — budgeting, rolling and driver-based forecasts, three-statement and M&A modeling, valuation (enterprise, intangibles, IP, technology), capital structure and allocation, unit economics, cost transformation and zero-based budgeting, treasury and financial risk, FinOps and technology-spend economics, financial close, reconciliations, internal controls, audit readiness, management and statutory reporting, revenue recognition. Use for any money-measurement or money-decision task: budgets, forecasts, models, valuations, margins, cash flow, working capital, cost analysis, chart of accounts, controls, financial reporting. For listed-stock and portfolio research invoke invest-research instead.
+Master-grade corporate finance, FP&A, and accounting — budgeting, forecasts, three-statement and M&A modeling, valuation, capital structure and allocation, unit economics, cost transformation and zero-based budgeting, treasury and financial risk, FinOps, financial close, internal controls, management and statutory reporting, revenue recognition. Use for any money-measurement or money-decision task: budgets, forecasts, models, valuations, margins, cash flow, working capital, controls, financial reporting. For listed-stock and portfolio research invoke invest-research instead.
 
 ## Integration notes
 - Personal/market investment research on tickers, ETFs, portfolios -> `invest-research` skill (existing; do not duplicate its machinery). Live market/economic figures via retrieval or KnowledgePrime MCP tools where connected — never memory.

@@ -7,7 +7,7 @@ Authoring input for the expertise system build (2026-07-14). Follow authoring-te
 - topics: T3, T26, T33
 
 ## Frontmatter description (copy EXACTLY)
-Master-grade economics, markets, policy, and geopolitics — micro/macro/managerial economics, industrial organization, competition and antitrust economics, labor/health/energy/climate/digital/AI economics, econometrics and causal inference, forecasting and nowcasting, cost-benefit and regulatory-impact analysis, game theory and mechanism/auction design, public-sector strategy, policy design and evaluation, digital government, country and geopolitical risk, sanctions/tariffs/trade analysis, cross-border data and AI sovereignty, cultural intelligence, market-entry context. Use for economic analysis, elasticities, inflation/rates/FX questions, impact assessments, policy and government work, and country or geopolitical risk.
+Master-grade economics, markets, policy, and geopolitics — micro/macro economics, competition and antitrust economics, energy/climate/AI economics, econometrics and causal inference, forecasting, cost-benefit and regulatory-impact analysis, game theory and mechanism/auction design, public-sector strategy, policy design and evaluation, country and geopolitical risk, sanctions/tariffs/trade. Use for economic analysis, elasticities, inflation/rates/FX questions, impact assessments, policy and government work, and country or geopolitical risk.
 
 ## Integration notes
 - CLAUDE.md Economics/finance + Science/data domain rules bind: every market/economic figure retrieved live with as-of date and source (KnowledgePrime macro tools or web where connected), point-in-time data, no lookahead, units and conventions named.

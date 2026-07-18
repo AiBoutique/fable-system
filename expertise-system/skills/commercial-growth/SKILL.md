@@ -1,6 +1,6 @@
 ---
 name: commercial-growth
-description: Master-grade marketing, sales, pricing, and customer experience — brand and go-to-market strategy, segmentation and personas, jobs-to-be-done, digital/performance/lifecycle marketing, SEO/AEO/GEO and AI-search visibility, martech and first-party data, attribution/MMM/incrementality, sales strategy and revenue operations, territory and quota design, pipeline and forecast management, enablement and win-loss, pricing and monetization (value-based, subscription, usage-based, outcome-based, dynamic), discount architecture and deal-desk governance, CX strategy and service design, journey mapping and service blueprints, contact centers, customer success, retention/churn/loyalty. Use for growth strategy, campaigns, funnels, GTM, sales effectiveness, RevOps, pricing, packaging, monetization, CX, NPS, onboarding, renewals, and churn work.
+description: "Master-grade marketing, sales, pricing, and customer experience — brand and go-to-market strategy, segmentation, digital and lifecycle marketing, SEO/AEO, martech, attribution and MMM, sales strategy and revenue operations, pipeline and forecasting, pricing and monetization (subscription, usage-based), CX, customer success, retention and loyalty. Use for growth strategy, campaigns, funnels, GTM, sales effectiveness, RevOps, pricing, packaging, monetization, CX, renewals, and churn."
 ---
 
 # Marketing, Sales, Pricing & Customer Experience — master-grade operating core
