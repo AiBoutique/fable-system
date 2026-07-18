@@ -114,6 +114,7 @@ Full enumerated coverage: `references/coverage.md` — open it when planning mul
 
 **Knowledge management and organizational intelligence.**
 - Knowledge strategy answers: which knowledge, for whom, changing which decision. Choose the codification/personalization mix by problem repeatability — repeatable → codify into libraries and reusable accelerators; novel → connect people (expert directories, communities of practice).
+- Knowledge flows are designed, not assumed: knowledge-transfer and onboarding paths, institutional-memory preservation (exit capture, decision logs), case-study and deliverable libraries with template management, and courses/certifications where scale warrants — each flow owned, or it decays.
 - Capture at the moment of creation (project close, deal close, lessons-learned within ~30 days); retrospective archaeology loses the tacit half. Owners assigned for capture, curation, and validation.
 - Curation is the scarce input: quality scoring, duplicate detection, deprecation with sunset dates, freshness SLAs by content class, one canonical version per artifact.
 - Taxonomy from user language (card sorts, search-log terms), never from the org chart; ontology only when typed relationships carry the value; metadata minimal-viable — a field that serves neither retrieval nor governance dies unfilled. KM standards (ISO 30401-class) are anchors to retrieve as-of, not recite.

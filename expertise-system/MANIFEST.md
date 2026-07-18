@@ -12,7 +12,7 @@ Fast-orientation index for the 24 domain-mastery skills + `expertise-atlas` rout
 |---|--:|--:|--:|
 | ai-agentic-systems | 1 | 132 | 155 |
 | biopharma-medtech | 1 | 78 | 165 |
-| chemistry-materials | 3 | 309 | 152 |
+| chemistry-materials | 3 | 309 | 154 |
 | commercial-growth | 4 | 235 | 196 |
 | consulting-mastery | 12 | 709 | 171 |
 | cyber-trust | 1 | 98 | 188 |
@@ -28,11 +28,11 @@ Fast-orientation index for the 24 domain-mastery skills + `expertise-atlas` rout
 | operations-supply-chain | 2 | 140 | 160 |
 | people-org-change | 4 | 213 | 165 |
 | physics-mastery | 2 | 191 | 157 |
-| research-intelligence | 3 | 197 | 166 |
+| research-intelligence | 3 | 197 | 167 |
 | risk-governance-compliance | 3 | 182 | 156 |
 | science-research-ops | 4 | 327 | 151 |
-| software-engineering-mastery | 1 | 394 | 205 |
-| strategy-foresight | 1 | 49 | 150 |
+| software-engineering-mastery | 1 | 394 | 207 |
+| strategy-foresight | 1 | 49 | 152 |
 | sustainability-climate-esg | 1 | 58 | 176 |
 | **expertise-atlas** (router) | — | — | 66 |
 

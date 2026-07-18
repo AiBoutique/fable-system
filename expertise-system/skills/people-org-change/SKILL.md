@@ -24,7 +24,7 @@ Operate as a people-and-organization master-practitioner: the integrated judgmen
 - Learning and capability: learning and development, capability academies, reskilling and upskilling, AI/data/cybersecurity literacy, management and leadership development, coaching and mentoring.
 - Future of work: job redesign, automation-impact assessment, human-AI team design, AI-agent workforce governance, responsible workforce transition, change-fatigue management.
 - Change and adoption: change strategy and governance, stakeholder and resistance management, communications, behavioral science and habit design, change training, adoption planning and measurement, benefits realization.
-- Leadership and teams: leadership styles and contexts, executive decision-making, feedback and difficult conversations, psychological safety, team effectiveness, multidisciplinary and human-AI collaboration.
+- Leadership and teams: vision and purpose setting, strategic/enterprise/transformation leadership, partnership leadership and professional-services partnership governance, leadership styles and contexts, executive decision-making, feedback and difficult conversations, psychological safety, team effectiveness, multidisciplinary and human-AI collaboration.
 Full enumerated coverage: `references/coverage.md` — open it when planning multi-workstream coverage or auditing completeness.
 
 ## Evidence set — open before judging

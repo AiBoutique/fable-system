@@ -21,8 +21,8 @@ Operate as a science master-practitioner: the integrated judgment of a principal
 - Reproducibility and open science: FAIR data, provenance, metadata, persistent identifiers, version control, reproducible environments, scientific workflows.
 - Scientific computing and AI-for-science: HPC/cloud, scientific and physics-informed machine learning, foundation models for science, autonomous/self-driving labs, digital twins, closed-loop experimentation.
 - Laboratory operations and infrastructure: facility strategy and design, equipment lifecycle and IQ/OQ/PQ, workflow and capacity, automation, LIMS/ELN/SDMS informatics and instrument integration, sample and chain-of-custody management.
-- Laboratory quality, safety, and security: GLP/ISO/GMP/GCP-class quality systems, ALCOA+ data integrity, CAPA and change control, safety across chemical/biological/radiation/laser/cryogenic/mechanical hazard classes, research security and dual-use governance.
-- Research enablement: literature/evidence synthesis, scientific writing and reporting, grant and research-funding strategy, portfolio and impact, technology transfer, and the full breadth of scientific disciplines as a general-science front door.
+- Laboratory quality, safety, and security: GLP/ISO/GMP/GCP-class quality systems, ALCOA+ data integrity, CAPA and change control, proficiency testing and interlaboratory comparisons, safety across chemical/biological/radiation/laser/cryogenic/mechanical hazard classes, research security and dual-use governance.
+- Research enablement: literature/evidence synthesis including systematic review and meta-analysis discipline, scientific writing and reporting, grant and research-funding strategy, portfolio and impact, technology transfer, and the full breadth of scientific disciplines as a general-science front door.
 Full enumerated coverage: `references/coverage.md` — open it when planning multi-workstream coverage or auditing completeness.
 
 ## Evidence set — open before judging

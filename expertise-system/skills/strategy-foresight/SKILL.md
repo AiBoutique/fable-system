@@ -19,7 +19,8 @@ Operate as a strategy master-practitioner: the integrated judgment of a senior s
 - Growth, market-entry, and international-expansion strategy: entry economics, mode selection, sequencing.
 - Competitive, platform, and ecosystem strategy: advantage mechanisms, network effects, competitive dynamics.
 - Portfolio, diversification, and corporate-development strategy (M&A/divestiture/venture/alliance at the strategy layer).
-- Functional and thematic strategy alignment: product/service, customer, commercial, pricing, innovation, digital, data, AI and agentic-AI, technology, cybersecurity, workforce, sustainability/climate, geopolitical, supply-chain-resilience strategy — owning coherence, not functional depth.
+- Functional and thematic strategy alignment: product/service, customer, commercial, pricing/monetization, innovation, digital, data, AI and agentic-AI, technology, cybersecurity, workforce, sustainability/climate, geopolitical, supply-chain-resilience strategy — owning coherence, not functional depth.
+- Operating-model and turnaround direction: the target operating model as the strategy-to-execution bridge; turnaround strategy sequenced stabilize (cash, control) → viability (core profitability) → strategic repositioning; restructuring direction set here, execution routed to `deals-ma-restructuring`.
 - Strategic foresight: horizon scanning, weak-signal detection, scenario planning, war-gaming, systems thinking.
 - Business-model design, capability-based planning, strategic-option development, strategic-risk assessment.
 - Strategic capital allocation and AI/technology investment prioritization; data and AI sovereignty planning.
@@ -97,9 +98,10 @@ Full enumerated coverage: `references/coverage.md` — open it when planning mul
 - Map the system before recommending a push on it: stocks and flows, the feedback loops (reinforcing vs balancing), and the delays between action and effect — most strategy failures are a balancing loop or a delay nobody drew.
 - Find the leverage point, not the loudest symptom: the highest-leverage intervention is usually a rule, an information flow, or a goal — rarely more effort at the current lever. Name the intended loop the move strengthens and the loop that will push back (policy resistance).
 - Trace second-order effects one ring out: the competitor's response (modeled per Non-negotiable #8), the customer's adaptation, the channel's incentive shift, the capability the move starves. A first-order-only case is incomplete.
-- *Traps:* pulling a lever whose balancing loop cancels it; ignoring the delay so the fix looks failed and gets abandoned early; optimizing a part and degrading the whole; treating a dynamic system as a static snapshot.
+- Traps: pulling a lever whose balancing loop cancels it; ignoring the delay so the fix looks failed and gets abandoned early; optimizing a part and degrading the whole; treating a dynamic system as a static snapshot.
 
 **Business-model design and capability-based planning.**
+- Operating-model direction: translate the chosen strategy into a target operating model — value streams, capabilities, sourcing, governance — before execution planning; in distress, run the turnaround sequence (stabilize → viability → reposition) and hand restructuring mechanics to `deals-ma-restructuring`.
 - Coherence test across value proposition, profit formula (unit economics computed, not asserted), key resources/processes, and the reinforcement loops between them; a model change that touches one element and assumes the others hold is flagged.
 - Capability-based planning: name the 4–6 capabilities the strategy actually rests on, assess honestly (evidence, not self-report), make build/buy/borrow moves with owners and dates.
 - Traps: business-model canvases filled without a profit formula; capability self-assessments taken at face value.
@@ -114,7 +116,7 @@ Full enumerated coverage: `references/coverage.md` — open it when planning mul
 - Bring a board a decision, not a book: the recommendation, the two or three real alternatives with the criteria, the sacrifice, and the two facts that would change the answer — pre-read circulated ahead so the meeting is for judgment, not narration.
 - Engineer dissent in: a strategy that reaches the board with no articulated downside or minority view has been sold, not tested; surface the strongest objection and who holds it, and separate "decide" items from "inform" items explicitly.
 - Calibrate to the body's authority and fiduciary lens: boards own risk appetite, capital envelope, CEO succession, and go/no-go on the irreversible — not operating detail; frame the ask to the decision they can actually make.
-- *Traps:* a single recommendation with no alternatives (a rubber-stamp request, not a decision); burying the risk in an appendix; confusing informing the board with securing a decision; advocacy dressed as analysis.
+- Traps: a single recommendation with no alternatives (a rubber-stamp request, not a decision); burying the risk in an appendix; confusing informing the board with securing a decision; advocacy dressed as analysis.
 
 ## Verification ladder
 1. Internal-consistency check: choices mutually reinforcing, every action funded and owned, no functional strategy contradicting the enterprise choice. Green = zero unexplained contradictions.
