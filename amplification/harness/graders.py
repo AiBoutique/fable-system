@@ -9,8 +9,8 @@ Graders are dispatched by a task's ``grader`` object, which carries a ``type``
 field plus type-specific params (see ``schema.md``). These code graders are
 preferred over any model-graded path because they are fast, objective,
 reproducible and cheat-resistant (README section 3). The single model-graded
-path, ``llm_judge``, is a deliberate stub that must be wired blind, ordinal, and
-against a *different* grader model before use.
+path, ``llm_judge``, is a pure parser of a *different* grader model's verdict,
+wired blind and ordinal by the runner (``run.py --judge-fallback`` + ``judge.py``).
 """
 
 from __future__ import annotations
@@ -30,7 +30,7 @@ _NUM_RE = re.compile(r"[-+]?(?:\d[\d,]*\.?\d*|\.\d+)(?:[eE][-+]?\d+)?")
 # A "bare number" keyword (for the digit-boundary guard below).
 _BARE_NUM_RE = re.compile(r"[-+]?\d+(?:\.\d+)?")
 
-# "times ten to the power" written as a x 10^b / a*10^b / a.10^b, and a bare
+# "times ten to the power" written as a x 10^b / a*10^b / a·10^b, and a bare
 # 10^b (implicit mantissa 1). Rewritten to e-notation BEFORE number parsing --
 # models routinely answer extreme magnitudes this way, and a raw regex reads
 # "1x10^67" as the three numbers 1, 10, 67 (a live-review bug that flipped a cell).
@@ -69,10 +69,11 @@ def _result(passed, score, detail):
 
 
 def _normalize(s):
-    """Lowercase, strip markdown emphasis (* and `), collapse whitespace.
+    """Lowercase, strip markdown emphasis (*, __ and `), collapse whitespace.
     Shared by string graders -- **bold** phrasing must not break keyword
-    matching (live Phase-2 finding)."""
-    return " ".join(str(s).replace("*", "").replace("`", "").split()).lower()
+    matching (live Phase-2 finding; __bold__ is the same failure via the
+    underscore syntax -- single underscores are kept: identifiers use them)."""
+    return " ".join(str(s).replace("*", "").replace("__", "").replace("`", "").split()).lower()
 
 
 def _contains(o_norm, keyword):
@@ -85,8 +86,9 @@ def _contains(o_norm, keyword):
       that side, so "eve" does not match inside "every" nor "dan" inside
       "redundant" (live review finding: bare substrings false-failed correct
       answers containing innocent English).
-    * A keyword ending in a digit additionally refuses a following digit, so
-      "rows=5" does not match inside "rows=57".
+    * A keyword ending in a digit additionally refuses a following digit or a
+      value-changing decimal extension, so "rows=5" matches neither "rows=57"
+      nor "rows=5.2" (a trailing ".0" is value-preserving and still matches).
     """
     k = _normalize(keyword)
     if not k:
@@ -96,13 +98,18 @@ def _contains(o_norm, keyword):
         # match the fractional '0' inside "100.0" (the integer-only lookbehind let
         # an incomplete "water boils at 100.0" satisfy the freezing-point "0"),
         # while "100" still matches "100.0" (same value). Guard the LEADING side
-        # with [\d.]; a trailing guard here would wrongly reject "100" in "100.0".
-        return re.search(r"(?<![\d.])" + re.escape(k) + r"(?!\d)", o_norm) is not None
+        # with [\d.]; the TRAILING side is guarded value-aware: a following
+        # ".<nonzero>" changes the value ("0" must not match "0.5") but a
+        # trailing ".0" does not ("100" still matches "100.0").
+        return re.search(r"(?<![\d.])" + re.escape(k) + r"(?!\d)(?!\.\d*[1-9])",
+                         o_norm) is not None
     pat = re.escape(k)
     if re.match(r"\w", k):
         pat = r"\b" + pat
     if re.search(r"\w$", k):
-        pat = pat + (r"(?!\d)" if k[-1].isdigit() else r"\b")
+        # same value-aware trailing guard: "rows=5" matches neither "rows=57"
+        # nor "rows=5.2", but still matches "rows=5.0"
+        pat = pat + (r"(?!\d)(?!\.\d*[1-9])" if k[-1].isdigit() else r"\b")
     return re.search(pat, o_norm) is not None
 
 
@@ -285,6 +292,8 @@ def all_of(output, graders, **_):
 
 def llm_judge(output, judge_response=None, rubric=None, grader_model=None,
               scale_max=4, threshold=3, **_):
+    # rubric / grader_model are accepted for task-schema compatibility; the
+    # judge prompt and model live in judge.py -- they are unused here.
     """Deterministic PARSER of a different-model judge's verdict (the lenient
     fallback grader). It is PURE: it never calls a model. The model call lives in
     ``judge.py`` and is wired by the runner (``run.py --judge-fallback``); this

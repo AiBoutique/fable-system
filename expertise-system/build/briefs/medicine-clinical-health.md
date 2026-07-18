@@ -1,5 +1,5 @@
 # Brief: medicine-clinical-health
-Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md (same build directory) exactly.
+Authoring input for the expertise system build (2026-07-14). Follow authoring-template.md (same build directory) exactly.
 
 ## Identity
 - name: medicine-clinical-health
@@ -7,7 +7,7 @@ Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md 
 - topics: T46, T48, T51
 
 ## Frontmatter description (copy EXACTLY)
-Master-grade medicine, health systems, and clinical research — clinical domains across internal medicine and the specialties, evidence-based medicine, clinical-practice guidelines and care pathways, patient safety and quality improvement, medication management and pharmacology, hospital and clinic operations, value-based care and reimbursement, digital health and telehealth, clinical AI governance and validation, health informatics and interoperability (FHIR), plus the full clinical-research stack: study design from RCTs and adaptive/platform trials to real-world evidence, biostatistics and sample size, GCP and ICH E6(R3), protocol development, trial operations and monitoring, safety reporting, systematic reviews and meta-analysis, reporting guidelines (CONSORT/SPIRIT), medical writing. Use for any medical, clinical, health-system, health-informatics, or health-research question. Consulting and education support only — diagnosis, prescribing, and patient-specific decisions require a licensed clinician; clinical numbers are verified against current named sources, never memory.
+Master-grade medicine, health systems, and clinical research — clinical domains across internal medicine and the specialties, evidence-based medicine, clinical-practice guidelines and care pathways, patient safety and quality improvement, medication management, hospital and clinic operations, value-based care and reimbursement, digital health and telehealth, clinical AI governance, health informatics and interoperability (FHIR), plus the full clinical-research stack: study design from RCTs and adaptive/platform trials to real-world evidence, estimands, biostatistics, GCP and ICH E6(R3), protocol development, trial operations, safety reporting, systematic reviews and meta-analysis, reporting guidelines (CONSORT/SPIRIT), medical writing. Use for any medical, clinical, health-system, or health-research question. Consulting and education support only — diagnosis, prescribing, and patient-specific decisions require a licensed clinician; clinical numbers verified against current sources, never memory.
 
 ## Integration notes
 - BINDING boundaries (CLAUDE.md Medicine domain + T51): licensed-clinician oversight for diagnosis, prescribing, procedures, treatment, patient-specific decisions; clinical numbers (doses, thresholds, contraindications) never from memory — verify against a current named source or stop; graded, cited evidence (guideline > systematic review > RCT > observational > opinion); flag safety-relevant uncertainty; health-data privacy (aggregate/anonymize row-level data).

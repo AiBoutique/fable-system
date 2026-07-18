@@ -67,4 +67,4 @@ Four items were greenlit and built this session (see CHANGELOG):
 - **Open:** in-domain interval-calibration transfer; conformal without a calibration set; concrete OpenAI/xAI API deltas; Claude Code plugin/Agent SDK specifics (not swept this pass).
 
 ### Sources (primary, dated)
-arXiv:2506.07142 · 2512.22966 · 2604.15859 · 2510.26995 · 2603.09309 · 2510.24505 · 2509.18658 · 2511.00751 · 2503.24370 · 2303.08896 · 2412.12767 · 2606.24839 · 2405.16281 · 2311.04850 · 2507.02825 · Anthropic models overview (fetched 2026-07-16).
+arXiv:2506.07142 · 2512.22966 · 2604.15859 · 2510.26995 · 2603.09309 · 2510.24505 · 2509.18658 · 2511.00751 · 2503.24370 · 2303.08896 · 2606.24839 · 2405.16281 · 2311.04850 · 2507.02825 · Anthropic models overview (fetched 2026-07-16).

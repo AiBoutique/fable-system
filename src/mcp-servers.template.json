@@ -1,4 +1,4 @@
 {
-  "_comment": "User-scope MCP servers to register at install time. Populate from your own machine with: node tools\\export-mcp-template.js %USERPROFILE%\\.claude.json mcp-servers.template.json (secrets are redacted to <<SET-ME>>, home paths tokenized to <<HOME>>). Ships empty in the public kit.",
+  "_comment": "User-scope MCP servers to register at install time. Populate from your own machine with (PowerShell): node tools\\export-mcp-template.js \"$env:USERPROFILE\\.claude.json\" mcp-servers.template.json  --  the cmd-style %USERPROFILE% form expands only in cmd.exe, and quoting matters because the profile path can contain spaces (secrets are redacted to <<SET-ME>>, home paths tokenized to <<HOME>>). Ships empty in the public kit.",
   "mcpServers": {}
 }

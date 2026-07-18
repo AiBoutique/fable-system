@@ -34,6 +34,16 @@ foreach ($s in $domainSkills + @('expertise-atlas')) {
   if ($lines[0] -ne '---') { $issues += 'frontmatter: missing opening ---' }
   if ($lines[1] -ne "name: $s") { $issues += "frontmatter: name line is '$($lines[1])' (expected 'name: $s')" }
   if (-not ($lines[2] -like 'description: *')) { $issues += 'frontmatter: description line missing/misplaced' }
+  else {
+    # the platform caps description at 1024 chars: over it is a hard validation failure on
+    # API / claude.ai upload, even though Claude Code loads the skill anyway (so nothing
+    # else in this repo would notice). Measure the PARSED value, not the raw YAML line.
+    $desc = $lines[2].Substring(12).Trim()
+    if ($desc.StartsWith('"') -and $desc.EndsWith('"') -and $desc.Length -ge 2) {
+      $desc = $desc.Substring(1, $desc.Length - 2).Replace('\"', '"')
+    }
+    if ($desc.Length -gt 1024) { $issues += "frontmatter: description is $($desc.Length) chars, over the platform's 1024 cap" }
+  }
   if ($lines[3] -ne '---') { $issues += 'frontmatter: not closed at line 4' }
   if ($s -in $domainSkills) {
     $cov = Join-Path $dir 'references\coverage.md'
@@ -44,6 +54,9 @@ foreach ($s in $domainSkills + @('expertise-atlas')) {
       if ($idx -lt 0) { $issues += "section missing: $sec" }
       elseif ($idx -lt $pos) { $issues += "section out of order: $sec" }
       else { $pos = $idx }
+      # IndexOf finds only the FIRST occurrence, so a heading repeated later in the file
+      # would otherwise pass the order check unseen
+      if (([regex]::Matches($raw, [regex]::Escape("`n$sec"))).Count -gt 1) { $issues += "section duplicated: $sec" }
     }
     $n = $lines.Count
     if ($n -lt 150 -or $n -gt 280) { $issues += "SKILL.md length $n outside 150-280" }
@@ -56,5 +69,15 @@ foreach ($s in $domainSkills + @('expertise-atlas')) {
   }
   if ($issues.Count -eq 0) { Write-Output "[$s] OK ($($lines.Count) lines)" }
   else { $fail++; Write-Output "[$s] FAIL"; $issues | ForEach-Object { Write-Output "  - $_" } }
+}
+# The skill list above is hardcoded; a skill added to disk but not to it would be linted by
+# nobody. Flag any unknown directory rather than silently skipping it.
+$known = $domainSkills + @('expertise-atlas')
+if (Test-Path $SkillsRoot) {
+  foreach ($d in (Get-ChildItem -LiteralPath $SkillsRoot -Directory)) {
+    if ($d.Name -notin $known -and (Test-Path (Join-Path $d.FullName 'SKILL.md'))) {
+      $fail++; Write-Output "[$($d.Name)] FAIL skill directory not in this script's list - add it so it gets linted"
+    }
+  }
 }
 Write-Output $(if ($fail -eq 0) { 'RESULT: ALL PASS' } else { "RESULT: $fail skill(s) failing" })

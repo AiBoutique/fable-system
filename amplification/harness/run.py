@@ -257,7 +257,9 @@ def main(argv=None):
                    help="ACTUALLY invoke the model adapter (Phase 1+, spends budget)")
     p.add_argument("--judge-fallback", default=None, metavar="MODEL",
                    help="a DIFFERENT model id to lenient-judge cells a code grader "
-                        "FAILED (blind, ordinal; spends budget; must differ from --model)")
+                        "FAILED (blind, ordinal; spends budget; must differ from --model; "
+                        "routed via the claude CLI adapter, so it must be a "
+                        "claude-CLI-reachable id)")
     p.add_argument("--adapter-json", default=None, metavar="JSON",
                    help="JSON object merged into every adapter spec, e.g. "
                         "'{\"name\":\"openai\",\"base_url\":\"http://localhost:11434/v1\","

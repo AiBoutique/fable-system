@@ -45,7 +45,12 @@ const AUTH_META = /(mode|type|method|scheme|flow)$/i;
 const ENV_FLAG = /^--?e(nv)?$/;
 const ENV_NAME = /^[A-Za-z_][A-Za-z0-9_]*$/;
 const JWT = /eyJ[A-Za-z0-9_-]{4,}\.[A-Za-z0-9_-]{4,}(\.[A-Za-z0-9_-]{4,})?/;
-const KEY_PREFIX = /\b(sk|rk|pk)[-_][A-Za-z0-9_-]{8,}|\bgh[pousr]_[A-Za-z0-9]{8,}|\bxox[a-z]-[A-Za-z0-9-]{8,}|\b(AKIA|ASIA)[A-Z0-9]{8,}/;
+// Google classes (AIza..., ya29....) are matched here rather than left to
+// BARE_TOKEN: BARE_TOKEN is whole-arg anchored, so a ya29 token (its '.' breaks
+// the charset) and either class embedded in a URL path or compound arg leaked
+// through - all three reproduced by execution, 2026-07-18. The refresh-kit scrub
+// gate names both classes, so the exporter must cover them.
+const KEY_PREFIX = /\b(sk|rk|pk)[-_][A-Za-z0-9_-]{8,}|\bgh[pousr]_[A-Za-z0-9]{8,}|\bxox[a-z]-[A-Za-z0-9-]{8,}|\b(AKIA|ASIA)[A-Z0-9]{8,}|\bAIza[A-Za-z0-9_-]{8,}|\bya29\.[A-Za-z0-9._-]{8,}/;
 const QUERY_SECRET = /[?&][^=&\s]*(key|token|secret|password|auth)[^=&\s]*=/i;
 // A credential field inside a ;-delimited connection string. Two shapes, both
 // requiring the cred word to sit immediately before '=' (so "design=grid",

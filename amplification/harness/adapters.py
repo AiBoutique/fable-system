@@ -380,4 +380,8 @@ def run(adapter, system_core, task_prompt, tools=None):
     result = fn(spec, system_core, task_prompt, tools)
     if not isinstance(result, dict) or "output" not in result or "meta" not in result:
         raise ValueError("adapter must return a dict with 'output' and 'meta'")
+    if tools is not None:
+        # "recorded, not enforced" (schema.md): the run-log keeps the requested
+        # tool list even though Phase 0 adapters do not act on it
+        result["meta"].setdefault("tools", tools)
     return result

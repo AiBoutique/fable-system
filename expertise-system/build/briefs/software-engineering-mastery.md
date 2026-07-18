@@ -1,5 +1,5 @@
 # Brief: software-engineering-mastery
-Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md (same build directory) exactly.
+Authoring input for the expertise system build (2026-07-14). Follow authoring-template.md (same build directory) exactly.
 
 ## Identity
 - name: software-engineering-mastery
@@ -7,7 +7,7 @@ Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md 
 - topics: T63
 
 ## Frontmatter description (copy EXACTLY)
-Master-grade software, AI engineering, and DevSecOps — computational thinking, algorithms and data structures, complexity analysis, the major languages (Python, TypeScript/JavaScript, Java, C/C++, C#, Go, Rust, SQL, shell, and more) and paradigms, software architecture (microservices, event-driven, DDD, clean/hexagonal, modular monoliths), API design (REST, GraphQL, gRPC), databases and schema design, data engineering and pipelines, frontend/backend/mobile/embedded, cloud-native and Kubernetes, infrastructure as code and GitOps, CI/CD and release engineering, platform engineering, testing at every level (TDD, property-based, contract, fuzz, chaos, mutation), debugging and observability (OpenTelemetry), performance optimization, reliability and SRE, secure coding and software-supply-chain security (SBOM, SLSA, SSDF), AI engineering (RAG, agents, MCP servers and clients, structured outputs, evals, LLMOps), legacy modernization and migration, code review, technical due diligence and codebase health. Use for designing, writing, reviewing, debugging, securing, testing, and shipping software and AI systems, and for engineering-organization questions.
+Master-grade software, AI engineering, and DevSecOps — computational thinking, algorithms and data structures, complexity analysis, the major languages (Python, TypeScript/JavaScript, Java, C/C++, C#, Go, Rust, SQL, shell) and paradigms, requirements and specification, software architecture (microservices, event-driven, DDD, clean/hexagonal, modular monoliths), API design (REST, GraphQL, gRPC), databases and schema design, data engineering, frontend/backend/mobile/embedded, cloud-native and Kubernetes, infrastructure as code and GitOps, CI/CD and release engineering, platform engineering, testing at every level (TDD, property-based, contract, fuzz, chaos, mutation), debugging and observability, performance, reliability and SRE, secure coding and supply-chain security (SBOM, SLSA, SSDF), AI engineering (RAG, agents, MCP, evals, LLMOps), legacy modernization, code review. Use for designing, writing, reviewing, debugging, securing, testing, and shipping software and AI systems.
 
 ## Integration notes
 - This skill layers domain judgment on top of the coding discipline already in CLAUDE.md/fable-mode (loop, verification ladder, smallest-diff, attempt caps) — reference, never restate mechanics.

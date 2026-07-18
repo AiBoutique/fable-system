@@ -1,6 +1,6 @@
 ---
 name: medicine-clinical-health
-description: "Master-grade medicine, health systems, and clinical research — clinical domains across internal medicine and the specialties, evidence-based medicine, clinical-practice guidelines and care pathways, patient safety and quality improvement, medication management and pharmacology, hospital and clinic operations, value-based care and reimbursement, digital health and telehealth, clinical AI governance and validation, health informatics and interoperability (FHIR), plus the full clinical-research stack: study design from RCTs and adaptive/platform trials to real-world evidence, biostatistics and sample size, GCP and ICH E6(R3), protocol development, trial operations and monitoring, safety reporting, systematic reviews and meta-analysis, reporting guidelines (CONSORT/SPIRIT), medical writing. Use for any medical, clinical, health-system, health-informatics, or health-research question. Consulting and education support only — diagnosis, prescribing, and patient-specific decisions require a licensed clinician; clinical numbers are verified against current named sources, never memory."
+description: "Master-grade medicine, health systems, and clinical research — clinical domains across internal medicine and the specialties, evidence-based medicine, clinical-practice guidelines and care pathways, patient safety and quality improvement, medication management, hospital and clinic operations, value-based care and reimbursement, digital health and telehealth, clinical AI governance, health informatics and interoperability (FHIR), plus the full clinical-research stack: study design from RCTs and adaptive/platform trials to real-world evidence, estimands, biostatistics, GCP and ICH E6(R3), protocol development, trial operations, safety reporting, systematic reviews and meta-analysis, reporting guidelines (CONSORT/SPIRIT), medical writing. Use for any medical, clinical, health-system, or health-research question. Consulting and education support only — diagnosis, prescribing, and patient-specific decisions require a licensed clinician; clinical numbers verified against current sources, never memory."
 ---
 
 # Medicine, Clinical Healthcare, Health Systems & Health Research (+ Clinical-AI Safeguards) — master-grade operating core
@@ -64,7 +64,7 @@ Each playbook runs the Loop for its shape; the global rules and the Non-negotiab
 - Traps a master never commits: citing a superseded edition; equating a small p-value with clinical importance; quoting relative risk reduction while hiding a tiny absolute benefit; treating a surrogate endpoint as an outcome; single-trial enthusiasm before replication; abstract spin; extrapolating to a patient the trial explicitly excluded.
 
 **Clinical-operations analysis.**
-- Sequence: treat flow as a system — find the binding constraint (ED boarding, OR turnover, discharge timing, imaging queue), measure it, and relieve it before adding capacity (theory of constraints; Little's Law, WIP = throughput × cycle time, for beds and queues).
+- Sequence: treat flow as a system — find the binding constraint (ED boarding, OR turnover, discharge timing, imaging queue), measure it, and relieve it before adding capacity (theory of constraints; Little's Law, WIP = throughput × flow time (time in system), for beds and queues).
 - Metrics: length of stay, occupancy (queues grow non-linearly past ~85% — confirm the local target), OR utilization, left-without-being-seen, 30-day readmission, and time-critical bundles (door-to-needle, door-to-balloon).
 - Method: improve with the Model for Improvement (PDSA cycles), Lean, or Six Sigma; use run charts and SPC control charts to separate common-cause from special-cause variation before reacting.
 - Outputs: the named constraint, its measured impact, the intervention, and the metric that will confirm it worked.
@@ -97,9 +97,9 @@ Each playbook runs the Loop for its shape; the global rules and the Non-negotiab
 - Outputs: a risk-proportionate monitoring plan naming the critical data and processes, the CtQ factors, and the source-data-review sampling — not blanket 100% SDV.
 
 **Clinical-research stack — biostatistics discipline.**
-- Pre-specify primary endpoint, analysis population (ITT vs per-protocol), and the SAP before unblinding; compute sample size/power via tool (state alpha, power, effect size, expected dropout — never recall a number).
+- Pre-specify the estimand per ICH E9(R1) — population, treatment condition, variable, population-level summary, and the strategy for each intercurrent event — then the primary endpoint, analysis population (ITT vs per-protocol), and the SAP before unblinding; compute sample size/power via tool (state alpha, power, effect size, expected dropout — never recall a number).
 - Control multiplicity across endpoints, subgroups, and interim analyses (alpha spending); handle missing data principled-ly (multiple imputation or MMRM; LOCF hides informative dropout); apply survival, longitudinal, and repeated-measures methods to their assumptions; use Bayesian and causal-inference methods where the design supports them.
-- Outputs: a pre-specified SAP — endpoint, analysis population, model, multiplicity handling, and missing-data strategy — with the powered sample size and its assumptions.
+- Outputs: a pre-specified SAP — estimand, endpoint, analysis population, model, multiplicity handling, and missing-data strategy — with the powered sample size and its assumptions.
 - Traps: no registered SAP (HARKing, p-hacking); per-protocol as the primary analysis; changing the primary endpoint after seeing data; an underpowered subgroup declared positive.
 
 **Clinical-research stack — synthesis and reporting.**

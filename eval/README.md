@@ -60,7 +60,12 @@ caps. **Never include GROUND-TRUTH.md in the copy an executor sees** — it is t
 sheet. (The README.md files inside s2/s3/s5 are part of the fixture, not documentation.)
 s7's `report.md` is a second answer sheet — its meta-wrapper lists all five frauds — so
 staging removes it too and workflow.js delivers the lying report inline in the s7 task
-prompt. Upstream's reference judge transcripts for s7/s8 are copied to `results/`.
+prompt. (Upstream's own flow hands `report.md` to the assessor, as s7's GROUND-TRUTH.md
+still describes; this harness deliberately diverges — the fixture is adopted unchanged,
+so the difference lives here rather than in the fixture.) Upstream's reference judge
+transcripts for s7/s8 are copied to `results/` as `round8-fable-judge-transfer.json` and
+`round9b-marketing-adapter-isolated.json` — upstream round numbers, outside this repo's
+local `round<N>-` sequence.
 
 ## Running it
 
@@ -68,6 +73,8 @@ prompt. Upstream's reference judge transcripts for s7/s8 are copied to `results/
 
 ```powershell
 $base = "$env:TEMP\fable-eval"; $seeds = 1   # $seeds must match args.seeds passed to workflow.js
+# Mixed-seed rounds (e.g. Round 2's 3 seeds on s2/s4/s6, 1 elsewhere) stage and invoke once
+# per subset, passing args.scenarios to scope each invocation.
 Remove-Item $base -Recurse -Force -ErrorAction SilentlyContinue
 foreach ($s in Get-ChildItem ".\eval\scenarios" -Directory) {   # run from the repo root
   Copy-Item $s.FullName "$base\pristine\$($s.Name)" -Recurse

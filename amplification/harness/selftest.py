@@ -6,8 +6,9 @@ ships with a known-pass and a known-fail exemplar -- then:
 
   * exercises EVERY grader with a known-good (passes) and known-bad (fails) input;
   * grades the mock task outputs and checks A1 beats A0 per task;
-  * checks the adapter dry-run path returns a placeholder (no budget) and that the
-    grok/openai/llm_judge stubs raise NotImplementedError;
+  * checks the adapter dry-run path returns a placeholder (no budget), that the
+    grok/openai adapters raise RuntimeError without a key/model, and that
+    llm_judge raises NotImplementedError without an injected judge_response;
   * feeds a synthetic run-log to score.py's aggregator and asserts lift > 0, that
     gap is computed when R is present, and that the report renders.
 

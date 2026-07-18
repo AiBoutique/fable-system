@@ -5,9 +5,14 @@ param(
 )
 # Audits: every verbatim term in each brief's "## Topic N" lists must appear (case-insensitive,
 # whitespace-collapsed substring) in the owning skill's references\coverage.md.
+# Scope: the check is ONE-directional by design (briefs -> coverage.md). Extra content in a
+# coverage.md is never flagged, and a term is satisfied by any substring match, so a term that
+# happens to sit inside a longer unrelated phrase passes.
 $fail = 0
 foreach ($bf in Get-ChildItem $BriefDir -File | Sort-Object Name) {
   $nameMatch = Select-String -Path $bf.FullName -Pattern '^- name: (.+)$'
+  # a brief missing its name line must FAIL cleanly, not crash the whole run on a null index
+  if (-not $nameMatch) { Write-Output "[$($bf.Name)] FAIL no '- name:' line in brief"; $fail++; continue }
   $name = $nameMatch.Matches[0].Groups[1].Value.Trim()
   if ($Only -and $name -notin $Only) { continue }
   $covPath = Join-Path $SkillsRoot "$name\references\coverage.md"

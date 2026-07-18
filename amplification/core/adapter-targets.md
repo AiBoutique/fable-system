@@ -1,6 +1,6 @@
 # Portability adapter targets — verified API surfaces (as of 2026-07-16)
 
-The concrete API facts the swappable platform adapters (`harness/adapters.py`)
+The concrete API facts the swappable platform adapters (`../harness/adapters.py`)
 target, so a live cross-model run is a one-command step once keys exist. Model
 IDs churn fast (the research pass saw GPT-5.4→5.5 and Grok 4→4.3 within weeks), so
 **adapters take the model ID explicitly** (`{"model": ...}` in the spec) — the IDs

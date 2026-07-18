@@ -52,7 +52,7 @@ Verbatim subskill registry for this domain. Source: user expertise specification
 - government; defense and security; nonprofit organizations; foundations; humanitarian organizations
 
 ### Tech verticals
-- climate technology; financial technology; educational technology; regulatory technology; property technology; agricultural technology; industrial technology
+- climate technology; financial technology; health technology; educational technology; regulatory technology; property technology; agricultural technology; industrial technology
 
 ### The sector lens (the analysis pattern applied to every sector above)
 - understanding each sector's economics, regulation, value chain, technologies, operating model, customers, competitors, data, AI applications, workforce, risks and emerging trends

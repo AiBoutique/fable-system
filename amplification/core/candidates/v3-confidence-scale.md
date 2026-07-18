@@ -9,7 +9,7 @@ first measured positive core delta. Adopted verbatim (the exact tested text) int
 all three core carriers: `src/claude-home/CLAUDE.md`, the live `~/.claude/CLAUDE.md`
 (lockstep, drift-gate green), and `portable-core.md`; the adopted kit CLAUDE.md is
 content-identical (EOL-normalized) to the A/B's winning-arm artifact, verified by
-hash. NOTE: `FableSetup.exe` is now stale vs src — next `/refresh-kit` rebuilds it.
+hash. NOTE: `FableSetup.exe` is now stale vs src — next `/refresh-kit` rebuilds it. (Resolved: the r29 refresh rebuilt and end-to-end verified the exe, 2026-07-17 — see `build-receipts.jsonl`.)
 
 *(Stage-1 record below, kept verbatim for the audit trail.)*
 
@@ -64,7 +64,8 @@ also recommends reporting **meta-d′ alongside ECE** (ECE is unreliable under h
 round-number discretization) and inspecting the empirical confidence distribution.
 
 Our Phase-2 evidence: Opus 4.8's 90% intervals missed the code-verified truth in
-8/9 runs across conditions; the full 43 KB core added **zero** calibration lift
+8/9 runs across conditions (the 9 pooled: 3 Phase-2 condition-cells + 3 v1 runs
+of which 2 missed + 3 v2 A/B runs, all missed); the full 43 KB core added **zero** calibration lift
 (A0 = A1 = 0.750 on the calibration dimension). The v2 addendum (a widen-your-interval
 instruction) was rejected 0/3 vs 1/3. This candidate changes the *elicitation scale*
 rather than exhorting wider bounds.

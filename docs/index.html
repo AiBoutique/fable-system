@@ -198,7 +198,7 @@
     <p class="eyebrow">Operating discipline · measured, not claimed</p>
     <h1>The Fable System</h1>
     <p class="lede">A portable operating discipline for an AI coding agent — plus the machinery to install it, enforce it, extend it into 63 specialist domains, and <strong>measure whether it actually helps.</strong> Every performance figure below is re-derived from run logs and carries its sample size. Where the honest answer is “no measurable lift,” it says so.</p>
-    <p style="opacity:.55;font-size:.82em;margin:.4em 0 0">Kit r29 · as of 2026-07-17.</p>
+    <p style="opacity:.55;font-size:.82em;margin:.4em 0 0">Kit r30 · as of 2026-07-18.</p>
   </div>
 
   <!-- AT A GLANCE -->
@@ -265,8 +265,8 @@
       <div class="feat"><div class="name">Domain expertise <small>fable-expertise plugin</small></div><div class="what"><b>24 master-practitioner skills + an atlas router</b> spanning 63 professional &amp; scientific domains, each with an audited verbatim-term coverage file. Installs as a plugin; skills namespace as <code>fable-expertise:&lt;name&gt;</code> and auto-trigger by description.</div></div>
       <div class="feat"><div class="name">Enforcement hooks <small>settings.json · ×3</small></div><div class="what">A SessionStart standing order, a prompt classifier that flags high-risk / multi-step work, and a subagent verify-order injection — the deterministic layer that fires the discipline without relying on the model to remember.</div></div>
       <div class="feat"><div class="name">Eval harness <small>amplification/harness/</small></div><div class="what">The measurement contract made runnable: code-derived task truths, deterministic graders on <b>separate V / S / A axes</b>, A0/A1/R conditions, loud infra-failure exclusion, and a 280-assertion self-test. Every figure on this page came from here.</div></div>
-      <div class="feat"><div class="name">Regression gate <small>biweekly · 6 rungs</small></div><div class="what">Six zero-budget checks — self-test, answer provenance, config-drift, non-negotiable lint, currency baseline, prompt-echo contamination — that catch drift between runs.</div></div>
-      <div class="feat"><div class="name">Cross-model adapters <small>Claude · Grok · OpenAI</small></div><div class="what">Claude (live-proven) plus Grok / OpenAI (dry-run-verified) behind one interface, so the portable core can be measured on other models when keys are supplied.</div></div>
+      <div class="feat"><div class="name">Regression gate <small>1st + 15th · 6 rungs</small></div><div class="what">Six zero-budget checks — self-test, answer provenance, config-drift, non-negotiable lint, currency baseline, prompt-echo contamination — that catch drift between runs.</div></div>
+      <div class="feat"><div class="name">Cross-model adapters <small>Claude · Grok · OpenAI</small></div><div class="what">Claude (live-proven) plus Grok / OpenAI (dry-run-verified) behind one interface, so the portable core can be measured on other models when keys are supplied (local OpenAI-compatible endpoints run keyless).</div></div>
       <div class="feat"><div class="name">Self-verifying installer <small>FableSetup.exe</small></div><div class="what">One-click Windows install with a SHA-256 integrity gate, backup-then-merge (never clobbers foreign config), previous-version cleanup via an install ledger (stale old-kit files removed and backed up; your edits kept), and a 157-assertion install self-test.</div></div>
     </div>
   </section>
@@ -321,7 +321,7 @@
       <div class="note good"><strong>0 regressions, 0 infra-exclusions.</strong> 16 of 18 cells identical across arms; 2 cells rose but at N=1 both are run-to-run noise <em>not</em> attributable to a calibration rule (one is the known contaminated cell, one a base-arm miscount on an injection task the rule cannot mechanistically affect). The raw mean shift (0.91 → 0.97) is <em>those two noisy cells</em> — reported here as “no regressions,” never as a percentage gain.</div>
 
       <h3>Efficiency</h3>
-      <p><strong>The portable core reaches the full core’s benchmark behavior at ~28% of the size</strong> (≈12&nbsp;KB vs ≈43&nbsp;KB). It measured <b>0.965</b> on the 18-task suite — equal to the full core once the single contaminated cell is excluded (the full core’s raw 0.972 <em>is</em> that cell). You get the discipline’s measured effect at roughly a quarter of the token cost, in a model-agnostic form.</p>
+      <p><strong>The portable core reaches the full core’s benchmark behavior at ~28% of the size</strong> (≈12.8&nbsp;KB vs ≈46&nbsp;KB today; the measurement was taken when the full core was ≈43&nbsp;KB). It measured <b>0.965</b> on the 18-task suite — equal to the full core once the single contaminated cell is excluded (the full core’s raw 0.972 <em>is</em> that cell). You get the discipline’s measured effect at roughly a quarter of the token cost, in a model-agnostic form.</p>
     </div>
   </section>
 
@@ -359,7 +359,7 @@
         <li>Every code-checkable task truth is re-derived by an independent solver (<code>verify_answers.py</code>, <b>33 facts, 0 failures</b>).</li>
         <li>Graders are deterministic and report <b>V</b> (validity / pass-rate), <b>S</b> (stability across repeated runs), and <b>A</b> (agreement with the reference) as <em>separate</em> axes — agreement is never optimized alone.</li>
         <li>Infra failures are excluded loudly as <code>score: None</code>, never scored as zeros.</li>
-        <li>A <b>280-assertion</b> self-test and a <b>6-rung</b> biweekly regression gate guard the machinery itself.</li>
+        <li>A <b>280-assertion</b> self-test and a <b>6-rung</b> twice-monthly regression gate guard the machinery itself.</li>
         <li><b>N is small (often N=1/cell) and always declared</b>; single runs are not presented as variance-characterized results.</li>
       </ul>
       <p class="small muted">Any external research percentages that appear in the project’s advancement dossier are directional context about the underlying techniques, drawn from third-party literature — not measured claims about this system.</p>
@@ -385,7 +385,7 @@
     <div class="col">
       <p class="kicker">07 — The rules earn their keep</p>
       <h2>No rule change ships without evidence</h2>
-      <p>A trap-suite regression harness (8 adversarial fixtures, adopted unchanged under MIT from <a href="https://github.com/Sahir619/fable-method">Sahir619/fable-method</a>) must pass at its prior level — or a new failing trap lands first. The installer ships with its own 157-assertion harness, run on every rebuild; results are logged in the changelog and results file, nulls and failures included.</p>
+      <p>A trap-suite regression harness (8 adversarial fixtures, adopted unchanged under MIT from <a href="https://github.com/Sahir619/fable-method">Sahir619/fable-method</a>) must pass at its prior level — or a new failing trap lands first. The installer ships with its own separate 157-assertion harness (its totals live in the changelog and build receipts; the trap rounds live in the results file), run on every rebuild; results are logged in the changelog and results file, nulls and failures included.</p>
     </div>
   </section>
 
@@ -407,8 +407,8 @@ pwsh -File src\tools\build-exe.ps1                 # -> FableSetup.exe</code></p
       <p class="kicker">09 — Publishing</p>
       <h2>When you finalize</h2>
       <ol class="steps">
-        <li><b>Fresh history first.</b> Re-init or orphan-root the repo so only the current, scrubbed tree ships — existing local history contains pre-scrub content and author identity and must never be pushed.</li>
-        <li><b>Choose a license</b> (MIT-compatible; the bundled eval fixtures require it) and add the file.</li>
+        <li><b>History: already re-rooted.</b> <code>master</code> carries a single scrubbed root commit under a neutral identity with UTC-only timestamps (r28, re-dated r29). The pre-scrub development history survives only in the local <code>archive/pre-publish-history</code> branch — never push it. A local <code>pre-push</code> hook refuses every destination except <code>refs/heads/master</code>, and refuses any push whose source is not the local master tip; git hooks never travel with clones, so re-create the guard in any secondary clone.</li>
+        <li><b>License: MIT, already in the tree</b> (<code>LICENSE</code>, under a neutral "Fable System authors" holder — put your public name on the copyright line if you want attribution). The bundled eval fixtures keep their upstream MIT terms.</li>
         <li><b>Attach FableSetup.exe to a GitHub Release</b> — the binary is untracked by design.</li>
         <li><b>Push under the identity you intend to be public</b> for the new history.</li>
       </ol>

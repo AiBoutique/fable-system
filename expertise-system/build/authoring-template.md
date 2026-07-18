@@ -3,7 +3,7 @@
 Every domain skill is one directory under `~\.claude\skills\`: `SKILL.md` (the operating core, loaded on invocation) + `references\coverage.md` (full verbatim subskill map, read on demand). House voice = fable-mode: dense, imperative, evidence-first, zero filler. Everything must be publishable-clean: no usernames, no machine paths, no personal data, no client names.
 
 ## Hard requirements
-1. Frontmatter: exactly two fields — `name:` (equals the directory name) and `description:` (copied VERBATIM from the brief).
+1. Frontmatter: exactly two fields — `name:` (equals the directory name, ≤64 chars, lowercase/digits/hyphens only) and `description:` (copied VERBATIM from the brief). Platform caps the description at **1024 characters** — a longer one is a hard validation failure on API/claude.ai upload even though Claude Code tolerates it, so keep the brief's description under the cap and let the body and `coverage.md` carry the long tail.
 2. SKILL.md length: 150–280 lines. coverage.md: unbounded.
 3. coverage.md preserves EVERY subskill term from the brief verbatim (identical wording; case-insensitive match is what the audit checks). You may reorganize into hierarchical clusters, add headers, dedupe EXACT duplicates across merged topics (keep one instance), and append clarifying annotations in parentheses — but never drop, rephrase, or translate a term. Keep each source topic as a top-level `## Topic N — <title>` section so audit maps briefs 1:1.
 4. No mistakes theater: never claim infallibility. The mastery stance is enforced by protocol (checks that catch errors before delivery), and the text must say so.

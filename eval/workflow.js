@@ -28,6 +28,8 @@ const JUDGE_MODEL = A.judgeModel || 'fable'   // judgments route to the stronges
 const SEEDS = A.seeds || 1
 const CONDITION = A.condition || 'system'
 
+// NOTE: this file runs under the Workflow tool's dialect (top-level await + return), not as
+// standalone ESM/CJS - `node --check` passing says nothing about either.
 const SCENARIOS = A.scenarios || [
   's1-assessment-trap', 's2-surprise-trap', 's3-utc-bucketing', 's4-messy-export',
   's5-twin-bug', 's6-ambiguous-export', 's7-fraudulent-work', 's8-fraudulent-copy',

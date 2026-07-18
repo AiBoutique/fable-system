@@ -29,14 +29,14 @@ After installing, open a new session and run the two-minute check in [src/RESTOR
 | [src/claude-home/scheduled-tasks/](src/claude-home/scheduled-tasks/fable-health-check/SKILL.md) | Monthly read-only health audit of the whole system. |
 | [src/install.ps1](src/install.ps1) + [src/tools/](src/tools/) | The installer: SHA-256 set-equality integrity gate, backup-then-merge (never clobbers foreign config), an install ledger with previous-version cleanup (stale old-kit files removed, backed up; user files kept), self-verification table, plus the build and export tools. |
 | [eval/](eval/README.md) | Trap-suite regression harness: 8 adversarial fixtures that test whether the rules actually change model behavior. |
-| [amplification/](amplification/README.md) | The measurement program behind the numbers in [`docs/OVERVIEW.md`](docs/OVERVIEW.md): the portable core, a code-graded eval harness, a biweekly regression gate, and cross-model adapters. Not part of the installed kit — the evidence layer that keeps it honest. |
+| [amplification/](amplification/README.md) | The measurement program behind the numbers in [`docs/OVERVIEW.md`](docs/OVERVIEW.md): the portable core, a code-graded eval harness, a twice-monthly regression gate, and cross-model adapters. Not part of the installed kit — the evidence layer that keeps it honest. |
 | [expertise-system/](expertise-system/README.md) | An optional domain layer: 24 master-practitioner skills + an `expertise-atlas` router over 63 professional & scientific domains, shipped as the `fable-expertise` Claude Code plugin. Installs alongside the kit, not inside `FableSetup.exe`. |
 
 The payload directory is named `claude-home\` (not `.claude\`) so cloning this repo never registers duplicate scoped skills in your own sessions; the installer maps it to `~\.claude\` at install time. One expected quirk: working in a session *under* `src\claude-home\` loads the payload CLAUDE.md as directory context — it is the same rulebook you would install.
 
 ## The rules earn their keep
 
-**No rule change ships without evidence.** The [eval/](eval/README.md) trap suite (fixtures adopted unchanged, MIT, from [Sahir619/fable-method](https://github.com/Sahir619/fable-method)) must pass at its prior level — or a new failing trap lands first. The installer ships with its own 157-assertion harness (`src\tools\run-selftest.ps1`), run on every rebuild; results are logged in [CHANGELOG.md](CHANGELOG.md) and [eval/RESULTS.md](eval/RESULTS.md), nulls and failures included.
+**No rule change ships without evidence.** The [eval/](eval/README.md) trap suite (fixtures adopted unchanged, MIT, from [Sahir619/fable-method](https://github.com/Sahir619/fable-method)) must pass at its prior level — or a new failing trap lands first. The installer ships with its own 157-assertion harness (`src\tools\run-selftest.ps1`), run on every rebuild; its totals are logged in [CHANGELOG.md](CHANGELOG.md) and [build-receipts.jsonl](build-receipts.jsonl), while the trap-suite rounds are logged in [eval/RESULTS.md](eval/RESULTS.md) — nulls and failures included.
 
 ## Build the exe yourself
 
@@ -50,10 +50,11 @@ The exe is a small C# stub (compiled with the .NET Framework `csc.exe` that ship
 
 ## Publishing (when you finalize)
 
-1. **History**: already re-rooted (r28; re-dated to UTC-only timestamps in r29, trees and messages byte-identical) — `master` carries a single scrubbed root commit under a neutral identity with no timezone signal. The pre-scrub development history survives only in the local `archive/pre-publish-history` branch: never push that branch, and never add it to any remote — a local `pre-push` hook refuses every ref except `master` (and any source other than the local master tip) as a backstop. Git hooks never travel with clones: re-create the guard in any secondary clone of this repo, or rely on push-only-master discipline there.
+1. **History**: already re-rooted (r28; re-dated to UTC-only timestamps in r29, trees and messages byte-identical) — `master` carries a single scrubbed root commit under a neutral identity with no timezone signal. The pre-scrub development history survives only in the local `archive/pre-publish-history` branch: never push that branch, and never add it to any remote — a local `pre-push` hook refuses every destination except `master`, and refuses any push whose source is not the local master tip, as a backstop. Git hooks never travel with clones: re-create the guard in any secondary clone of this repo, or rely on push-only-master discipline there.
 2. **License**: MIT, already in the tree ([LICENSE](LICENSE)) under a neutral "Fable System authors" holder — put your public name on the copyright line if you want attribution.
-3. **Attach `FableSetup.exe` to a GitHub Release** — the binary is untracked by design.
-4. Push under the identity you intend to be public (`git config user.name` / `user.email` for the new history).
+3. **Publish by `git push`, not by copying the folder.** The tracked tree and every commit on `master` are scrubbed and identity-neutral, but `.git\logs\` (the reflogs) still records the pre-scrub author name, email, and local-timezone offsets — a re-root does not rewrite reflogs. Reflogs never travel over `push`, so the push route is clean; a raw folder or zip copy is not. Copying instead? Exclude `.git\`, or expire the reflogs first (`git reflog expire --expire=now --all && git gc --prune=now`) — that permanently deletes recovery metadata, so take a backup copy of the repo first.
+4. **Attach `FableSetup.exe` to a GitHub Release** — the binary is untracked by design.
+5. Push under the identity you intend to be public (`git config user.name` / `user.email` for the new history).
 
 ## Credits & license
 

@@ -66,7 +66,10 @@ if (mode === 'hooks') {
         if (g.hooks.length !== n) changed = true;
       }
       const nGroups = cur.hooks[ev].length;
-      cur.hooks[ev] = cur.hooks[ev].filter(g => !(g && Array.isArray(g.hooks) && g.hooks.length === 0));
+      // drop null/degenerate groups too, not just emptied ones: a literal null in the event
+      // array would otherwise be re-serialized here while the PowerShell fallback drops it,
+      // leaving the two merge implementations disagreeing on the same input
+      cur.hooks[ev] = cur.hooks[ev].filter(g => g && !(Array.isArray(g.hooks) && g.hooks.length === 0));
       if (cur.hooks[ev].length !== nGroups) changed = true;
     }
     const have = new Set();

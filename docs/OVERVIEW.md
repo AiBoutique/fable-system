@@ -1,6 +1,6 @@
 # What the Fable System Provides — features & measured performance
 
-*Kit r29 · as of 2026-07-17.*
+*Kit r30 · as of 2026-07-18.*
 
 An honest overview: what the system *is*, what it *does*, and — the part most write-ups fabricate — what it has been **measured** to do, with the numbers and their limits. If you came here for a big "makes your model N% smarter across the board" headline, the short version is: **that number does not exist, and this document explains why the honest answer is more useful than an invented one.**
 
@@ -27,8 +27,8 @@ Two design commitments run through everything:
 | **Domain expertise layer** (`fable-expertise` plugin) | 24 master-practitioner domain skills + an `expertise-atlas` router spanning **63 professional & scientific domains** (finance, medicine, law, cyber, physics, chemistry, supply chain, …). Each ships a verbatim-term coverage file, structure-linted and audited. Installs as a Claude Code plugin; skills namespace as `fable-expertise:<name>` and auto-trigger by description. |
 | **Enforcement hooks** (3, in `settings.json`) | A SessionStart standing order, a prompt classifier that flags high-risk/multi-step work, and a subagent verify-order injection — the deterministic layer that makes the discipline fire without relying on the model to remember. |
 | **Eval harness** (`amplification/harness/`) | The measurement contract made runnable: a task suite with code-derived truths, deterministic graders (V/S/A separate axes), A0/A1/R conditions, infra-failure exclusion, and a 280-assertion self-test. This is how every performance claim below was produced. |
-| **Regression gate** (`regression_gate.py`, biweekly) | 6 zero-budget rungs (self-test, answer provenance, config-drift, non-negotiable lint, currency baseline, prompt-echo contamination) that catch drift between runs. |
-| **Cross-model adapters** | Claude (live-proven) + Grok/OpenAI (dry-run-verified) behind one interface, so the portable core can be measured on other models when keys are supplied. |
+| **Regression gate** (`regression_gate.py`, twice monthly — 1st + 15th) | 6 zero-budget rungs (self-test, answer provenance, config-drift, non-negotiable lint, currency baseline, prompt-echo contamination) that catch drift between runs. |
+| **Cross-model adapters** | Claude (live-proven) + Grok/OpenAI (dry-run-verified) behind one interface, so the portable core can be measured on other models when keys are supplied (a local OpenAI-compatible endpoint runs keyless via `--adapter-json` + loopback-only `allow_keyless`). |
 | **Self-verifying installer** | One-click Windows exe with a SHA-256 integrity gate, backup-then-merge (never clobbers foreign config), previous-version cleanup via an install ledger (stale old-kit files removed and backed up; your edits kept), and a 157-assertion install self-test. |
 
 ---
@@ -69,7 +69,7 @@ Adopting the calibration addendum was re-run across the full 18-task gradient (b
 
 ### Efficiency
 
-- **Portable core: ~28% of the full core's size (≈12 KB vs ≈43 KB), matching the full core's benchmark behavior.** The portable core measured **0.965** on the 18-task suite — equal to the full core once the single contaminated cell is excluded (the full core's raw 0.972 *is* that contaminated cell; §3 headline). That measurement was taken on the portable core in its prior form; it has since gained the same 13-line calibration addendum as the full core, which the gradient re-run showed causes 0 regressions. Net: the discipline's measured effect at roughly a quarter of the token cost, in a model-agnostic form.
+- **Portable core: ~28% of the full core's size (≈12.8 KB vs ≈46 KB today; measured when the full core was ≈43 KB), matching the full core's benchmark behavior.** The portable core measured **0.965** on the 18-task suite — equal to the full core once the single contaminated cell is excluded (the full core's raw 0.972 *is* that contaminated cell; §3 headline). That measurement was taken on the portable core in its prior form; it has since gained the same 13-line calibration addendum as the full core, which the gradient re-run showed causes 0 regressions. Net: the discipline's measured effect at roughly a quarter of the token cost, in a model-agnostic form.
 
 ---
 
@@ -99,7 +99,7 @@ Until those are measured, the honest framing is: **proven to hold the frontier l
 - Every code-checkable task truth is re-derived by an independent solver (`verify_answers.py`, 33 facts, 0 failures).
 - Graders are deterministic and report **V** (validity/pass-rate), **S** (stability across repeated runs), and **A** (agreement with the reference bar) as *separate* axes — agreement is never optimized alone.
 - Infra failures (e.g. a transient CLI/auth error) are excluded loudly as `score: None`, never scored as zeros.
-- A 280-assertion self-test and a 6-rung biweekly regression gate guard the machinery itself.
+- A 280-assertion self-test and a 6-rung twice-monthly regression gate guard the machinery itself.
 - N is small (often N=1/cell) and is **always declared**; single runs are not presented as variance-characterized results.
 
 Provenance: the aggregates cite `private\amplification-runs\` run logs; the detailed narrative is in [`../amplification/README.md`](../amplification/README.md) §7. Any external research percentages you may see in `docs/advancement-dossier-2026-07.md` are **directional context about the underlying techniques**, drawn from third-party literature — not measured claims about this system, and not quoted as such.

@@ -1,5 +1,5 @@
 # Brief: chemistry-materials
-Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md (same build directory) exactly.
+Authoring input for the expertise system build (2026-07-14). Follow authoring-template.md (same build directory) exactly.
 
 ## Identity
 - name: chemistry-materials
@@ -7,7 +7,7 @@ Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md 
 - topics: T55, T56, T57
 
 ## Frontmatter description (copy EXACTLY)
-Master-grade chemistry and materials science — general/organic/inorganic/physical/analytical chemistry, synthesis and retrosynthetic analysis, reaction mechanisms and catalysis, electrochemistry and battery/fuel-cell chemistry, spectroscopy and chromatography (NMR, MS, IR, Raman, UV-Vis, XRD, ICP), structure elucidation, biochemistry and chemical biology, formulation science across pharma/cosmetics/coatings/food, process chemistry and scale-up (flow chemistry, DOE, process analytical technology), analytical-method development and validation, computational chemistry (DFT, molecular dynamics, QSAR/QSPR, cheminformatics, AI-assisted molecular design), plus materials science: metals, polymers, ceramics, composites, semiconductors, nanomaterials, biomaterials, energy-storage materials, characterization and mechanical testing, corrosion and tribology, failure analysis, materials informatics, additive manufacturing and scale-up to production. Use for chemical or materials questions, synthesis routes, analytical methods, formulation, process development, materials selection, and failure or characterization work.
+Master-grade chemistry and materials science — general/organic/inorganic/physical/analytical chemistry, synthesis and retrosynthetic analysis, reaction mechanisms and catalysis, electrochemistry and battery/fuel-cell chemistry, spectroscopy and chromatography (NMR, MS, IR, Raman, UV-Vis, XRD, ICP), structure elucidation, biochemistry, formulation science across pharma/cosmetics/coatings/food, process chemistry and scale-up (flow chemistry, DOE, PAT), analytical-method development and validation, computational chemistry (DFT, molecular dynamics, QSAR/QSPR, cheminformatics), plus materials science: metals, polymers, ceramics, composites, semiconductors, nanomaterials, biomaterials, energy-storage materials, characterization and mechanical testing, corrosion, wear and tribology, failure analysis, materials informatics, additive manufacturing. Use for chemical or materials questions, synthesis routes, analytical methods, formulation, process development, materials selection, and failure analysis.
 
 ## Integration notes
 - Lab safety/quality/data-integrity/boundaries -> `science-research-ops` (chemical hygiene, GLP, ALCOA+, dual-use governance); hazardous-synthesis requests get safety-governance guidance, never operational uplift for weaponizable chemistry (CBRN boundary is absolute); controlled-substance and restricted-chemical work names its regulatory gate.

@@ -23,7 +23,8 @@ Declared scope caps (named by the 2026-07-16 fable review): numeric ``expected``
 values and interval ``truth``s are NOT scanned (a truth echoed verbatim in a core
 would evade the marker scan); markers shorter than 4 chars are dropped (e.g. the
 water task's "100"/"0" legs are unscannable); ``keywords_any`` needs >= 3 markers
-to flag. Exclusion of a contaminated task from lift claims is prose-level policy:
+to flag, and ``ordered_steps`` legs with fewer than 3 markers are never flagged.
+Exclusion of a contaminated task from lift claims is prose-level policy:
 score.py has no per-task exclusion mechanism, so re-scoring a suite re-includes
 the task -- the regression gate's known-hits --allow flow is the standing guard.
 
@@ -52,7 +53,8 @@ _STOPWORDS = {"the", "and", "with", "from", "into", "both", "code", "step", "the
 
 
 def _norm(s):
-    return " ".join(str(s).replace("*", "").replace("`", "").split()).lower()
+    # keep aligned with graders._normalize: *, __ and ` stripped, _ kept
+    return " ".join(str(s).replace("*", "").replace("__", "").replace("`", "").split()).lower()
 
 
 def extract_legs(grader):
@@ -120,7 +122,8 @@ def scan(tasks_dirs, core_files):
     for d in tasks_dirs:
         task_files += glob.glob(os.path.join(d, "*.json"))
     for tf in sorted(task_files):
-        t = json.load(open(tf, encoding="utf-8"))
+        with open(tf, encoding="utf-8") as fh:
+            t = json.load(fh)
         legs = extract_legs(t.get("grader", {}))
         for core_name, core_text in cores.items():
             for leg_type, markers in legs:

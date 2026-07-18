@@ -36,11 +36,11 @@ What the installer does (and won't do):
 - Submit *"refactor the auth module"* → transcript shows the `Prompt classifier (user hook)` line.
 - Spawn any subagent and ask what standing orders it sees → the verify-before-reporting order.
 - Re-create the monthly health check (the schedule lives in the app's own data, not in files): tell Claude *"Create a monthly scheduled task named fable-health-check, 1st of the month at 09:00, using the prompt file at .claude\scheduled-tasks\fable-health-check\SKILL.md"*, then click **Run now** once so its tool permissions get pre-approved.
-- *Optional, advanced* — if you run the `amplification\` measurement program, its biweekly regression gate is a **machine-local** scheduled task (not shipped in the kit, since it hardcodes your container path): re-create it from the self-contained recipe in `amplification/regression-gate.md` (repo checkout only — not in the exe payload, which embeds `src\`), which carries its own cron, undo path, and stop condition.
+- *Optional, advanced* — if you run the `amplification\` measurement program, its twice-monthly (1st + 15th) regression gate is a **machine-local** scheduled task (not shipped in the kit, since it hardcodes your container path): re-create it from the self-contained recipe in `amplification/regression-gate.md` (repo checkout only — not in the exe payload, which embeds `src\`), which carries its own cron, undo path, and stop condition.
 
 Any failure: `claude --debug` shows hook execution — or point Claude at this kit and say **"restore and verify the fable system from this kit."**
 
-macOS/Linux: same layout under `~/.claude/`; the hooks are bash-native and run as-is; use the manual steps in `restore-walkthrough.html` (INSTALL.bat, install.ps1, and FableSetup.exe are Windows-specific).
+macOS/Linux: same layout under `~/.claude/`; the hooks are bash-native and run as-is; use the manual steps in `restore-walkthrough.html`, adapting their paths as you go — those snippets are written in Windows PowerShell form (`"$HOME\.claude\..."`), so use forward slashes and `cp -r` (INSTALL.bat, install.ps1, and FableSetup.exe are Windows-specific).
 
 ## Contents
 

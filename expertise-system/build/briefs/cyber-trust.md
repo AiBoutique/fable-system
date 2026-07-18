@@ -1,5 +1,5 @@
 # Brief: cyber-trust
-Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md (same build directory) exactly.
+Authoring input for the expertise system build (2026-07-14). Follow authoring-template.md (same build directory) exactly.
 
 ## Identity
 - name: cyber-trust

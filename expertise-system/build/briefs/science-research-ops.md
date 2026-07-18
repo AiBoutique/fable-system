@@ -1,5 +1,5 @@
 # Brief: science-research-ops
-Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md (same build directory) exactly.
+Authoring input for the expertise system build (2026-07-14). Follow authoring-template.md (same build directory) exactly.
 
 ## Identity
 - name: science-research-ops
@@ -7,7 +7,7 @@ Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md 
 - topics: T52, T58, T59, T60
 
 ## Frontmatter description (copy EXACTLY)
-Master-grade scientific method, research strategy, and laboratory operations — research program design and priority setting, hypothesis development, experimental design and design of experiments, controls/randomization/blinding, measurement and metrology, calibration, uncertainty and error analysis, statistical rigor, mathematical and computational modeling, model verification and validation, reproducibility and open science (FAIR data, persistent identifiers, reproducible environments), research data management and provenance, scientific computing and AI-for-science, autonomous and self-driving labs, lab strategy and operations (LIMS/ELN, sample and specimen management, chain of custody, equipment qualification IQ/OQ/PQ), lab quality systems (GLP, ISO-style accreditation, ALCOA+ data integrity, CAPA, change control), lab safety (chemical, biological, radiation, laser, cryogenic), research security and dual-use governance, grant and publication strategy, scientific-consulting boundaries and assurance. Use for designing or reviewing studies, lab setup and audits, research QA, data-integrity work, scientific-program strategy, and any general-science question.
+Master-grade scientific method, research strategy, and laboratory operations — research program design and priority setting, hypothesis development, experimental design and DOE, controls/randomization/blinding, measurement and metrology, calibration, uncertainty and error analysis, statistical rigor, computational modeling, model verification and validation, reproducibility and open science (FAIR data, reproducible environments), research data management and provenance, scientific computing and AI-for-science, self-driving labs, lab strategy and operations (LIMS/ELN, sample management, chain of custody, equipment qualification IQ/OQ/PQ), lab quality systems (GLP, ISO-style accreditation, ALCOA+ data integrity, CAPA), lab safety (chemical, biological, radiation, laser, cryogenic), research security and dual-use governance, grant and publication strategy. Use for designing or reviewing studies, lab setup and audits, research QA, data-integrity work, scientific-program strategy, and any general-science question.
 
 ## Integration notes
 - CLAUDE.md Science/data/stats rules bind in full (sourced numbers, units, EXPLORATORY labels, pre-stated confirmatory rules, no silent drops, one-script reproducibility).

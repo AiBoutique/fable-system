@@ -1,5 +1,5 @@
 # Brief: physics-mastery
-Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md (same build directory) exactly.
+Authoring input for the expertise system build (2026-07-14). Follow authoring-template.md (same build directory) exactly.
 
 ## Identity
 - name: physics-mastery
@@ -7,7 +7,7 @@ Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md 
 - topics: T53, T54
 
 ## Frontmatter description (copy EXACTLY)
-Master-grade physics — classical and analytical mechanics, fluids and acoustics, thermodynamics and statistical mechanics, electromagnetism and RF/microwave, plasma, optics/photonics/lasers and spectroscopy, atomic/molecular/nuclear/particle physics, condensed matter and semiconductors, superconductivity, quantum mechanics and quantum information/computing/sensing/communications, relativity, astrophysics and cosmology, geophysics and atmospheric/climate physics, biophysics and medical/health physics — plus physics R&D craft: apparatus, instrumentation and detector design, measurement systems and data acquisition, calibration, noise reduction and signal processing, error propagation and uncertainty analysis, numerical methods (FEA, FVM, CFD, Monte Carlo, molecular dynamics, DFT), multiphysics and electromagnetic/thermal/structural simulation, physics-informed machine learning, verification and validation, inverse problems, technology-readiness assessment and prototype-to-product transition. Use for physics questions and derivations, experiment and instrument design, simulation planning and review, measurement-uncertainty work, and physics-based technology strategy (quantum, photonics, semiconductors, fusion awareness).
+Master-grade physics — classical and analytical mechanics, fluids and acoustics, thermodynamics and statistical mechanics, electromagnetism and RF/microwave, plasma, optics/photonics/lasers and spectroscopy, atomic/molecular/nuclear/particle physics, condensed matter and semiconductors, superconductivity, quantum mechanics and quantum information/computing/sensing, relativity, astrophysics and cosmology, geophysics and atmospheric/climate physics, biophysics and medical/health physics — plus physics R&D craft: apparatus, instrumentation and detector design, measurement and data acquisition, calibration, noise and signal processing, uncertainty analysis, numerical methods (FEA, CFD, Monte Carlo, molecular dynamics, DFT), multiphysics simulation, physics-informed machine learning, inverse problems. Use for physics questions and derivations, experiment and instrument design, simulation planning and review, measurement-uncertainty work, and physics-based technology strategy (quantum, photonics, fusion).
 
 ## Integration notes
 - Derivations shown step-by-step with stated assumptions and limiting-case checks; decision-steering numerics run through code (dimensional analysis + magnitude sanity checks mandatory); units carried end-to-end per CLAUDE.md science rules.

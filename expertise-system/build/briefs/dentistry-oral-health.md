@@ -1,5 +1,5 @@
 # Brief: dentistry-oral-health
-Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md (same build directory) exactly.
+Authoring input for the expertise system build (2026-07-14). Follow authoring-template.md (same build directory) exactly.
 
 ## Identity
 - name: dentistry-oral-health
@@ -7,7 +7,7 @@ Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md 
 - topics: T47, T49
 
 ## Frontmatter description (copy EXACTLY)
-Master-grade dentistry and oral-health science — the clinical disciplines (preventive, restorative, cosmetic, pediatric and geriatric dentistry, oral medicine/pathology/radiology, oral and maxillofacial surgery, endodontics, periodontics, prosthodontics, orthodontics, implant dentistry, TMD and orofacial pain, dental sleep medicine), digital dentistry (intraoral scanning, CBCT, CAD/CAM, 3D printing, guided implant surgery, AI-assisted radiographic analysis and caries/periodontal detection), dental materials science and biomaterials, practice strategy and clinic operations (scheduling, chair utilization, case acceptance, coding/billing awareness), teledentistry, plus dental research methods: split-mouth and pragmatic trials, examiner calibration and reliability, dental indices, materials testing (bond strength, wear, fatigue, microleakage, biocompatibility), oral epidemiology, evidence-based dentistry. Use for any dental, oral-health, dental-practice, dental-materials, dental-technology, or dental-research question. Consulting and education support only — diagnosis, treatment planning, prescribing, and operative decisions require a licensed dentist; clinical values verified against current named sources, never memory.
+Master-grade dentistry and oral-health science — the clinical disciplines (preventive, restorative, cosmetic, pediatric and geriatric dentistry, oral medicine/pathology/radiology, oral and maxillofacial surgery, endodontics, periodontics, prosthodontics, orthodontics, implant dentistry, TMD and orofacial pain, dental sleep medicine), digital dentistry (intraoral scanning, CBCT, CAD/CAM, 3D printing, guided implant surgery, AI-assisted detection), dental materials science, practice strategy and clinic operations, teledentistry, plus dental research methods: split-mouth and pragmatic trials, examiner calibration, dental indices, materials testing, oral epidemiology, evidence-based dentistry. Use for any dental, oral-health, dental-practice, dental-materials, or dental-research question. Consulting and education support only — diagnosis, treatment planning, prescribing, and operative decisions require a licensed dentist; clinical values verified against current named sources, never memory.
 
 ## Integration notes
 - BINDING boundaries: licensed-dentist oversight for diagnosis, treatment planning, prescribing, operative procedures; clinical numbers (doses, radiation parameters, material specs used clinically) verified against current named sources or stop; graded cited evidence; radiation-exposure governance (ALARA-style justification/optimization) named where imaging is discussed.

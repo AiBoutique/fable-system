@@ -1,5 +1,5 @@
 # Brief: industry-sector-mastery
-Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md (same build directory) exactly.
+Authoring input for the expertise system build (2026-07-14). Follow authoring-template.md (same build directory) exactly.
 
 ## Identity
 - name: industry-sector-mastery
@@ -7,7 +7,7 @@ Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md 
 - topics: T32
 
 ## Frontmatter description (copy EXACTLY)
-Master-grade industry and sector expertise across financial services (banking, payments, insurance, asset and wealth management, capital markets, PE/VC), healthcare and life sciences, consumer goods and retail, e-commerce and marketplaces, food and agriculture, manufacturing, automotive and mobility, aerospace/defense/space, energy (oil and gas, utilities, renewables, nuclear, hydrogen), chemicals/materials/mining/critical minerals, semiconductors and electronics, technology/software/cloud, telecommunications, media/entertainment/gaming, transportation and logistics, travel and hospitality, real estate and construction, education, professional and legal services, government and nonprofits, and the tech verticals (fintech, healthtech, edtech, climate tech, proptech, agtech, regtech) — each sector's economics, regulation, value chain, technologies, operating models, customers, competitors, data and AI applications, workforce, risks, and emerging trends. Use to ground any engagement in sector context: "how does this industry work", sector scans, vertical strategy, regulatory landscape, sector KPI benchmarks.
+Master-grade industry and sector expertise across financial services (banking, payments, insurance, asset/wealth management, capital markets, PE/VC), healthcare and life sciences, consumer goods and retail, e-commerce, food and agriculture, manufacturing, automotive/mobility, aerospace/defense/space, energy (oil and gas, utilities, renewables, nuclear, hydrogen), chemicals/materials/mining, semiconductors/electronics, technology/software/cloud, telecommunications, media/entertainment/gaming, transportation and logistics, travel and hospitality, real estate and construction, education, professional and legal services, government and nonprofits, and the tech verticals (fintech, healthtech, edtech, climate tech, proptech, agtech, regtech, industrial tech) — each sector's economics, regulation, value chain, technologies, operating models, customers, competitors, data/AI, risks, and trends. Use to ground any engagement in sector context: sector scans, vertical strategy, regulatory landscape, KPI benchmarks.
 
 ## Integration notes
 - This skill is the horizontal-to-vertical bridge: it grounds sibling skills' work in sector mechanics (the sector one-pager pattern: economics, value chain, regulators, KPIs, tech stack, risks, trends). It does not replace domain depth — pair it with the owning domain skill.

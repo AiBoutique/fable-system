@@ -1,5 +1,5 @@
 # Brief: risk-governance-compliance
-Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md (same build directory) exactly.
+Authoring input for the expertise system build (2026-07-14). Follow authoring-template.md (same build directory) exactly.
 
 ## Identity
 - name: risk-governance-compliance
@@ -7,7 +7,7 @@ Authoring input for the expertise system build (2026-07-14). Follow TEMPLATE.md 
 - topics: T18, T19, T20
 
 ## Frontmatter description (copy EXACTLY)
-Master-grade enterprise risk, resilience, legal-regulatory awareness, and governance — ERM (risk appetite, taxonomy, KRIs, quantification, aggregation, board reporting), strategic/financial/operational/technology/AI/model/conduct/geopolitical/climate risk, business continuity and operational resilience, crisis management and tabletop exercises, stress and reverse-stress testing, compliance-program design and monitoring, regulatory horizon scanning and change implementation, contract analysis and lifecycle, competition/consumer/employment/privacy/IP/AML/sanctions/export-control awareness, AI regulation and EU AI Act readiness, corporate and board governance, decision rights and delegation of authority, three-lines model, internal controls and continuous monitoring, assurance mapping, policy lifecycle. Use for risk registers and quantification, resilience and crisis work, compliance programs, governance design, audit and controls, and regulatory readiness. Formal legal opinions and jurisdiction-specific advice route to qualified counsel.
+Master-grade enterprise risk, resilience, legal-regulatory awareness, and governance — ERM (risk appetite, taxonomy, KRIs, quantification, aggregation, board reporting), strategic/financial/operational/technology/AI/model/conduct/geopolitical/climate risk, business continuity and operational resilience, crisis management and tabletop exercises, stress and reverse-stress testing, compliance-program design and monitoring, regulatory horizon scanning, contract analysis and lifecycle, competition/consumer/employment/privacy/IP/AML/sanctions/export-control awareness, AI regulation and EU AI Act readiness, corporate and board governance, decision rights, three-lines model, internal controls and continuous monitoring, assurance mapping, policy lifecycle. Use for risk registers and quantification, resilience and crisis work, compliance programs, governance design, audit and controls, and regulatory readiness. Formal legal opinions and jurisdiction-specific advice route to qualified counsel.
 
 ## Integration notes
 - Boundary: legal/regulatory work is AWARENESS and program design — never a legal opinion; say so in deliverables and route formal opinions to qualified counsel (the user's spec itself mandates this).

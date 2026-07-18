@@ -321,7 +321,8 @@ def main():
     check("bond price", str(bond_price()), "1018.81")
 
     # held-out extreme-magnitude calibration truths (the interval_contains 'truth's)
-    check("pi(10^8) = 5,761,455", pi_below(10**8), 5_761_455)
+    p8 = pi_below(10**8)  # hoisted: the 1e8 sieve is the expensive call, reused below
+    check("pi(10^8) = 5,761,455", p8, 5_761_455)
     check("C(50,15) = 2,250,829,575,120", math.comb(50, 15), 2_250_829_575_120)
     check("30! magnitude ~ 2.6525e32",
           _close(math.factorial(30), 2.6525285981219106e32), True)
@@ -333,7 +334,7 @@ def main():
           _close((1000 / 12) * 6.02214076e23, 5.018450633333333e25), True)
 
     # held-out TIGHT-ANCHOR calibration truths (tasks-calib-tight/)
-    check("8-digit primes = pi(1e8)-pi(1e7)", pi_below(10**8) - pi_below(10**7), 5_096_876)
+    check("8-digit primes = pi(1e8)-pi(1e7)", p8 - pi_below(10**7), 5_096_876)
     check("twin-prime pairs below 1e6", twin_prime_pairs_below(10**6), 8_169)
     check("palindromic squares below 1e6", palindromic_squares_below(10**6), 14)
     check("primes in [1e6, 2e6]", pi_below(2 * 10**6 + 1) - pi_below(10**6), 70_435)

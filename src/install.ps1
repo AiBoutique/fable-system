@@ -106,7 +106,12 @@ function Invoke-KitZipSelfService([object[]]$zipMatches, [string[]]$why) {
         if ($ansX -notmatch '^[Nn]') {
             $extractOk = $true
             try {
-                if (Test-Path $extractDir) { Remove-Item -LiteralPath $extractDir -Recurse -Force }
+                # never recurse-delete through a reparse point (same guard as every other delete path)
+                if (Test-Path -LiteralPath $extractDir) {
+                    $exItem = Get-Item -LiteralPath $extractDir -Force
+                    if ($exItem.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw "extraction dir '$extractDir' is a reparse point - refusing to delete through it" }
+                    Remove-Item -LiteralPath $extractDir -Recurse -Force
+                }
                 Expand-Archive -LiteralPath $zipBeside.FullName -DestinationPath $extractDir -Force
             } catch { Write-Note "extraction failed: $($_.Exception.Message)"; $extractOk = $false }
             if ($extractOk -and -not ((Test-Path -LiteralPath (Join-Path $extractDir 'install.ps1')) -and (Test-Path -LiteralPath (Join-Path $extractDir 'kit-manifest.json')))) {
@@ -276,7 +281,8 @@ try {
     # list must never install silently
     $listed = @{}
     foreach ($f in $manifest.files) { $listed[$f.path.ToLower()] = $true }
-    foreach ($kitFile in (Get-ChildItem $KitRoot -Recurse -File)) {
+    # -Force: a hidden stray must fail the gate loudly, not slip past it unenumerated
+    foreach ($kitFile in (Get-ChildItem -LiteralPath $KitRoot -Recurse -File -Force)) {
         $rp = $kitFile.FullName.Substring($KitRoot.Length + 1)
         if ($rp -ieq 'kit-manifest.json') { continue }
         if (-not $listed.ContainsKey($rp.ToLower())) {
@@ -328,26 +334,30 @@ try {
     }
     # re-probe node (may have just been installed; PATH may still need a new shell)
     $hasNode = Test-Cmd 'node'
+    # counted from the PRE-winget probe: a tool installed a moment ago is usually not on this
+    # process's PATH yet, so the count reports the state this run started with, not a stale bug
     $missing = @($prereqLines | Where-Object { -not $_.Ok }).Count
     if ($missing -eq 0) { Add-Result 'prerequisites' 'PASS' 'claude, git bash, node all present' }
-    else { Add-Result 'prerequisites' 'WARN' "$missing missing - files install anyway; hooks/classifier need Git Bash + Node" }
+    else { Add-Result 'prerequisites' 'WARN' "$missing missing at start of run - files install anyway; hooks/classifier need Git Bash + Node (if you installed them just now, open a NEW terminal)" }
 
     # ------------------------------------- 3. copy .claude tree (not settings)
     Write-Step "3/9 Files: CLAUDE.md, skills, scheduled task"
     $kitClaude = Join-Path $KitRoot 'claude-home'
     if (-not (Test-Path $DestClaude)) { New-Item -ItemType Directory -Force -Path $DestClaude | Out-Null }
     $copied = 0; $skipped = 0; $copyErrors = @()
-    Get-ChildItem $kitClaude -Recurse -File | ForEach-Object {
+    # -LiteralPath throughout: a TargetHome containing [ or ] otherwise breaks the hash-skip
+    # (re-copying and re-backing-up every run) and the step-8 verify, per the note at the top
+    Get-ChildItem -LiteralPath $kitClaude -Recurse -File -Force | ForEach-Object {
         $rel = $_.FullName.Substring($kitClaude.Length + 1)
         if ($rel -ieq 'settings.json') { return }        # merged in step 4
         if ($rel -ieq '.credentials.json') { return }    # never ships, never installed
         try {
             $dest = Join-Path $DestClaude $rel
-            if ((Test-Path $dest) -and ((Get-Sha $dest) -eq (Get-Sha $_.FullName))) { $skipped++; return }
+            if ((Test-Path -LiteralPath $dest) -and ((Get-Sha $dest) -eq (Get-Sha $_.FullName))) { $skipped++; return }
             Backup-IfExists $dest (Join-Path '.claude' $rel) | Out-Null
             $destDir = Split-Path $dest -Parent
-            if (-not (Test-Path $destDir)) { New-Item -ItemType Directory -Force -Path $destDir | Out-Null }
-            Copy-Item $_.FullName $dest -Force
+            if (-not (Test-Path -LiteralPath $destDir)) { New-Item -ItemType Directory -Force -Path $destDir | Out-Null }
+            Copy-Item -LiteralPath $_.FullName -Destination $dest -Force
             $copied++
         } catch {
             $copyErrors += "$rel -> $($_.Exception.Message)"
@@ -496,8 +506,8 @@ try {
     $kitSettingsPath = Join-Path $kitClaude 'settings.json'
     $destSettings = Join-Path $DestClaude 'settings.json'
     $mergeTool = Join-Path $KitRoot 'tools\fable-merge.js'
-    if (-not (Test-Path $destSettings)) {
-        Copy-Item $kitSettingsPath $destSettings
+    if (-not (Test-Path -LiteralPath $destSettings)) {
+        Copy-Item -LiteralPath $kitSettingsPath -Destination $destSettings
         Write-Ok "no existing settings.json - kit copy installed whole"
     } else {
         $bak = Backup-IfExists $destSettings '.claude\settings.json'
@@ -509,7 +519,7 @@ try {
         }
         if ($mergedVia -eq '') {
             try {
-                $cur = Get-Content $destSettings -Raw -Encoding UTF8 | ConvertFrom-Json
+                $cur = Get-Content -LiteralPath $destSettings -Raw -Encoding UTF8 | ConvertFrom-Json
                 $kit = Get-Content $kitSettingsPath -Raw -Encoding UTF8 | ConvertFrom-Json
                 if (-not $cur.PSObject.Properties['hooks']) { $cur | Add-Member -NotePropertyName hooks -NotePropertyValue (New-Object PSObject) }
                 # replaceable fable variant = marker AND action-signature phrase; foreign hooks that merely mention the marker never match
@@ -527,7 +537,8 @@ try {
                         # superseded fable variants (marker + signature, different command) are replaced, not accumulated
                         $newGroups = @()
                         foreach ($g in @($cur.hooks.$ev)) {
-                            if (-not ($g -and $g.PSObject.Properties['hooks'] -and ($g.hooks -is [array]))) { $newGroups += $g; continue }
+                            if ($null -eq $g) { continue }   # a literal null in the event array is dropped, not re-serialized
+                            if (-not ($g.PSObject.Properties['hooks'] -and ($g.hooks -is [array]))) { $newGroups += $g; continue }
                             $kept = @()
                             foreach ($h in @($g.hooks)) {
                                 if ($h -and $h.command -and $h.command.Contains($marker[0]) -and $h.command.Contains($marker[1]) -and ($kitCmds -notcontains $h.command)) { continue }
@@ -563,8 +574,8 @@ try {
     # validate (applies to both copy and merge paths)
     $settingsOk = $false
     try {
-        $chk = Get-Content $destSettings -Raw -Encoding UTF8 | ConvertFrom-Json
-        $kitChk = Get-Content $kitSettingsPath -Raw -Encoding UTF8 | ConvertFrom-Json
+        $chk = Get-Content -LiteralPath $destSettings -Raw -Encoding UTF8 | ConvertFrom-Json
+        $kitChk = Get-Content -LiteralPath $kitSettingsPath -Raw -Encoding UTF8 | ConvertFrom-Json
         $settingsOk = $true
         foreach ($evProp in $kitChk.hooks.PSObject.Properties) {
             $ev = $evProp.Name
@@ -618,13 +629,13 @@ try {
             Add-Result 'project memory' 'WARN' "path too long ($($longestDest.Length) chars) - skipped"
             $memSkipped = $true
         } else {
-            if (-not (Test-Path $memDest)) { New-Item -ItemType Directory -Force -Path $memDest | Out-Null }
+            if (-not (Test-Path -LiteralPath $memDest)) { New-Item -ItemType Directory -Force -Path $memDest | Out-Null }
             $mInstalled = 0; $mKept = 0
-            Get-ChildItem $memSrc -File | ForEach-Object {
+            Get-ChildItem -LiteralPath $memSrc -File | ForEach-Object {
                 $dest = Join-Path $memDest $_.Name
-                if ((Test-Path $dest) -and -not $ForceMemory) { $mKept++; return }
+                if ((Test-Path -LiteralPath $dest) -and -not $ForceMemory) { $mKept++; return }
                 Backup-IfExists $dest (Join-Path "projects\$slug\memory" $_.Name) | Out-Null
-                Copy-Item $_.FullName $dest -Force
+                Copy-Item -LiteralPath $_.FullName -Destination $dest -Force
                 $mInstalled++
             }
             Write-Ok "$mInstalled memory file(s) installed, $mKept existing kept (use -ForceMemory to overwrite)"
@@ -666,8 +677,20 @@ try {
                         $added += $sProp.Name
                     }
                 }
-                Write-Utf8NoBom $claudeJson (ConvertTo-Json -InputObject $cj -Depth 64)
-                if ($added.Count -gt 0) { $mcpResult = "ADDED:$($added -join ',') (via powershell)" } else { $mcpResult = 'NOCHANGE (via powershell)' }
+                # Only write when something was actually added. The public kit ships an EMPTY
+                # template, so this path is normally a no-op - and an unconditional write would
+                # round-trip the user's whole .claude.json through PS 5.1's JSON serializer
+                # (escaping non-ASCII, reformatting) for no gain. Matches fable-merge.js, which
+                # leaves a no-change target byte-untouched.
+                if ($added.Count -gt 0) {
+                    Write-Utf8NoBom $claudeJson (ConvertTo-Json -InputObject $cj -Depth 64)
+                    $mcpResult = "ADDED:$($added -join ',') (via powershell)"
+                } elseif (-not (Test-Path -LiteralPath $claudeJson)) {
+                    Write-Utf8NoBom $claudeJson (ConvertTo-Json -InputObject $cj -Depth 64)
+                    $mcpResult = 'NOCHANGE (created empty) (via powershell)'
+                } else {
+                    $mcpResult = 'NOCHANGE (no write) (via powershell)'
+                }
             } catch {
                 Write-Note "PowerShell mcp merge failed: $($_.Exception.Message)"
                 Write-Note "register manually later, e.g.:  claude mcp add --scope user <name> <command>"
@@ -709,7 +732,7 @@ try {
             if ($isMemory -and $memSkipped) { continue }               # memory step already reported WARN/FAIL
             if ($isClaude) { $dest = Join-Path $DestClaude ($p.Substring(12)) }
             else { $dest = Join-Path $memDest ($p.Substring(7)) }
-            if (-not (Test-Path $dest)) { Add-Result "file $p" 'FAIL' 'missing at destination'; $failCount++; continue }
+            if (-not (Test-Path -LiteralPath $dest)) { Add-Result "file $p" 'FAIL' 'missing at destination'; $failCount++; continue }
             if ($isMemory -and -not $ForceMemory) { continue }         # kept-existing memory may legitimately differ
             if ((Get-Sha $dest) -ne $f.sha256) { Add-Result "file $p" 'FAIL' 'destination hash differs'; $failCount++ }
         } catch { Add-Result "file $($f.path)" 'FAIL' $_.Exception.Message; $failCount++ }
