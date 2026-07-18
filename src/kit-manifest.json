@@ -1,112 +1,112 @@
 {
-  "files": [
-    {
-      "path": "INSTALL.bat",
-      "sha256": "013D052EECBB96F29C6C4CE8404312C521CB4ED6B26CB4B63B6884D47E329224",
-      "bytes": 743
-    },
-    {
-      "path": "RESTORE.md",
-      "sha256": "879823E53BD1CDB31D334D57C5DD8FD4FA80F38FA929714D899DF4DC61E62BDF",
-      "bytes": 9676
-    },
-    {
-      "path": "claude-home\\CLAUDE.md",
-      "sha256": "E61F623AD88A1A197383601AFC6023972083E3D58F397664E4240C1A31C0BEF1",
-      "bytes": 47140
-    },
-    {
-      "path": "claude-home\\scheduled-tasks\\fable-health-check\\SKILL.md",
-      "sha256": "75C05F1FF924C849B6A6910351018722104E8417124E487508AB797901D6BA97",
-      "bytes": 13314
-    },
-    {
-      "path": "claude-home\\settings.json",
-      "sha256": "45CCFB26F75EB8C5657C7D4BF487A757E69C73CEBCC7136F61B2E3F6BA778C9A",
-      "bytes": 4118
-    },
-    {
-      "path": "claude-home\\skills\\fable-mode\\SKILL.md",
-      "sha256": "A8FCCE08BD04758F666D62B57172BACB2E98CE2BBD3014F72A09A90288446A29",
-      "bytes": 27850
-    },
-    {
-      "path": "claude-home\\skills\\fable-mode\\references\\gold-standards.md",
-      "sha256": "AB6BA906C12AFAD881CCEA643BE542CF38B88F737BA01C87EA5385462E65B8E0",
-      "bytes": 4518
-    },
-    {
-      "path": "claude-home\\skills\\invest-research\\SKILL.md",
-      "sha256": "E2BFBAB305F5FEF645ABA8D6EDE28279792B92C726C9DEB87908EBF3A5B72BDF",
-      "bytes": 3813
-    },
-    {
-      "path": "claude-home\\skills\\organize\\SKILL.md",
-      "sha256": "72E0B3A2B79DB7139E8908F3F63222BA87096C87AEA552F6E21F16E4702B7A11",
-      "bytes": 4923
-    },
-    {
-      "path": "claude-home\\skills\\refresh-kit\\SKILL.md",
-      "sha256": "143E71E77CCC34274550535D7AC099B8D44B142A97753472E203831A4378B7EB",
-      "bytes": 13114
-    },
-    {
-      "path": "install.ps1",
-      "sha256": "764DBC53248C2554D8FEBF46DB0AB9FF445224146ACF5E6C4C55CE2854D31732",
-      "bytes": 53968
-    },
-    {
-      "path": "mcp-servers.template.json",
-      "sha256": "1D148ED5FBE3B691F2C274A524D0C384A7DEB4568B35209E97EEBC8AA8EFD797",
-      "bytes": 468
-    },
-    {
-      "path": "plugins-snapshot.json",
-      "sha256": "35F66A4B67ACC794DB273118AD605D4B9C91E189F2BD70FC96A2B52E093E733C",
-      "bytes": 551
-    },
-    {
-      "path": "restore-walkthrough.html",
-      "sha256": "66B593EE2FD20EC2C13D9552BDB410943A8968E61F01DED250EC45ED3AD083B5",
-      "bytes": 43011
-    },
-    {
-      "path": "tools\\build-exe.ps1",
-      "sha256": "ED19B87015138F991D82CE7C469CDDFEA7DB6DDBE858BF796D0A00C4CF0FC27A",
-      "bytes": 6792
-    },
-    {
-      "path": "tools\\export-mcp-template.js",
-      "sha256": "C64B5C270A60CC270C0B74C21AA145D044307E8C37BF08843490C0F82614781F",
-      "bytes": 13440
-    },
-    {
-      "path": "tools\\export-plugins.js",
-      "sha256": "5F946766832DC413DE262F5804C164F2817ADD6643FA41177AA39D9BF7B6124F",
-      "bytes": 2454
-    },
-    {
-      "path": "tools\\fable-merge.js",
-      "sha256": "A16A2886CA2FCF26EF9AEF2E25CA04D815E65B15B35A4D80794A889ABA3B4DB8",
-      "bytes": 5699
-    },
-    {
-      "path": "tools\\make-manifest.ps1",
-      "sha256": "348B95799EB12D4C5E50F2F51B42F0ECA898C1AE9E1857E9914E51B6CA6A84EA",
-      "bytes": 2445
-    },
-    {
-      "path": "tools\\run-selftest.ps1",
-      "sha256": "89B063E57EB8F18AD6916CB17997D31FDB32136E7F32593F7C663D0C2155A47A",
-      "bytes": 53975
-    },
-    {
-      "path": "tools\\setup-stub.cs",
-      "sha256": "1F88CD979C721D7151FB943378B0370559E0D782A59EEB8FBC9C7F4676035347",
-      "bytes": 4975
-    }
-  ],
-  "builtWith": "2.1.214 (Claude Code)",
-  "kitVersion": "r32",
-  "builtAt": "2026-07-18"
+    "kitVersion":  "r38",
+    "files":  [
+                  {
+                      "path":  "INSTALL.bat",
+                      "sha256":  "013D052EECBB96F29C6C4CE8404312C521CB4ED6B26CB4B63B6884D47E329224",
+                      "bytes":  743
+                  },
+                  {
+                      "path":  "RESTORE.md",
+                      "sha256":  "879823E53BD1CDB31D334D57C5DD8FD4FA80F38FA929714D899DF4DC61E62BDF",
+                      "bytes":  9676
+                  },
+                  {
+                      "path":  "claude-home\\CLAUDE.md",
+                      "sha256":  "E61F623AD88A1A197383601AFC6023972083E3D58F397664E4240C1A31C0BEF1",
+                      "bytes":  47140
+                  },
+                  {
+                      "path":  "claude-home\\scheduled-tasks\\fable-health-check\\SKILL.md",
+                      "sha256":  "75C05F1FF924C849B6A6910351018722104E8417124E487508AB797901D6BA97",
+                      "bytes":  13314
+                  },
+                  {
+                      "path":  "claude-home\\settings.json",
+                      "sha256":  "45CCFB26F75EB8C5657C7D4BF487A757E69C73CEBCC7136F61B2E3F6BA778C9A",
+                      "bytes":  4118
+                  },
+                  {
+                      "path":  "claude-home\\skills\\fable-mode\\SKILL.md",
+                      "sha256":  "A8FCCE08BD04758F666D62B57172BACB2E98CE2BBD3014F72A09A90288446A29",
+                      "bytes":  27850
+                  },
+                  {
+                      "path":  "claude-home\\skills\\fable-mode\\references\\gold-standards.md",
+                      "sha256":  "AB6BA906C12AFAD881CCEA643BE542CF38B88F737BA01C87EA5385462E65B8E0",
+                      "bytes":  4518
+                  },
+                  {
+                      "path":  "claude-home\\skills\\invest-research\\SKILL.md",
+                      "sha256":  "E2BFBAB305F5FEF645ABA8D6EDE28279792B92C726C9DEB87908EBF3A5B72BDF",
+                      "bytes":  3813
+                  },
+                  {
+                      "path":  "claude-home\\skills\\organize\\SKILL.md",
+                      "sha256":  "72E0B3A2B79DB7139E8908F3F63222BA87096C87AEA552F6E21F16E4702B7A11",
+                      "bytes":  4923
+                  },
+                  {
+                      "path":  "claude-home\\skills\\refresh-kit\\SKILL.md",
+                      "sha256":  "143E71E77CCC34274550535D7AC099B8D44B142A97753472E203831A4378B7EB",
+                      "bytes":  13114
+                  },
+                  {
+                      "path":  "install.ps1",
+                      "sha256":  "764DBC53248C2554D8FEBF46DB0AB9FF445224146ACF5E6C4C55CE2854D31732",
+                      "bytes":  53968
+                  },
+                  {
+                      "path":  "mcp-servers.template.json",
+                      "sha256":  "1D148ED5FBE3B691F2C274A524D0C384A7DEB4568B35209E97EEBC8AA8EFD797",
+                      "bytes":  468
+                  },
+                  {
+                      "path":  "plugins-snapshot.json",
+                      "sha256":  "CD9B9E79D94E6417799B5A92D40F103F852D3AB4DC7E68835D53D9507B8809DA",
+                      "bytes":  551
+                  },
+                  {
+                      "path":  "restore-walkthrough.html",
+                      "sha256":  "C4C34AC1F36119CEC7EEEA1054952EE7E2A84915E013E96CEB0647CA5D46238D",
+                      "bytes":  43362
+                  },
+                  {
+                      "path":  "tools\\build-exe.ps1",
+                      "sha256":  "ED19B87015138F991D82CE7C469CDDFEA7DB6DDBE858BF796D0A00C4CF0FC27A",
+                      "bytes":  6792
+                  },
+                  {
+                      "path":  "tools\\export-mcp-template.js",
+                      "sha256":  "C64B5C270A60CC270C0B74C21AA145D044307E8C37BF08843490C0F82614781F",
+                      "bytes":  13440
+                  },
+                  {
+                      "path":  "tools\\export-plugins.js",
+                      "sha256":  "5F946766832DC413DE262F5804C164F2817ADD6643FA41177AA39D9BF7B6124F",
+                      "bytes":  2454
+                  },
+                  {
+                      "path":  "tools\\fable-merge.js",
+                      "sha256":  "A16A2886CA2FCF26EF9AEF2E25CA04D815E65B15B35A4D80794A889ABA3B4DB8",
+                      "bytes":  5699
+                  },
+                  {
+                      "path":  "tools\\make-manifest.ps1",
+                      "sha256":  "348B95799EB12D4C5E50F2F51B42F0ECA898C1AE9E1857E9914E51B6CA6A84EA",
+                      "bytes":  2445
+                  },
+                  {
+                      "path":  "tools\\run-selftest.ps1",
+                      "sha256":  "89B063E57EB8F18AD6916CB17997D31FDB32136E7F32593F7C663D0C2155A47A",
+                      "bytes":  53975
+                  },
+                  {
+                      "path":  "tools\\setup-stub.cs",
+                      "sha256":  "1F88CD979C721D7151FB943378B0370559E0D782A59EEB8FBC9C7F4676035347",
+                      "bytes":  4975
+                  }
+              ],
+    "builtWith":  "2.1.214 (Claude Code)",
+    "builtAt":  "2026-07-18"
 }

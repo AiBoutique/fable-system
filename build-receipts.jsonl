@@ -2,3 +2,4 @@
 {"kit":"r30","exeSha256":"2B9BAB867740733212FC6F9CAA2289EC21D7F9385BCE81B828C380C622E2AFC0","exeBytes":122368,"selftest":"TOTAL: 157 passed, 0 failed","sandbox":"INSTALL PASSED","versioninfo":"clean","date":"2026-07-18"}
 {"kit":"r31","exeSha256":"E4DC8057C4C20F73DB4617F6CD998349DE2A4850CB0C696524E29E7ED1406DA9","exeBytes":125952,"selftest":"TOTAL: 171 passed, 0 failed","sandbox":"INSTALL PASSED","versioninfo":"clean","date":"2026-07-18"}
 {"kit":"r32","exeSha256":"E25BB07CA78C2A6BA52C0AD20B13B274427D59BB9CC0D4FC49E29DC03D743368","exeBytes":128512,"selftest":"TOTAL: 182 passed, 0 failed","sandbox":"INSTALL PASSED","versioninfo":"clean","date":"2026-07-18"}
+{"kit":"r38","exeSha256":"ECE0580F85C779F489A7A3CFDF569CD4A7B7B557A9AB787C380CC8D261989AC6","exeBytes":128512,"selftest":"TOTAL: 182 passed, 0 failed","sandbox":"INSTALL PASSED","versioninfo":"clean","date":"2026-07-18"}
