@@ -1,5 +1,7 @@
 # Session Handoff — 2026-07-16 (final; for the next-session Fable review)
 
+> **SUPERSEDED — historical record, do not act on the state below.** This snapshot was accurate on 2026-07-16 and is kept unedited as a record. Everything in "Ground truth" has since moved: the kit is **r32** (not r23), the history re-root it calls for **was done at r28**, and the repo now has a remote and is **published** at `AiBoutique/fable-system` with `master` pushed through r36. For current state read the repo `CHANGELOG.md` (newest last) and `docs/OVERVIEW.md`.
+
 A cold-start resume snapshot. Pairs with machine-local memory (`~/.claude/projects/<slug>/memory/` → `project-fable-north-star.md`, `project-fable-mode-skill.md`), mirrored to `private/memory/`. **Next session's job: a full Fable review of everything below.**
 
 ## Objective (north star)

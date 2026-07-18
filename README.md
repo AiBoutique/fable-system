@@ -48,7 +48,9 @@ pwsh -File src\tools\build-exe.ps1                  # -> FableSetup.exe (repo ro
 
 The exe is a small C# stub (compiled with the .NET Framework `csc.exe` that ships with Windows — no toolchain to install) with the kit embedded as a resource. It is unsigned: Windows SmartScreen may warn on first run; building it yourself from this source sidesteps that concern. The binary is not tracked in git (`.gitignore`): on the development machine it lives in the sibling `EXE\` folder per the three-folder container rule (sharable working repo / `private\` / `EXE\`); when publishing, attach it to GitHub Releases.
 
-## Publishing (when you finalize)
+## Publishing
+
+**Status: published.** `master` is live at `AiBoutique/fable-system` under the neutral `Fable System` identity. The rules below are standing — they govern every future push from this repo or any clone of it, and step 1 in particular never expires.
 
 1. **History**: already re-rooted (r28; re-dated to UTC-only timestamps in r29, trees and messages byte-identical) — `master` carries a single scrubbed root commit under a neutral identity with no timezone signal. The pre-scrub development history survives only in the local `archive/pre-publish-history` branch: never push that branch, and never add it to any remote — a local `pre-push` hook refuses every destination except `master`, and refuses any push whose source is not the local master tip, as a backstop. Git hooks never travel with clones: re-create the guard in any secondary clone of this repo, or rely on push-only-master discipline there.
 2. **License**: MIT, already in the tree ([LICENSE](LICENSE)) under a neutral "Fable System authors" holder — put your public name on the copyright line if you want attribution.
