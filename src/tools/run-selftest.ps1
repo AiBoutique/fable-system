@@ -261,6 +261,15 @@ $fakeCfg = @{
         pgport     = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('-p5432') }
         unwalked   = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; apiKey = 'AIzaUNWALKLEAK1234567890' }
         nestedauth = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; auth = @{ token = 'ya29.NESTLEAK1234567890' } }
+        # r32 review isolation fixtures: values here are NOT independently secret-shaped
+        # (no known prefix, under 32 chars), so only the KEY-NAME branch can redact them -
+        # the r31 fixtures were prefix-shaped and left that branch untested (review finding)
+        cameliso   = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; authToken = 'LEAKCAMELPLAIN99x' }
+        plurarr    = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; apiKeys = @('LEAKPLURALARR99x') }
+        numcred    = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; token = 43214321 }
+        authmode2  = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; auth = @{ mode = 'oauth-device-flow' } }
+        portmap    = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('-p9090:90') }
+        longflagp  = @{ type = 'stdio'; command = 'C:\Windows\notepad.exe'; args = @('-parallel=4') }
     }
 }
 $fakeJson = Join-Path $fh 'fake-claude.json'
@@ -312,6 +321,12 @@ Assert 'S7 attached -p password redacted (r31)' ($tpl -notmatch 'PGLEAKPASSW0RD'
 Assert 'S7 attached -p port preserved (r31)' ($tpl -match '-p5432')
 Assert 'S7 unknown field (apiKey) redacted by walker (r31)' ($tpl -notmatch 'UNWALKLEAK')
 Assert 'S7 nested auth.token redacted by walker (r31)' ($tpl -notmatch 'NESTLEAK')
+Assert 'S7 camelCase cred key redacted by key-branch alone (r32)' ($tpl -notmatch 'LEAKCAMELPLAIN')
+Assert 'S7 plural cred-key array leaves redacted (r32)' ($tpl -notmatch 'LEAKPLURALARR')
+Assert 'S7 numeric leaf under cred key redacted (r32)' ($tpl -notmatch '43214321')
+Assert 'S7 auth.mode survives under cred parent (r32)' ($tpl -match 'oauth-device-flow')
+Assert 'S7 docker port map survives the -p rule (r32)' ($tpl -match '-p9090:90')
+Assert 'S7 single-dash long flag survives the -p rule (r32)' ($tpl -match '-parallel=4')
 
 Write-Host "=== S8: superseded fable hook variants replaced, not accumulated (node path) ==="
 $fh = New-FakeHome 'fh8'
@@ -630,6 +645,35 @@ $ec = Invoke-Installer $fh $proj $KIT
 $out15d = Get-RawSafe (Join-Path $fh 'run.out')
 Assert 'S15 adversarial trailing-dot ledger: entries refused as non-canonical' (($ec -eq 0) -and ($out15d -match 'ledger path not canonical - skipped')) "exit=$ec"
 Assert 'S15 adversarial: settings.json + CLAUDE.md NOT deleted' ((Test-Path (Join-Path $fh '.claude\settings.json')) -and (Test-Path (Join-Path $fh '.claude\CLAUDE.md')) -and ($out15d -notmatch 'stale kit file removed \(backed up\): settings\.json') -and ($out15d -notmatch 'stale kit file removed \(backed up\): CLAUDE\.md'))
+# adversarial ledger REACH (r32): entries that point outside .claude - by ..\ traversal,
+# or THROUGH a junction planted inside .claude - must be refused even with TRUE hashes
+# (the worst case: the hash gate alone would approve the deletion). Pins install.ps1's
+# traversal reject + resolved containment + reparse-walk guards, execution-proven
+# against the shipped exe 2026-07-18 and made durable here.
+$fh = New-FakeHome 'fh15e'
+$proj = Join-Path $fh 'Desktop\Projects\Claude Code'
+$ec = Invoke-Installer $fh $proj $KIT
+$victimA = Join-Path $fh 'precious-user-file.txt'
+'DO-NOT-DELETE-A' | Set-Content $victimA -Encoding UTF8
+$outsideDir = Join-Path $fh 'outside-dir'
+New-Item -ItemType Directory -Force $outsideDir | Out-Null
+$victimB = Join-Path $outsideDir 'victim-b.txt'
+'DO-NOT-DELETE-B' | Set-Content $victimB -Encoding UTF8
+cmd /c mklink /J (Join-Path $fh '.claude\linkdir') $outsideDir | Out-Null
+$evil2 = @{ kitVersion = 'rEVIL2'; installedAt = '2020-01-01T00:00:00+00:00'; files = @(
+    @{ path = '..\precious-user-file.txt'; sha256 = (Get-Sha $victimA) },
+    @{ path = 'linkdir\victim-b.txt'; sha256 = (Get-Sha $victimB) }
+) }
+ConvertTo-Json -InputObject $evil2 -Depth 8 | Set-Content (Join-Path $fh '.claude\fable-install-ledger.json') -Encoding UTF8
+$ec = Invoke-Installer $fh $proj $KIT
+$out15e = Get-RawSafe (Join-Path $fh 'run.out')
+$ledgE = Get-Content (Join-Path $fh '.claude\fable-install-ledger.json') -Raw | ConvertFrom-Json
+Assert 'S15 traversal ledger entry refused: outside file survives (true hash)' (($ec -eq 0) -and (Test-Path -LiteralPath $victimA)) "exit=$ec"
+Assert 'S15 traversal refusal is LOUD (guard itself pinned, not just the outcome)' ($out15e -match 'ledger path outside install root - skipped')
+Assert 'S15 through-junction ledger entry refused: linked file survives (true hash)' (Test-Path -LiteralPath $victimB)
+Assert 'S15 junction itself not deleted-through' (Test-Path -LiteralPath (Join-Path $fh '.claude\linkdir'))
+Assert 'S15 evil-reach ledger re-baselined, hostile entries gone' (($ledgE.kitVersion -eq $mfKit.kitVersion) -and -not (@($ledgE.files.path) -like '*precious*') -and -not (@($ledgE.files.path) -like '*victim*'))
+cmd /c rmdir (Join-Path $fh '.claude\linkdir') 2>$null
 
 Write-Host ""
 Write-Host "==================== RESULTS ===================="

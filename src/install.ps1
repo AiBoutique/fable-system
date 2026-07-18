@@ -403,7 +403,7 @@ try {
             try {
                 if (-not ($e -and $e.PSObject.Properties['path'] -and $e.PSObject.Properties['sha256'])) { continue }
                 $rel = ([string]$e.path) -replace '/', '\'
-                if ($rel -match '^[A-Za-z]:|^[\\/]|\.\.') { continue }                     # relative, no traversal
+                if ($rel -match '^[A-Za-z]:|^[\\/]|\.\.') { Write-Note "ledger path outside install root - skipped: $rel"; continue }   # relative, no traversal (loud, so tests can pin the guard itself)
                 $target = [IO.Path]::GetFullPath((Join-Path $DestClaude $rel))
                 if (-not $target.StartsWith($destFull + '\', [System.StringComparison]::OrdinalIgnoreCase)) { continue }
                 if (-not (Test-Path -LiteralPath $target)) { continue }

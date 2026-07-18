@@ -149,8 +149,11 @@ for (const name of Object.keys(servers)) {
       const envByFlag = ENV_FLAG.test(prevArg);
       prevArg = a;
       if (credByFlag || looksSecret(a)) { redacted++; return SETME; }
-      // mysql-style attached password (-pSECRET). -p<digits> is a port form - keep it.
-      if (/^-p(?!\d+$)[^\s]{6,}$/.test(a)) { redacted++; return '-p' + SETME; }
+      // mysql-style attached password (-pSECRET). Keep the benign -p* families the
+      // r32 review proved this rule mangled: -p<digits> ports, -p8080:80 /
+      // -p127.0.0.1:8080:80 docker port maps (digits/dots/colons only), and
+      // single-dash long flags carrying '=' (-port=8080, -parallel=4, -prefix=/api).
+      if (/^-p(?!\d+$)(?![\d.:]+$)[^\s=]{6,}$/.test(a)) { redacted++; return '-p' + SETME; }
       const eq = a.indexOf('=');
       if (eq > 0) {
         const name = a.slice(0, eq), val = a.slice(eq + 1);
@@ -170,28 +173,46 @@ for (const name of Object.keys(servers)) {
   }
   // Fields OUTSIDE the known schema (type/env/headers/url/command/args/cwd) reached the
   // template verbatim via the deep copy - a hand-added credential field (apiKey, auth.token)
-  // leaked unredacted (r31; execution-proven by the security review). Walk their string
-  // leaves: credential-named keys and secret-shaped values redact, everything else keeps
-  // its value with the home path tokenized.
+  // leaked unredacted (r31; execution-proven by the security review). Walk them with
+  // PARENT CONTEXT (r32 review fixes, each leak execution-proven first):
+  //   - key names are tested in a case-normalized form, because CRED_NAME's (^|[-_])
+  //     anchors were built for kebab/snake flags and every camelCase compound
+  //     (authToken, clientSecret) dodged them - JSON keys are predominantly camelCase;
+  //   - a credential-named key taints its whole subtree, so apiKeys: [..] and
+  //     apiKey: {value: ..} redact their leaves (leaf-level AUTH_META keys like
+  //     auth.mode stay exempt - a scheme choice is config, not a secret);
+  //   - numeric leaves under a credential context redact too (a numeric token/PIN
+  //     is still a secret); booleans stay (auth: true is config).
   const KNOWN_FIELDS = new Set(['type', 'env', 'headers', 'url', 'command', 'args', 'cwd']);
-  const walkUnknown = (obj) => {
+  const decamel = (k) => String(k).replace(/([a-z0-9])([A-Z])/g, '$1_$2');
+  // plural forms too: CRED_NAME's trailing boundary rejects 'apiKeys'/'tokens'
+  // (the 's' is neither [-_], digit, nor end) - test the de-pluraled form as well
+  const credKey = (k) => {
+    const n = decamel(k);
+    return (CRED_NAME.test(n) || CRED_NAME.test(n.replace(/s$/i, ''))) && !AUTH_META.test(n);
+  };
+  const walkUnknown = (obj, credCtx) => {
     for (const k of Object.keys(obj)) {
       const v = obj[k];
-      if (v && typeof v === 'object') { walkUnknown(v); }
+      const isIndex = Array.isArray(obj);
+      const leafCred = (credCtx && !(!isIndex && AUTH_META.test(decamel(k)))) || (!isIndex && credKey(k));
+      if (v && typeof v === 'object') { walkUnknown(v, leafCred); }
       else if (typeof v === 'string') {
-        if ((CRED_NAME.test(k) && !AUTH_META.test(k)) || looksSecret(v)) { obj[k] = SETME; redacted++; }
+        if (leafCred || looksSecret(v)) { obj[k] = SETME; redacted++; }
         else obj[k] = tokenizeHome(v);
       }
+      else if (typeof v === 'number' && leafCred) { obj[k] = SETME; redacted++; }
     }
   };
   for (const k of Object.keys(s)) {
     if (KNOWN_FIELDS.has(k)) continue;
     const v = s[k];
-    if (v && typeof v === 'object') { walkUnknown(v); }
+    if (v && typeof v === 'object') { walkUnknown(v, credKey(k)); }
     else if (typeof v === 'string') {
-      if ((CRED_NAME.test(k) && !AUTH_META.test(k)) || looksSecret(v)) { s[k] = SETME; redacted++; }
+      if (credKey(k) || looksSecret(v)) { s[k] = SETME; redacted++; }
       else s[k] = tokenizeHome(v);
     }
+    else if (typeof v === 'number' && credKey(k)) { s[k] = SETME; redacted++; }
   }
   tpl[name] = s;
 }

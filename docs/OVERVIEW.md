@@ -1,6 +1,6 @@
 # What the Fable System Provides — features & measured performance
 
-*Kit r31 · as of 2026-07-18.*
+*Kit r32 · as of 2026-07-18.*
 
 An honest overview: what the system *is*, what it *does*, and — the part most write-ups fabricate — what it has been **measured** to do, with the numbers and their limits. If you came here for a big "makes your model N% smarter across the board" headline, the short version is: **that number does not exist, and this document explains why the honest answer is more useful than an invented one.**
 
@@ -29,7 +29,7 @@ Two design commitments run through everything:
 | **Eval harness** (`amplification/harness/`) | The measurement contract made runnable: a task suite with code-derived truths, deterministic graders (V/S/A separate axes), A0/A1/R conditions, infra-failure exclusion, and a 280-assertion self-test. This is how every performance claim below was produced. |
 | **Regression gate** (`regression_gate.py`, twice monthly — 1st + 15th) | 6 zero-budget rungs (self-test, answer provenance, config-drift, non-negotiable lint, currency baseline, prompt-echo contamination) that catch drift between runs. |
 | **Cross-model adapters** | Claude (live-proven) + Grok/OpenAI (dry-run-verified) behind one interface, so the portable core can be measured on other models when keys are supplied (a local OpenAI-compatible endpoint runs keyless via `--adapter-json` + loopback-only `allow_keyless`). |
-| **Self-verifying installer** | One-click Windows exe with a SHA-256 integrity gate, backup-then-merge (never clobbers foreign config), previous-version cleanup via an install ledger (stale old-kit files removed and backed up; your edits kept), and a 171-assertion install self-test. |
+| **Self-verifying installer** | One-click Windows exe with a SHA-256 integrity gate, backup-then-merge (never clobbers foreign config), previous-version cleanup via an install ledger (stale old-kit files removed and backed up; your edits kept), and a 182-assertion install self-test. |
 
 ---
 
