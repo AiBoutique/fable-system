@@ -1,5 +1,6 @@
 {
   "builtWith": "2.1.214 (Claude Code)",
+  "kitVersion": "r30",
   "files": [
     {
       "path": "claude-home\\CLAUDE.md",
@@ -58,7 +59,7 @@
     },
     {
       "path": "plugins-snapshot.json",
-      "sha256": "1D821DAD3B7758E6B6C326F7138A4CCE7894A37D79302B0841BB08618EE3B16E",
+      "sha256": "35F66A4B67ACC794DB273118AD605D4B9C91E189F2BD70FC96A2B52E093E733C",
       "bytes": 551
     },
     {
@@ -107,6 +108,5 @@
       "bytes": 4651
     }
   ],
-  "kitVersion": "r30",
   "builtAt": "2026-07-18"
 }
