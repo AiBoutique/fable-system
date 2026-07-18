@@ -1,5 +1,5 @@
 {
-    "kitVersion":  "r38",
+    "kitVersion":  "r39",
     "files":  [
                   {
                       "path":  "INSTALL.bat",
@@ -8,7 +8,7 @@
                   },
                   {
                       "path":  "RESTORE.md",
-                      "sha256":  "879823E53BD1CDB31D334D57C5DD8FD4FA80F38FA929714D899DF4DC61E62BDF",
+                      "sha256":  "2E755B20C4E8F77DED650D5E63598F07FBF1244313A914BF5432E13197757580",
                       "bytes":  9676
                   },
                   {
@@ -48,13 +48,13 @@
                   },
                   {
                       "path":  "claude-home\\skills\\refresh-kit\\SKILL.md",
-                      "sha256":  "143E71E77CCC34274550535D7AC099B8D44B142A97753472E203831A4378B7EB",
-                      "bytes":  13114
+                      "sha256":  "620426433A8C1E330722FB2997F6E7270EBE04EF3B5AF9BC427080742084A903",
+                      "bytes":  13679
                   },
                   {
                       "path":  "install.ps1",
-                      "sha256":  "764DBC53248C2554D8FEBF46DB0AB9FF445224146ACF5E6C4C55CE2854D31732",
-                      "bytes":  53968
+                      "sha256":  "527F57A22507DB0069C832503042C8247EE02F066582E6599CF1FB18E8F352DF",
+                      "bytes":  56311
                   },
                   {
                       "path":  "mcp-servers.template.json",
@@ -68,8 +68,8 @@
                   },
                   {
                       "path":  "restore-walkthrough.html",
-                      "sha256":  "C4C34AC1F36119CEC7EEEA1054952EE7E2A84915E013E96CEB0647CA5D46238D",
-                      "bytes":  43362
+                      "sha256":  "BC768A371E3490EC302D6198BF1A0530F2F5D7D330B8D1FE9A136E7584DE645C",
+                      "bytes":  44041
                   },
                   {
                       "path":  "tools\\build-exe.ps1",
@@ -98,8 +98,8 @@
                   },
                   {
                       "path":  "tools\\run-selftest.ps1",
-                      "sha256":  "89B063E57EB8F18AD6916CB17997D31FDB32136E7F32593F7C663D0C2155A47A",
-                      "bytes":  53975
+                      "sha256":  "453C7912E5EDF1D86CF457FD999481BF875B6496692489EAE3CAC65DB6DD4C8E",
+                      "bytes":  56440
                   },
                   {
                       "path":  "tools\\setup-stub.cs",

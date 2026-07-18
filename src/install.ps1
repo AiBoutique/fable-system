@@ -354,6 +354,25 @@ try {
         try {
             $dest = Join-Path $DestClaude $rel
             if ((Test-Path -LiteralPath $dest) -and ((Get-Sha $dest) -eq (Get-Sha $_.FullName))) { $skipped++; return }
+            if (($rel -ieq 'skills\invest-research\SKILL.md') -and (Test-Path -LiteralPath $dest)) {
+                # Overlay preserve (r39): the Standing-profile line is the kit's designated
+                # user-edit point (r19 public-kit policy) - keep the user's line, take the
+                # kit's file body. Requires exactly one marker line on BOTH sides; anything
+                # else falls through to the plain copy below (a kit template that loses its
+                # marker fails selftest S16 before it can ship). Backup still taken first.
+                $reProf  = [regex]'(?m)^Standing profile[^\r\n]*'
+                $kitRaw  = [IO.File]::ReadAllText($_.FullName)
+                $liveRaw = [IO.File]::ReadAllText($dest)
+                $km = $reProf.Matches($kitRaw); $lm = $reProf.Matches($liveRaw)
+                if ($km.Count -eq 1 -and $lm.Count -eq 1 -and $km[0].Value -cne $lm[0].Value) {
+                    Backup-IfExists $dest (Join-Path '.claude' $rel) | Out-Null
+                    $mergedInv = $kitRaw.Remove($km[0].Index, $km[0].Length).Insert($km[0].Index, $lm[0].Value)
+                    [IO.File]::WriteAllText($dest, $mergedInv)
+                    $copied++
+                    Write-Ok "invest-research: kit body updated, your Standing-profile line preserved"
+                    return
+                }
+            }
             Backup-IfExists $dest (Join-Path '.claude' $rel) | Out-Null
             $destDir = Split-Path $dest -Parent
             if (-not (Test-Path -LiteralPath $destDir)) { New-Item -ItemType Directory -Force -Path $destDir | Out-Null }
@@ -742,6 +761,19 @@ try {
             else { $dest = Join-Path $memDest ($p.Substring(7)) }
             if (-not (Test-Path -LiteralPath $dest)) { Add-Result "file $p" 'FAIL' 'missing at destination'; $failCount++; continue }
             if ($isMemory -and -not $ForceMemory) { continue }         # kept-existing memory may legitimately differ
+            if ($p -ieq 'claude-home\skills\invest-research\SKILL.md') {
+                # r39 overlay preserve: dest may legitimately be the kit body with the user's
+                # Standing-profile line grafted in - verify EXACTLY that, byte-level, so a
+                # preserved profile passes and any other difference still fails below.
+                $reProfV  = [regex]'(?m)^Standing profile[^\r\n]*'
+                $kitRawV  = [IO.File]::ReadAllText((Join-Path $kitClaude ($p.Substring(12))))
+                $destRawV = [IO.File]::ReadAllText($dest)
+                $kmV = $reProfV.Matches($kitRawV); $dmV = $reProfV.Matches($destRawV)
+                if ($kmV.Count -eq 1 -and $dmV.Count -eq 1) {
+                    $expectedV = $kitRawV.Remove($kmV[0].Index, $kmV[0].Length).Insert($kmV[0].Index, $dmV[0].Value)
+                    if ($destRawV -ceq $expectedV) { continue }   # kit body + preserved profile = verified exact
+                }
+            }
             if ((Get-Sha $dest) -ne $f.sha256) { Add-Result "file $p" 'FAIL' 'destination hash differs'; $failCount++ }
         } catch { Add-Result "file $($f.path)" 'FAIL' $_.Exception.Message; $failCount++ }
     }

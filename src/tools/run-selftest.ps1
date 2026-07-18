@@ -675,6 +675,32 @@ Assert 'S15 junction itself not deleted-through' (Test-Path -LiteralPath (Join-P
 Assert 'S15 evil-reach ledger re-baselined, hostile entries gone' (($ledgE.kitVersion -eq $mfKit.kitVersion) -and -not (@($ledgE.files.path) -like '*precious*') -and -not (@($ledgE.files.path) -like '*victim*'))
 cmd /c rmdir (Join-Path $fh '.claude\linkdir') 2>$null
 
+Write-Host "=== S16: overlay preserve - the invest-research Standing-profile line survives installs (r39) ==="
+# The Standing-profile line is the kit's designated user-edit point (r19 public-kit policy).
+# A live install at r38 clobbered a personalized line (restored from the install backup);
+# r39 makes the installer graft the user's line onto the incoming kit file. Fixture values
+# are self-describing fakes (SYNTHPROFILE / STALEBODYMARKER) per the scrub-exemption policy.
+$fh = New-FakeHome 'fh16'
+$proj16 = Join-Path $fh 'Desktop\Projects\Claude Code'
+$invRel = 'skills\invest-research\SKILL.md'
+$invDest = Join-Path $fh (Join-Path '.claude' $invRel)
+New-Item -ItemType Directory -Force -Path (Split-Path $invDest -Parent) | Out-Null
+$kitInvRaw = Get-Content (Join-Path $KIT (Join-Path 'claude-home' $invRel)) -Raw
+Assert 'S16 kit file carries exactly one Standing-profile marker line' (([regex]::Matches($kitInvRaw, '(?m)^Standing profile[^\r\n]*')).Count -eq 1)
+$seedProfile = 'Standing profile (a template - edit to your own): SYNTHPROFILE long-term test themes only.'
+[IO.File]::WriteAllText($invDest, "# invest-research`r`nSTALEBODYMARKER old body from a previous kit`r`n$seedProfile`r`nmore stale text`r`n")
+$ec = Invoke-Installer $fh $proj16 $KIT
+$after16 = Get-Content $invDest -Raw
+Assert 'S16 seeded profile line preserved through install' (($ec -eq 0) -and ($after16 -match [regex]::Escape($seedProfile))) "exit=$ec"
+Assert 'S16 stale body replaced by kit content' (($after16 -notmatch 'STALEBODYMARKER') -and ($after16 -match 'never executed'))
+$bk16 = Get-ChildItem (Join-Path $fh '.claude') -Filter 'fable-install-backup-*' -Directory -ErrorAction SilentlyContinue | Sort-Object Name | Select-Object -Last 1
+Assert 'S16 pre-merge backup of the previous file exists' ($bk16 -and (@(Get-ChildItem $bk16.FullName -Recurse -Filter 'SKILL.md' | Where-Object { (Get-Content $_.FullName -Raw) -match 'STALEBODYMARKER' }).Count -ge 1))
+$ec2 = Invoke-Installer $fh $proj16 $KIT
+Assert 'S16 re-run keeps the preserved profile line (idempotent)' (($ec2 -eq 0) -and ((Get-Content $invDest -Raw) -match [regex]::Escape($seedProfile))) "exit=$ec2"
+$fh = New-FakeHome 'fh16b'
+$ec3 = Invoke-Installer $fh (Join-Path $fh 'Desktop\Projects\Claude Code') $KIT
+Assert 'S16 fresh install ships the template profile line' (($ec3 -eq 0) -and ((Get-Content (Join-Path $fh (Join-Path '.claude' $invRel)) -Raw) -match '(?m)^Standing profile \(a template')) "exit=$ec3"
+
 Write-Host ""
 Write-Host "==================== RESULTS ===================="
 $script:Lines | ForEach-Object { Write-Host $_ }

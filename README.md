@@ -36,13 +36,13 @@ The payload directory is named `claude-home\` (not `.claude\`) so cloning this r
 
 ## The rules earn their keep
 
-**No rule change ships without evidence.** The [eval/](eval/README.md) trap suite (fixtures adopted unchanged, MIT, from [Sahir619/fable-method](https://github.com/Sahir619/fable-method)) must pass at its prior level — or a new failing trap lands first. The installer ships with its own 182-assertion harness (`src\tools\run-selftest.ps1`), run on every rebuild; its totals are logged in [CHANGELOG.md](CHANGELOG.md) and [build-receipts.jsonl](build-receipts.jsonl), while the trap-suite rounds are logged in [eval/RESULTS.md](eval/RESULTS.md) — nulls and failures included.
+**No rule change ships without evidence.** The [eval/](eval/README.md) trap suite (fixtures adopted unchanged, MIT, from [Sahir619/fable-method](https://github.com/Sahir619/fable-method)) must pass at its prior level — or a new failing trap lands first. The installer ships with its own 188-assertion harness (`src\tools\run-selftest.ps1`), run on every rebuild; its totals are logged in [CHANGELOG.md](CHANGELOG.md) and [build-receipts.jsonl](build-receipts.jsonl), while the trap-suite rounds are logged in [eval/RESULTS.md](eval/RESULTS.md) — nulls and failures included.
 
 ## Build the exe yourself
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File src\tools\make-manifest.ps1 -KitRoot src -KitVersion rN
-pwsh -File src\tools\run-selftest.ps1 -Kit src     # TOTAL: 182 passed, 0 failed
+pwsh -File src\tools\run-selftest.ps1 -Kit src     # TOTAL: 188 passed, 0 failed
 pwsh -File src\tools\build-exe.ps1                  # -> FableSetup.exe (repo root; -OutFile ..\EXE\FableSetup.exe under the three-folder layout)
 ```
 

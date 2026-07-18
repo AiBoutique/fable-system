@@ -190,7 +190,7 @@
     <p class="eyebrow">Operating discipline · measured, not claimed</p>
     <h1>The Fable System</h1>
     <p class="lede">A portable operating discipline for an AI coding agent — plus the machinery to install it, enforce it, extend it into 63 specialist domains, and <strong>measure whether it actually helps.</strong> Every performance figure below is re-derived from run logs and carries its sample size. Where the honest answer is “no measurable lift,” it says so.</p>
-    <p style="opacity:.55;font-size:.82em;margin:.4em 0 0">Kit r38 · as of 2026-07-18.</p>
+    <p style="opacity:.55;font-size:.82em;margin:.4em 0 0">Kit r39 · as of 2026-07-18.</p>
   </div>
 
   <!-- AT A GLANCE -->
@@ -259,7 +259,7 @@
       <div class="feat"><div class="name">Eval harness <small>amplification/harness/</small></div><div class="what">The measurement contract made runnable: code-derived task truths, deterministic graders on <b>separate V / S / A axes</b>, A0/A1/R conditions, loud infra-failure exclusion, and a 280-assertion self-test. Every figure on this page came from here.</div></div>
       <div class="feat"><div class="name">Regression gate <small>1st + 15th · 6 rungs</small></div><div class="what">Six zero-budget checks — self-test, answer provenance, config-drift, non-negotiable lint, currency baseline, prompt-echo contamination — that catch drift between runs.</div></div>
       <div class="feat"><div class="name">Cross-model adapters <small>Claude · Grok · OpenAI</small></div><div class="what">Claude (live-proven) plus Grok / OpenAI (dry-run-verified) behind one interface, so the portable core can be measured on other models when keys are supplied (local OpenAI-compatible endpoints run keyless).</div></div>
-      <div class="feat"><div class="name">Self-verifying installer <small>FableSetup.exe</small></div><div class="what">One-click Windows install with a SHA-256 integrity gate, backup-then-merge (never clobbers foreign config), previous-version cleanup via an install ledger (stale old-kit files removed and backed up; your edits kept), and a 182-assertion install self-test.</div></div>
+      <div class="feat"><div class="name">Self-verifying installer <small>FableSetup.exe</small></div><div class="what">One-click Windows install with a SHA-256 integrity gate, backup-then-merge (never clobbers foreign config), previous-version cleanup via an install ledger (stale old-kit files removed and backed up; your edits kept), and a 188-assertion install self-test.</div></div>
     </div>
   </section>
 
@@ -377,7 +377,7 @@
     <div class="col">
       <p class="kicker">07 — The rules earn their keep</p>
       <h2>No rule change ships without evidence</h2>
-      <p>A trap-suite regression harness (8 adversarial fixtures, adopted unchanged under MIT from <a href="https://github.com/Sahir619/fable-method">Sahir619/fable-method</a>) must pass at its prior level — or a new failing trap lands first. The installer ships with its own separate 182-assertion harness (its totals live in the changelog and build receipts; the trap rounds live in the results file), run on every rebuild; results are logged in the changelog and results file, nulls and failures included.</p>
+      <p>A trap-suite regression harness (8 adversarial fixtures, adopted unchanged under MIT from <a href="https://github.com/Sahir619/fable-method">Sahir619/fable-method</a>) must pass at its prior level — or a new failing trap lands first. The installer ships with its own separate 188-assertion harness (its totals live in the changelog and build receipts; the trap rounds live in the results file), run on every rebuild; results are logged in the changelog and results file, nulls and failures included.</p>
     </div>
   </section>
 
@@ -387,7 +387,7 @@
       <p class="kicker">08 — Build the exe yourself</p>
       <h2>From source, no toolchain to install</h2>
       <pre><code>powershell -NoProfile -ExecutionPolicy Bypass -File src\tools\make-manifest.ps1 -KitRoot src -KitVersion rN
-pwsh -File src\tools\run-selftest.ps1 -Kit src     # TOTAL: 182 passed, 0 failed
+pwsh -File src\tools\run-selftest.ps1 -Kit src     # TOTAL: 188 passed, 0 failed
 pwsh -File src\tools\build-exe.ps1                 # -> FableSetup.exe</code></pre>
       <p>The exe is a small C# stub compiled with the .NET Framework <code>csc.exe</code> that ships with Windows, kit embedded as a resource. It is unsigned — SmartScreen may warn on first run; building it yourself sidesteps that. The binary is untracked by git and lives in a sibling <code>EXE\</code> folder under the three-folder container rule (sharable working repo / <code>private\</code> / <code>EXE\</code>).</p>
     </div>
