@@ -1,6 +1,6 @@
 # What the Fable System Provides — features & measured performance
 
-*Kit r28 · as of 2026-07-17.*
+*Kit r29 · as of 2026-07-17.*
 
 An honest overview: what the system *is*, what it *does*, and — the part most write-ups fabricate — what it has been **measured** to do, with the numbers and their limits. If you came here for a big "makes your model N% smarter across the board" headline, the short version is: **that number does not exist, and this document explains why the honest answer is more useful than an invented one.**
 
@@ -21,7 +21,7 @@ Two design commitments run through everything:
 
 | Capability | What it provides |
 |---|---|
-| **Discipline core** (`src/claude-home/CLAUDE.md`, ~43 KB) | The rulebook: non-negotiables, a task Loop, rigor tiers by blast radius, domain rules (science/finance/medicine/UI), playbooks, a verification ladder, an intent gate + artifact-authority order, and memory scope-gates. This is the amplification content — model-agnostic prompt discipline. |
+| **Discipline core** (`src/claude-home/CLAUDE.md`, ~46 KB) | The rulebook: non-negotiables, a task Loop, rigor tiers by blast radius, domain rules (science/finance/medicine/UI), playbooks, a verification ladder, an intent gate + artifact-authority order, and memory scope-gates. This is the amplification content — model-agnostic prompt discipline. |
 | **Operating-method skill** (`fable-mode`) | The *how*: decomposition into checkable sub-claims, hypothesis-driven probing, adversarial verification, orchestration patterns, evidence-labeled reporting — a 24-move reasoning set with worked exemplars. |
 | **Portable core** (`amplification/core/portable-core.md`, ~12 KB) | The same discipline distilled to **~28% of the full core's size** with zero platform-specific tokens — the artifact you port to another model. Measured to preserve the full core's benchmark behavior (§3). |
 | **Domain expertise layer** (`fable-expertise` plugin) | 24 master-practitioner domain skills + an `expertise-atlas` router spanning **63 professional & scientific domains** (finance, medicine, law, cyber, physics, chemistry, supply chain, …). Each ships a verbatim-term coverage file, structure-linted and audited. Installs as a Claude Code plugin; skills namespace as `fable-expertise:<name>` and auto-trigger by description. |

@@ -35,8 +35,9 @@ the run needs is in this file; it assumes no memory of prior sessions.
 
 ## Stop condition
 
-- Run cap: 26 runs (one year at biweekly cadence) or an explicit user stop,
-  whichever comes first. On reaching the cap, ask the user whether to renew.
+- Run cap: 26 runs (~13 months at the registered 1st-and-15th cadence — 24 runs
+  per year, not a true biweekly 26) or an explicit user stop, whichever comes
+  first. On reaching the cap, ask the user whether to renew.
 
 ## Registration — DONE (2026-07-16)
 
