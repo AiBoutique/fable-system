@@ -49,7 +49,7 @@ Fast-orientation index for the 24 domain-mastery skills + `expertise-atlas` rout
 pwsh -File build/audit-coverage.ps1     # every subskill term still present verbatim
 pwsh -File build/lint-structure.ps1     # frontmatter, section order, length, cleanliness
 ```
-Both default to `~/.claude/skills`; the coverage audit reads `build/briefs/`. No personal data is hardcoded (the lint derives its hunt-list at runtime).
+Both default to `~/.claude/skills`; the coverage audit reads `build/briefs/`. No personal data is hardcoded (the lint derives its hunt-list at runtime). The lint acknowledges the four fable-kit skills that coexist in the live root (`fable-mode`, `invest-research`, `organize`, `refresh-kit`) and flags any other unlisted skill directory.
 
 ## Open (a review pass should focus here, not on the above)
 1. **Kit membership / distribution — RESOLVED (2026-07-17): plugin, coexist.** Packaged as the `fable-expertise` Claude Code plugin (`.claude-plugin/plugin.json` v0.1.0 at resolution, now 0.2.0; `claude plugin validate` → passes with one intentional warning, the omitted `author` field), installed *alongside* the bare-named live skills — not baked into `FableSetup.exe`. The plugin is the platform-native distribution; COEXIST keeps auto-triggering intact (live A/B, 2026-07-17). See the repo `CHANGELOG.md`.

@@ -73,9 +73,12 @@ foreach ($s in $domainSkills + @('expertise-atlas')) {
 # The skill list above is hardcoded; a skill added to disk but not to it would be linted by
 # nobody. Flag any unknown directory rather than silently skipping it.
 $known = $domainSkills + @('expertise-atlas')
+# The live skills root also hosts the fable-kit skills (COEXIST posture, 2026-07-17); they are
+# owned and verified by the kit's own build, so acknowledge them here instead of flagging them.
+$foreign = @('fable-mode', 'invest-research', 'organize', 'refresh-kit')
 if (Test-Path $SkillsRoot) {
   foreach ($d in (Get-ChildItem -LiteralPath $SkillsRoot -Directory)) {
-    if ($d.Name -notin $known -and (Test-Path (Join-Path $d.FullName 'SKILL.md'))) {
+    if ($d.Name -notin ($known + $foreign) -and (Test-Path (Join-Path $d.FullName 'SKILL.md'))) {
       $fail++; Write-Output "[$($d.Name)] FAIL skill directory not in this script's list - add it so it gets linted"
     }
   }

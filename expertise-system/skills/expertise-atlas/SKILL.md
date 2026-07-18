@@ -11,7 +11,7 @@ The expertise system is 24 domain-mastery skills built on one shared spine: the 
 1. Classify the request's domain(s) from the directory below — most requests have one owner; engagements often add `consulting-mastery` for method/story/client mechanics.
 2. Invoke the owning skill(s). Cross-domain work applies the union; stricter rule wins. Do not invoke more than the request needs — three skills is a normal ceiling for one task.
 3. Process rigor is orthogonal: hard, multi-step, or high-stakes work also invokes `fable-mode` regardless of domain (per the global discipline).
-4. Format/tooling skills compose freely where the deliverable calls for them: `docx`, `pptx`, `xlsx`, `dataviz`, `deep-research`, and for listed-security research `invest-research` (which owns that workflow end to end).
+4. Format/tooling skills compose freely where the deliverable calls for them: `docx`, `pptx`, `xlsx`, `dataviz`, `deep-research`, and for investment research — stocks, ETFs, sectors, themes, portfolios, macro — `invest-research` (which owns that workflow end to end).
 5. Still ambiguous → open `references/topic-map.md` (all 63 source topics → owner) and pick by topic.
 
 ## Domain directory
