@@ -386,6 +386,8 @@ Assert 'S9 reset --hard fires (v8 stems)' ((PipeTest '{"prompt":"git reset --har
 Assert 'S9 sql injection fires (v8 stems)' ((PipeTest '{"prompt":"fix the sql injection in the login form"}') -match 'Prompt classifier')
 Assert 'S9 chmod/restore fires (v8 stems)' ((PipeTest '{"prompt":"chmod 777 then restore the prod backup"}') -match 'Prompt classifier')
 Assert 'S9 clinical dose fires (v9 stems)' ((PipeTest '{"prompt":"whats the max dose of amoxicillin for a 6 year old"}') -match 'Prompt classifier')
+Assert 'S9 public-API fires (v10 stems)' ((PipeTest '{"prompt":"add a field to the public API response"}') -match 'Prompt classifier')
+Assert 'S9 dependency-bump fires (v10 stems)' ((PipeTest '{"prompt":"bump lodash to 4.18 please"}') -match 'Prompt classifier')
 Assert 'S9 typo silent' ((PipeTest '{"prompt":"fix typo in readme"}') -eq '')
 Assert 'S9 empty-prompt silent (sentinel)' ((PipeTest '{"cwd":"C:/repos/auth-service","prompt":""}') -eq '')
 Assert 'S9 malformed-json silent' ((PipeTest 'not-json{{') -eq '')

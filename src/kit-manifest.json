@@ -1,5 +1,5 @@
 {
-    "kitVersion":  "r39",
+    "kitVersion":  "r40",
     "files":  [
                   {
                       "path":  "INSTALL.bat",
@@ -8,8 +8,8 @@
                   },
                   {
                       "path":  "RESTORE.md",
-                      "sha256":  "2E755B20C4E8F77DED650D5E63598F07FBF1244313A914BF5432E13197757580",
-                      "bytes":  9676
+                      "sha256":  "2F5901865DC40285EE8C0AC6AA6BD1CB82068C0808116BFBC9E0D353B4268C8F",
+                      "bytes":  9816
                   },
                   {
                       "path":  "claude-home\\CLAUDE.md",
@@ -23,13 +23,13 @@
                   },
                   {
                       "path":  "claude-home\\settings.json",
-                      "sha256":  "45CCFB26F75EB8C5657C7D4BF487A757E69C73CEBCC7136F61B2E3F6BA778C9A",
-                      "bytes":  4118
+                      "sha256":  "477FDB2A5E085DF406160F8E5080B3345C77D5DC561C5840A812FAD3AC1CD08F",
+                      "bytes":  4133
                   },
                   {
                       "path":  "claude-home\\skills\\fable-mode\\SKILL.md",
-                      "sha256":  "A8FCCE08BD04758F666D62B57172BACB2E98CE2BBD3014F72A09A90288446A29",
-                      "bytes":  27850
+                      "sha256":  "787CFC9FEE55F49C9FF2607801B34F73717D9AB60093DFB1ADBD5FA11529539D",
+                      "bytes":  27898
                   },
                   {
                       "path":  "claude-home\\skills\\fable-mode\\references\\gold-standards.md",
@@ -48,8 +48,8 @@
                   },
                   {
                       "path":  "claude-home\\skills\\refresh-kit\\SKILL.md",
-                      "sha256":  "620426433A8C1E330722FB2997F6E7270EBE04EF3B5AF9BC427080742084A903",
-                      "bytes":  13679
+                      "sha256":  "5A47886C4BBEA4C15A51F82912FAE352EA4F37ED81AA0981A7D02259951055BA",
+                      "bytes":  13689
                   },
                   {
                       "path":  "install.ps1",
@@ -68,8 +68,8 @@
                   },
                   {
                       "path":  "restore-walkthrough.html",
-                      "sha256":  "BC768A371E3490EC302D6198BF1A0530F2F5D7D330B8D1FE9A136E7584DE645C",
-                      "bytes":  44041
+                      "sha256":  "F05014E8D9B76F69732602A59327259A029974CFB026C7CA804FC646CDF0122D",
+                      "bytes":  44690
                   },
                   {
                       "path":  "tools\\build-exe.ps1",
@@ -98,8 +98,8 @@
                   },
                   {
                       "path":  "tools\\run-selftest.ps1",
-                      "sha256":  "453C7912E5EDF1D86CF457FD999481BF875B6496692489EAE3CAC65DB6DD4C8E",
-                      "bytes":  56440
+                      "sha256":  "8D211D8F139995BCBAC782FFD3F6684929E4A2D1B5B9E8BCF2FC172863CB3DB0",
+                      "bytes":  56703
                   },
                   {
                       "path":  "tools\\setup-stub.cs",

@@ -1,6 +1,6 @@
 # Amplification Foundation
 
-The fable system's purpose, stated as a testable contract: **make whatever model runs it reason, plan, and self-check like a higher tier — measurably — and stay portable across models.** Target bar: match or exceed the strongest reference model (Fable 5 / Mythos) on the task classes that matter. Near-term host: Opus 4.8, then whatever Opus tier ships next (the currency baseline tracks the live lineup — no unreleased model names here). Future hosts: Grok / ChatGPT via adapters.
+The fable system's purpose, stated as a testable contract: **make whatever model runs it reason, plan, and self-check like a higher tier — measurably — and stay portable across models.** Target bar: match or exceed the strongest reference model (Fable 5 / Mythos 5) on the task classes that matter. Near-term host: Opus 4.8, then whatever Opus tier ships next (the currency baseline tracks the live lineup — no unreleased model names here). Future hosts: Grok / ChatGPT via adapters.
 
 This directory is **Phase 0** — the measurement foundation. You cannot improve, credibly claim, or port an amplification you cannot measure, so the first building block is the ruler and the architecture it measures across. Everything else builds on this.
 
