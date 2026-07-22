@@ -1,6 +1,6 @@
 {
   "_comment": "Plugin state at kit-build time. Marketplace plugins: /plugin install <name>@<marketplace>. Entries tagged @inline ship with the app/account - no restore needed.",
-  "exportedAt": "2026-07-18",
+  "exportedAt": "2026-07-22",
   "marketplaces": {
     "claude-plugins-official": {
       "source": {

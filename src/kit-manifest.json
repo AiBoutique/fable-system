@@ -1,5 +1,5 @@
 {
-    "kitVersion":  "r40",
+    "kitVersion":  "r41",
     "files":  [
                   {
                       "path":  "INSTALL.bat",
@@ -38,8 +38,8 @@
                   },
                   {
                       "path":  "claude-home\\skills\\invest-research\\SKILL.md",
-                      "sha256":  "E2BFBAB305F5FEF645ABA8D6EDE28279792B92C726C9DEB87908EBF3A5B72BDF",
-                      "bytes":  3813
+                      "sha256":  "F4F254F972C5DB1B3687AF017107A8AF6D812D4EEFF00594EE009CED2EE42580",
+                      "bytes":  4364
                   },
                   {
                       "path":  "claude-home\\skills\\organize\\SKILL.md",
@@ -63,13 +63,13 @@
                   },
                   {
                       "path":  "plugins-snapshot.json",
-                      "sha256":  "CD9B9E79D94E6417799B5A92D40F103F852D3AB4DC7E68835D53D9507B8809DA",
+                      "sha256":  "0153B4EB1049E4DFE61C0B5466160CA2FE36132A15587725193E3FF678FD3F78",
                       "bytes":  551
                   },
                   {
                       "path":  "restore-walkthrough.html",
-                      "sha256":  "F05014E8D9B76F69732602A59327259A029974CFB026C7CA804FC646CDF0122D",
-                      "bytes":  44690
+                      "sha256":  "E020425E8E4D26BE71CE51BCA47BFD861D7EF40E95F67DD3BA49D4CD35822CC0",
+                      "bytes":  45348
                   },
                   {
                       "path":  "tools\\build-exe.ps1",
@@ -107,6 +107,6 @@
                       "bytes":  4975
                   }
               ],
-    "builtWith":  "2.1.214 (Claude Code)",
-    "builtAt":  "2026-07-18"
+    "builtWith":  "2.1.217 (Claude Code)",
+    "builtAt":  "2026-07-22"
 }

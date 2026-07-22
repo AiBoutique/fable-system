@@ -1,6 +1,6 @@
 # What the Fable System Provides — features & measured performance
 
-*Kit r40 · as of 2026-07-18.*
+*Kit r41 · as of 2026-07-22.*
 
 An honest overview: what the system *is*, what it *does*, and — the part most write-ups fabricate — what it has been **measured** to do, with the numbers and their limits. If you came here for a big "makes your model N% smarter across the board" headline, the short version is: **that number does not exist, and this document explains why the honest answer is more useful than an invented one.**
 
